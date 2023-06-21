@@ -1,5 +1,5 @@
 {
-    "name": "solidity",
+    "name": "movement",
     "build" : {
         "dockerfile": "Dockerfile"
     },
