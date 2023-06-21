@@ -9,21 +9,29 @@ RUN apt-get update && \
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Install Node.js and NVM
+# Install NVM
+ENV NVM_DIR /root/.nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-ENV NVM_DIR="/root/.nvm"
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm install node
+RUN . "$NVM_DIR/nvm.sh" && nvm install --lts
+
+# Activate NVM environment and set default version
+RUN echo ". $NVM_DIR/nvm.sh" >> /root/.bashrc
+RUN echo "nvm use default" >> /root/.bashrc
+
+# Install solana and add to PATH
+RUN curl -sSf https://release.solana.com/v1.16.1/solana-release-x86_64-unknown-linux-gnu.tar.bz2 | tar -xj \
+    && mv solana-release/bin /usr/local/bin
 
 # Install Yarn
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
-RUN npm install -g yarn
+RUN . "$NVM_DIR/nvm.sh" && npm install -g yarn
 
 # Install Anchor
-RUN cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
-RUN avm install latest
-RUN avm use latest
+RUN . "$NVM_DIR/nvm.sh" && cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
+RUN . "$NVM_DIR/nvm.sh" && avm install latest
+RUN . "$NVM_DIR/nvm.sh" && avm use latest
 
 # Set the working directory
 WORKDIR /workspace
+
+CMD ["/bin/bash"]
 

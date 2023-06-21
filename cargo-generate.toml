@@ -1,0 +1,33 @@
+[template]
+cargo_generate_version = ">=0.17.4"
+ignore = [
+    ".git", 
+    ".github", 
+    "README.md", 
+    "book", 
+    "examples", 
+    "examples_nursery", 
+    "./.devcontainer/maintainer",
+    "./.devcontainer/anchor",
+    "./.devcontainer/solidity",
+    "./.devcontainer/aptos",
+    "./.devcontainer/move"
+]
+
+[hooks]
+pre = ["pre-script.rhai"]
+post = ["post-script.rhai"]
+
+[placeholders.devcontainer]
+type = "bool"
+prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
+default = false
+
+[placeholders.'devcontainer == false']
+ignore = [
+    ".devcontainer/",
+    ".vscode/tasks.json",
+    "docs/",
+    "scripts/",
+    ".dockerignore",
+]
