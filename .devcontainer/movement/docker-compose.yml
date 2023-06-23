@@ -1,15 +1,13 @@
 services:
   subnet:
-    # platform: linux/x86_64
     build:
       context: .
       dockerfile: Dockerfile.builder
       target: subnet
-    ports:
-      - 9650:9650
+    expose:
+      - 9650
 
   dev:
-    # platform: linux/x86_64
     build:
       context: .
       dockerfile: Dockerfile.builder
