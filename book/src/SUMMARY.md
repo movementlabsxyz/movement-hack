@@ -10,5 +10,4 @@
   - [Testing](./week_2/Testing.md)
   - [Introduction to Smart Contracts](./week_2/Intro_smart_contracts.md)
   - [Design Patterns](./week_2/Design_patterns.md)
-  - [Smart Contracts Development and Staging](./week_2/Development_staging
-  .md)
+  - [Smart Contracts Development and Staging](./week_2/Development_staging.md)
