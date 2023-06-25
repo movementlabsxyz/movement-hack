@@ -1,7 +1,7 @@
 # Smart Contracts development and staging
 
 ## Tools
-### move-cli`
+### `move-cli`
 
 ### `aptos`
 
@@ -9,7 +9,7 @@
 ### Aptos devnet
 
 ## Staging
-### move-cli sandbox`
+### `move-cli sandbox`
 
 ### [Aptos devnet](https://aptos.dev/)
 
