@@ -47,3 +47,5 @@ To get started...
 3. Based on the advice provided for a given project, reopen the repo in one of `move`, `movement`, `anchor`, or `solidity` [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
 
 We will also occasionally use Rust and Python to complete various programming examples.
+
+We will also discuss using our proxy service with the JavaScript. The `movement-dev` developer container provides an easy start place for this alternative means of interacting with the [subnet](https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract).

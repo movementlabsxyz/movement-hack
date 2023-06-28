@@ -21,4 +21,8 @@
   - [Security](./week_3/Security.md)
   - [Common Blockchain System Design Patterns](./week_3/Common_blockchain_system_design_patterns.md)
   - [Access Control](./week_3/Access_control.md)
-  - 
+  - [DeFi](./week_3/DeFi.md)
+- [Week 4: Projects](./week_4/week_4.md)
+  - [Project Requirements and Recommendations](./week_4/Project_requirements_and_recommendations.md)
+  - [Guidelines](./week_4/Guidelines.md)
+  - [Next Steps](./week_4/Next_steps.md)
