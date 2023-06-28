@@ -1,0 +1,18 @@
+services:
+  subnet:
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
+      target: subnet
+    expose:
+      - 9650
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.builder
+      target: dev
+    stdin_open: true  # Keep STDIN open even if not attached
+    tty: true  # Allocate a pseudo-TTY
+      
+
