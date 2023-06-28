@@ -18,3 +18,7 @@
   - [Smart Contracts Development and Staging](./week_2/Development_staging.md)
 - [Week 3: M1 and DeFi Applications](./week_3/week_3.md)
   - [Deploying on M1](./week_3/Deploying_on_M1.md)
+  - [Security](./week_3/Security.md)
+  - [Common Blockchain System Design Patterns](./week_3/Common_blockchain_system_design_patterns.md)
+  - [Access Control](./week_3/Access_control.md)
+  - 
