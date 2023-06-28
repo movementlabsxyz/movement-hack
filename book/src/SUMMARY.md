@@ -16,3 +16,5 @@
   - [Testing](./week_2/Testing.md)
   - [Design Patterns](./week_2/Design_patterns.md)
   - [Smart Contracts Development and Staging](./week_2/Development_staging.md)
+- [Week 3: M1 and DeFi Applications](./week_3/week_3.md)
+  - [Deploying on M1](./week_3/Deploying_on_M1.md)
