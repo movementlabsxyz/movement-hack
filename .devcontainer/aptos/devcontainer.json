@@ -1,8 +1,7 @@
 {
     "name": "aptos",
-    "build" : {
-        "dockerfile": "Dockerfile"
-    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev",
     "customizations": {
         "vscode": {
           "extensions": [

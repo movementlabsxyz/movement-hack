@@ -1,0 +1,15 @@
+services:
+
+  localnet:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: localnet
+
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+      
+

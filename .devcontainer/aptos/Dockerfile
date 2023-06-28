@@ -1,37 +1,40 @@
-FROM ubuntu:latest
+# Base image
+FROM rust:latest as builder
 
-# Update and install dependencies
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y pkg-config build-essential libudev-dev libssl-dev curl git
+# Set DEBIAN_FRONTEND to noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    pkg-config \
+    libudev-dev \
+    openssh-client \
+    sudo
 
-# Install NVM
-ENV NVM_DIR /root/.nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-RUN . "$NVM_DIR/nvm.sh" && nvm install --lts
+# Clone aptos-core repository
+RUN git clone https://github.com/aptos-labs/aptos-core /aptos-core
 
-# Activate NVM environment and set default version
-RUN echo ". $NVM_DIR/nvm.sh" >> /root/.bashrc
-RUN echo "nvm use default" >> /root/.bashrc
+# Build cli
+WORKDIR /aptos-core/crates/aptos
 
-# Install solana and add to PATH
-RUN curl -sSf https://release.solana.com/v1.16.1/solana-release-x86_64-unknown-linux-gnu.tar.bz2 | tar -xj \
-    && mv solana-release/bin /usr/local/bin
+RUN cargo build
 
-# Install Yarn
-RUN . "$NVM_DIR/nvm.sh" && npm install -g yarn
+FROM rust:latest as localnet
 
-# Install Anchor
-RUN . "$NVM_DIR/nvm.sh" && cargo install --git https://github.com/coral-xyz/anchor avm --locked --force
-RUN . "$NVM_DIR/nvm.sh" && avm install latest
-RUN . "$NVM_DIR/nvm.sh" && avm use latest
+COPY --from=builder /aptos-core /aptos-core
 
-# Set the working directory
-WORKDIR /workspace
+WORKDIR /aptos-core
 
+CMD ["cargo", "run", "-p", "aptos", "--", "node", "run-local-testnet", "--with-faucet", "--faucet-port", "8081", "--force-restart", "--assume-yes"]
+
+FROM rust:latest as dev
+
+COPY --from=builder /aptos-core/target/debug/aptos /bin/aptos
+
+# Initialize aptos
+RUN aptos init --rest-url http://localnet:8080 --faucet-url http://localnet:8081
+
+# Allow user to attach to bash shell
 CMD ["/bin/bash"]
-

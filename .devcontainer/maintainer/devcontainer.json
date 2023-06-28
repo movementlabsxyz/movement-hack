@@ -21,5 +21,8 @@
             "github.copilot"
           ]
         }
-    }
+    },
+    "forwardPorts": [
+      // 3000
+    ]
 }
