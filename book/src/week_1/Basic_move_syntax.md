@@ -1,5 +1,5 @@
 # Basic Move Syntax, Comparing with Rust
-This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive gudies can be found at [move-book.com](https://move-book.com/) and (move-language.github.io)[https://move-language.github.io/move/].
+This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive gudies can be found at [move-book.com](https://move-book.com/) and [move-language.github.io](https://move-language.github.io/move/).
 
 
 ## Allocation and the Move Memory Model
