@@ -5,13 +5,12 @@ module hello_blockchain::message {
     use aptos_framework::account;
     use aptos_framework::event;
 
-//:!:>resource
+    //:!:>resource
     struct MessageHolder has key {
         message: string::String,
         message_change_events: event::EventHandle<MessageChangeEvent>,
     }
-//<:!:resource
-
+    //<:!:resource
     struct MessageChangeEvent has drop, store {
         from_message: string::String,
         to_message: string::String,
