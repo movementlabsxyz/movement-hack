@@ -1,0 +1,14 @@
+{
+  "name": "hello-world",
+  "version": "0.0.0",
+  "description": "The node package sidecar for your Movement project.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
