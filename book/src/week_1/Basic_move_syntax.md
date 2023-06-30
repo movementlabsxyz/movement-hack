@@ -74,7 +74,7 @@ Type abilities in Move specify certain primitive memory behaviors and constraint
 - Reference 
 - Global storage operators `move_to`, `move_from`, `borrow_global_mut`, `borrow_global`, and `exists` in Move enable reading from and writing to resources stored in the blockchain's global storage.
 - The acquires keyword is used to specify which resources a function acquires ownership of a resource during execution.
-```
+```rust
 module Collection {
 
     struct Item has store, drop {}
