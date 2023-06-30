@@ -75,3 +75,15 @@ begin "Querying resources for account..."
 movement account list --query resources --account default
 finish "Queryed resourced for account!"
 ```
+
+### `named_addresses`
+Within `aptos_framework`, you will be able to use named addresses. These will be replaced at compile time whether they are in the adrress position in a module `<my_address_name>::my_module` or marked with an `@<my_address_name>`.
+
+In your `Move.toml`, you may specify these addresses as below.
+```toml
+[addresses]
+std =  "0x1"
+<my_address_name> = "_"
+```
+
+You may then specify them when compiling using `--<my_address_name>=<my_value>`.
