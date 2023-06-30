@@ -10,6 +10,6 @@ To use this repository as a guide, visit [hack.movementlabs.xyz](hack.movement.x
 ### As a template
 To use this repository as a template for setting up a `movement` project, run `cargo generate -a movement-dev/movemnt-hack`.
 
-## Working with this repository
-- The easiest way to work with this repository, whether for contributions or your own fork, is to leverage the `devcontainer` [extension](https://code.visualstudio.com/docs/devcontainers/containers) in VsCode and use the `maintainer` container. 
+## Working on this repository
+- The easiest way to work on this repository, whether for contributions or your own fork, is to leverage the `devcontainer` [extension](https://code.visualstudio.com/docs/devcontainers/containers) in VsCode and use the `maintainer` container. 
 - Within the `maintainer` container, to serve the `mdBook` use call `mdbook serve` from the `book` directory. 
