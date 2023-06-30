@@ -5,6 +5,66 @@ Oracles play a crucial role in blockchain applications by providing a bridge bet
 
 > We built 💻 NewsMoves, `examples/movement/new_moves`, as a toy oracle contract that allows a trusted entity to write the latest Google news articles onto the blockchain. Please checkout the directory to publish the contract and run the Python data entity.
 
+```rust
+module news_moves::news_moves {
+
+  use std::signer;
+  use std::vector;
+
+  // Struct representing a news article entry
+  struct Article has copy {
+    timestamp: u64,
+    title: vector<u8>,
+    content: vector<u8>,
+  }
+
+  // NewsMoves struct representing the contract state
+  struct NewsMoves {
+    articles: vector<Article>,
+  }
+
+  // Initialization function for the NewsMoves contract
+  public fun init() {
+    move_to(@news_moves, NewsMoves {
+      articles: vector::empty<Article>(),
+    });
+  }
+
+  public fun update<X, Y, Curve>(
+    account: &signer,
+    timestamp: u64,
+    title: vector<u8>,
+    content: vector<u8>,
+  ) acquires NewsMoves {
+
+      // update the contract at the account
+      let account_addr = signer::address_of(account);
+      let self = borrow_global_mut<NewsMoves>(account_addr);
+
+      // add the new article
+      vector::push_back(&mut self.articles, Article {
+          timestamp: timestamp,
+          title: title,
+          content: content,
+      });
+
+    }
+
+  // Function to get the latest news article from the contract
+  public fun getLatestArticle(): Article {
+
+    // Get the latest article from the contrac
+
+    let self = borrow_global<NewsMoves>(@news_moves);
+    assert(self.articles.len() > 0, 98); // Ensure there is at least one article
+    let latestArticleIndex = self.articles.len() - 1;
+    *self.articles[latestArticleIndex]
+
+  }
+  
+}
+```
+
 ## Rollups
 Rollups are a layer 2 scaling solution for blockchains that aim to improve scalability and reduce transaction costs. They work by aggregating multiple transactions off-chain and then submitting a summary or proof of those transactions to the main chain. This reduces the burden on the main chain, allowing for faster and more efficient processing. Rollups can significantly increase transaction throughput and enable complex applications to run smoothly on the blockchain while maintaining a high level of security.
 
@@ -25,7 +85,7 @@ Side chains are separate blockchains that are connected to the main blockchain, 
 ## Collaborative Governance
 Collaborative governance refers to the process of making collective decisions and managing blockchain networks through the participation and collaboration of multiple stakeholders. It involves mechanisms such as voting, consensus-building, and community-driven decision-making to govern the rules, upgrades, and overall direction of a blockchain network. Collaborative governance aims to ensure inclusivity, transparency, and alignment of interests among network participants.
 
-> Our `aptos_framework::aptos_governance` provides a host of out of the box tools for handling proposals, dynamic voting systems, and member rewards. Using it you can implement a DAO and tests in a about a thousand lines of code.
+> `aptos_framework::aptos_governance` provides a host of out of the box tools for handling proposals, dynamic voting systems, and member rewards. Using it you can implement a DAO and tests in a about a thousand lines of code.
 
 ## Atomic Swaps
 Atomic swaps are a mechanism that allows the exchange of different cryptocurrencies or digital assets between two parties without the need for an intermediary or trusted third party. It enables secure peer-to-peer transactions directly between participants, ensuring that either the entire transaction is executed or none of it occurs. Atomic swaps enhance interoperability and facilitate decentralized exchanges by eliminating the need for centralized intermediaries.

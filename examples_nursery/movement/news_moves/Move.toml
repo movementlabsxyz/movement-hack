@@ -2,8 +2,10 @@
 name = "news_moves"
 version = "0.0.0"
 
-[dependencies]
-MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
+
+[dependencies.OverflowingMath]
+git = "https://github.com/pontem-network/overflowing-math.git"
+rev = "v0.1.0"
 
 [addresses]
 std =  "0x1"
