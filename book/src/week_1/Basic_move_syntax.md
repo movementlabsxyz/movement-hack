@@ -1,4 +1,4 @@
-# Basic Move Syntax, Comparing with Rust
+# Basic Move Syntax
 This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive gudies can be found at [move-book.com](https://move-book.com/) and [move-language.github.io](https://move-language.github.io/move/).
 
 
