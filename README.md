@@ -1,5 +1,5 @@
 # movemnt-hack
-Guide material for Movemnt Hackathons and generally for beginners looking to start projects.
+Guide material for Movement Hackathons and generally for beginners looking to start projects.
 
 ## Using this repository
 This repository can be used as a guide for learning `movement` or as a template for creating a `movement` project.
