@@ -28,7 +28,7 @@ if (a) {
     debug::print<u8>(&99);
 };
 ```
-If is an expression.
+`if` is an expression.
 ```rust
 let value = if (true) { 8 } else {0}; // value set to 8
 ```
@@ -68,14 +68,27 @@ Type abilities in Move specify certain primitive memory behaviors and constraint
 ### Generic and behavior
 - Move supports generics for structs and functions.
 - It's possible to achieve polymorphic behavior with generics and phantom types.
+- Often you will want to [nest](https://www.move-patterns.com/nestable-resources.html) generic structures inside of resources to achieve polymorphism. See the `LiquidityPool` generic structure below for an example.
+
+```rust
+// polymorphic coin fee obtainment from liquidswap.
+/// Get fee for specific pool.
+public fun get_fee<X, Y, Curve>(): u64 acquires LiquidityPool {
+    assert!(coin_helper::is_sorted<X, Y>(), ERR_WRONG_PAIR_ORDERING);
+    assert!(exists<LiquidityPool<X, Y, Curve>>(@liquidswap_pool_account), ERR_POOL_DOES_NOT_EXIST);
+
+    let pool = borrow_global<LiquidityPool<X, Y, Curve>>(@liquidswap_pool_account);
+    pool.fee
+}
+```
 
 ## Resources, References, and Mutation
 - You can borrow a reference with `&`. 
 - Reference 
 - Global storage operators `move_to`, `move_from`, `borrow_global_mut`, `borrow_global`, and `exists` in Move enable reading from and writing to resources stored in the blockchain's global storage.
 - The acquires keyword is used to specify which resources a function acquires ownership of a resource during execution.
-```
-module Collection {
+```rust
+module collection::collection {
 
     struct Item has store, drop {}
     struct Collection has key, store {

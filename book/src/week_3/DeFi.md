@@ -14,22 +14,121 @@ Decentralized systems allow for the direct peer-to-peer purchase of digital asse
 ### Lending
 DeFi platforms enable individuals to lend and borrow funds directly from other users through smart contracts, removing the need for traditional financial intermediaries such as banks.
 
+> Check out `examples/movement/gimme_mini` for a toy implementation of both a direct and peer-pooled lending platform.
+
+```rust
+// example supply function from gimme_mini direct lending platform
+public fun supply(
+    account: &signer,
+    market_obj: Object<Market>,
+    underlying_fa: FungibleAsset
+): FungibleAsset acquires Vault, Market {
+    assert!(
+        fungible_asset::asset_metadata(&underlying_fa) == fungible_asset::store_metadata(market_obj),
+        ERR_MARKET_MISMATCH
+    );
+
+    let underlying_amount = fungible_asset::amount(&underlying_fa);
+
+    // update market fungible store
+    fungible_asset::deposit(market_obj, underlying_fa);
+
+    // mint ctoken
+    let ctoken_amount = underlying_to_ctoken(market_obj, underlying_amount);
+    let market = borrow_global_mut<Market>(object::object_address(&market_obj));
+    let ctoken = fungible_asset::mint(&market.ctoken_mint_ref, ctoken_amount);
+
+    // update user vault
+    init_vault_if_not_exists(account);
+    let vault = borrow_global_mut<Vault>(signer::address_of(account));
+    if (!vector::contains(&vault.collaterals, &market_obj)) {
+        vector::push_back(&mut vault.collaterals, market_obj);
+    };
+
+    ctoken
+}
+```
+
+```rust
+module peer_pooled_lend::peer_pooled_lend {
+
+    use std::signer;
+    friend mini_lend::LoanOfficer;
+
+    /// Lends funds to liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Check if account has enough funds to lend.
+    ///     2. Check for suspicious activity.
+    /// 2. If account has enough funds to lend...
+    ///     1. MiniLend will transfer funds from account to liquidity pool.
+    public fun lend(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Allows lender to seek repayment from liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Determine whether account is lender.
+    ///     2. Determine loan period is up.
+    /// 2. If the account is a valid lender and the loan period is up...
+    ///     1. MiniLend will transfer funds from liquidity pool to account or self-collateralize.
+    public fun seek_repayment(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Borrows funds from liquidity pool.
+    /// 1. LoanOfficer will... 
+    ///     1. Check if account has enough collateral
+    ///     2. Check account credit.
+    ///     3. If account has enough collateral and credit...
+    /// 2. If account has enough collateral and credit...
+    ///     1. MiniLend will borrow funds from liquidity pool
+    /// 3. Whether or not the account will successully borrow funds, run the audit function.
+    public fun borrow(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    public fun repay(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Looks over loan tables and dispatches events to manage loans
+    /// Anyone can call this function enabling decentralized book keeping.
+    public fun audit(account : signer){
+
+        // ...
+
+    }
+
+}
+```
+
+
 ### Trading
 Decentralized exchanges (DEXs) facilitate trustless trading of digital assets directly between users, eliminating the need for centralized order books and custody of funds by intermediaries.
 
-> Movement has an ready-made DEX checki
+> Movement has an ready-made DEX.
 
 ## DeFi Phenomena
 ### Yield Farming
 Yield farming involves leveraging various DeFi protocols to maximize returns on cryptocurrencies or digital assets by providing liquidity, staking, or participating in other activities to earn additional rewards.
 
-> Check out `examples/movement/yield_gardner` for a toy implementation of a YieldGardner.
+> Check out `examples/movement/yield_gardner` for a toy implementation of a yield farmer.
 
 ### Flash Loans
 Flash loans are uncollateralized loans that allow users to borrow funds temporarily for specific transactions within a single blockchain transaction. They exploit the composability and fast transaction finality of smart contracts.
 
 ### Automated Market Making
 Automated market makers (AMMs) are decentralized protocols that use mathematical formulas to determine asset prices and provide liquidity for trading. They have revolutionized liquidity provision in DeFi by eliminating the need for order books and enabling continuous trading.
+
+> Check out `examples/movement/gimme_mini` for a toy implementation of a lending platform built atop the `liquidswap` AMM.
 
 ### Coins
 Coins are typically created and recorded on the blockchain through a consensus mechanism, ensuring their authenticity and immutability. They can be transferred between participants on the network, used for transactions, and sometimes serve additional purposes such as voting rights or access to certain functionalities within decentralized applications (dApps) built on the blockchain. Coins play a fundamental role in enabling economic activity and incentivizing participation within the blockchain ecosystem.
@@ -38,7 +137,7 @@ Coins are typically created and recorded on the blockchain through a consensus m
 ```rust
 // A managed coin.
 //:!:>sun
-module SunCoin::moon_coin {
+module sun_coin::sun_coin {
     struct SunCoin {}
 
     fun init_module(sender: &signer) {
