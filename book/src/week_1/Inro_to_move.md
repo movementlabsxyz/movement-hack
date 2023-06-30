@@ -1,4 +1,4 @@
-# Introduction to Move and Movement: its history, design principles, use cases, particularly in DeFi applications.
+# Introduction to Move and Movement
 This section is intended to orient the reader on the history of the language and various Move virtual machine implementations.
 
 ## Libra/Diem
