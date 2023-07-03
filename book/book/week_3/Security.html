@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Security</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../Prologue.html">Building with Movement</a></li><li class="chapter-item expanded "><a href="../week_1/week_1.html"><strong aria-hidden="true">1.</strong> Week 1: Introduction to Move and Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_1/Inro_to_move.html"><strong aria-hidden="true">1.1.</strong> Introduction to Move</a></li><li class="chapter-item expanded "><a href="../week_1/Developer_setup.html"><strong aria-hidden="true">1.2.</strong> Developer Setup</a></li><li class="chapter-item expanded "><a href="../week_1/Basic_move_syntax.html"><strong aria-hidden="true">1.3.</strong> Basic Move Syntax</a></li><li class="chapter-item expanded "><a href="../week_1/Module_and_build_system.html"><strong aria-hidden="true">1.4.</strong> Module and Build System</a></li><li class="chapter-item expanded "><a href="../week_1/Debugging_basics.html"><strong aria-hidden="true">1.5.</strong> Debugging Basic Move Programs</a></li><li class="chapter-item expanded "><a href="../week_1/Movement_standard_library.html"><strong aria-hidden="true">1.6.</strong> Movement Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="../week_2/week_2.html"><strong aria-hidden="true">2.</strong> Week 2: Advanced Move and Move for Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_2/Generics.html"><strong aria-hidden="true">2.1.</strong> Type Constraints, Polymorphism, and Generics</a></li><li class="chapter-item expanded "><a href="../week_2/Safety.html"><strong aria-hidden="true">2.2.</strong> Safety</a></li><li class="chapter-item expanded "><a href="../week_2/Intro_smart_contracts.html"><strong aria-hidden="true">2.3.</strong> Introduction to Smart Contracts</a></li><li class="chapter-item expanded "><a href="../week_2/Testing.html"><strong aria-hidden="true">2.4.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../week_2/Design_patterns.html"><strong aria-hidden="true">2.5.</strong> Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_2/Development_staging.html"><strong aria-hidden="true">2.6.</strong> Smart Contracts Development and Staging</a></li></ol></li><li class="chapter-item expanded "><a href="../week_3/week_3.html"><strong aria-hidden="true">3.</strong> Week 3: M1 and DeFi Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_3/Deploying_on_M1.html"><strong aria-hidden="true">3.1.</strong> Deploying on M1</a></li><li class="chapter-item expanded "><a href="../week_3/Security.html" class="active"><strong aria-hidden="true">3.2.</strong> Security</a></li><li class="chapter-item expanded "><a href="../week_3/Common_blockchain_system_design_patterns.html"><strong aria-hidden="true">3.3.</strong> Common Blockchain System Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_3/Access_control.html"><strong aria-hidden="true">3.4.</strong> Access Control</a></li><li class="chapter-item expanded "><a href="../week_3/DeFi.html"><strong aria-hidden="true">3.5.</strong> DeFi</a></li></ol></li><li class="chapter-item expanded "><a href="../week_4/week_4.html"><strong aria-hidden="true">4.</strong> Week 4: Projects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_4/Project_requirements_and_recommendations.html"><strong aria-hidden="true">4.1.</strong> Project Requirements and Recommendations</a></li><li class="chapter-item expanded "><a href="../week_4/Guidelines.html"><strong aria-hidden="true">4.2.</strong> Guidelines</a></li><li class="chapter-item expanded "><a href="../week_4/Next_steps.html"><strong aria-hidden="true">4.3.</strong> Next Steps</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="security"><a class="header" href="#security">Security</a></h1>
+<p>This section provides a high-level overview of common blockchain concerns and points to features of Movement or modules from the Movement standard library that can be used to help.</p>
+<h2 id="m1"><a class="header" href="#m1">M1</a></h2>
+<p>When working with M1 you will be able benefit from Avalanche's adaptive security and Move's strict programming model to avoid many of the vulnerabilities you would commonly encounter in smart contract development. You should, of course, remain aware of the vectors of attack.</p>
+<h2 id="attack-surface"><a class="header" href="#attack-surface">Attack Surface</a></h2>
+<h3 id="blockchain"><a class="header" href="#blockchain">Blockchain</a></h3>
+<h4 id="network-layer"><a class="header" href="#network-layer">Network layer</a></h4>
+<p>The network layer of a blockchain application is susceptible to various attacks, such as distributed denial-of-service (DDoS) attacks, eclipse attacks, and Sybil attacks. These attacks can disrupt the network's functionality and compromise its security.</p>
+<h4 id="consensus"><a class="header" href="#consensus">Consensus</a></h4>
+<p>The consensus mechanism used in a blockchain application can be targeted by attackers through attacks like 51% attacks, where they gain majority control over the network's computing power and manipulate transactions or block validation.</p>
+<blockquote>
+<p>Thankfully, Avalanche consensus--which underpins movement--is designed to resist various attacks, including sybil attacks, distributed denial-of-service (DDoS) attacks, and collusion attacks. Its probabilistic nature ensures that the consensus outcome converges to the desired state, even when the network is under attack.</p>
+</blockquote>
+<h4 id="blockchain-protocol"><a class="header" href="#blockchain-protocol">Blockchain protocol:</a></h4>
+<p>The underlying blockchain protocol may have vulnerabilities that can be exploited by attackers. Weaknesses in the protocol's cryptographic algorithms, consensus algorithms, or validation mechanisms can lead to security breaches.</p>
+<h3 id="smart-contracts"><a class="header" href="#smart-contracts">Smart contracts</a></h3>
+<h4 id="environment"><a class="header" href="#environment">Environment</a></h4>
+<p>Smart contracts rely on the execution environment in which they run. Insecure environments can expose smart contracts to attacks, such as sandbox escapes or unauthorized access to system resources.</p>
+<h4 id="external-dependencies"><a class="header" href="#external-dependencies">External dependencies</a></h4>
+<p>Smart contracts often interact with external systems or data sources. These dependencies can introduce security risks, such as malicious data feeds or vulnerabilities in the connected systems.</p>
+<h4 id="code-vulnerabilities"><a class="header" href="#code-vulnerabilities">Code vulnerabilities</a></h4>
+<p>Flaws in the code of smart contracts can lead to various vulnerabilities, including reentrancy attacks, integer overflow/underflow, and logic errors. These vulnerabilities can be exploited to manipulate contract behavior or steal funds.</p>
+<blockquote>
+<p>Thankfully, thanks to its type-system, resource-orientation, and linear programming model, the Move language makes it difficult to publish code with many of the common smart contract vulnerabilities.</p>
+</blockquote>
+<h4 id="upgradability"><a class="header" href="#upgradability">Upgradability</a></h4>
+<p>The ability to upgrade smart contracts introduces potential security risks. Unauthorized or malicious upgrades can compromise the integrity of the contract or introduce vulnerabilities that can be exploited.</p>
+<blockquote>
+<p>Thankfully, the Move language introduces the concept of modules, which are self-contained units of code that encapsulate the functionality of smart contracts. Unlike traditional smart contracts, Move modules can be upgraded without disrupting the entire system or requiring complex migration processes.</p>
+</blockquote>
+<h3 id="dapps"><a class="header" href="#dapps">dApps</a></h3>
+<h4 id="integration-risks"><a class="header" href="#integration-risks">Integration risks</a></h4>
+<p>Decentralized applications (dApps) often integrate with external services or APIs. Insecure integration points can expose dApps to security risks, such as unauthorized data access or injection of malicious code.</p>
+<h2 id="handling-user-data"><a class="header" href="#handling-user-data">Handling User Data</a></h2>
+<h3 id="data-minimization"><a class="header" href="#data-minimization">Data minimization</a></h3>
+<p>Blockchain applications should follow the principle of data minimization, collecting only the necessary data and avoiding the storage of sensitive information that is not required for the application's functionality.</p>
+<h3 id="access-control"><a class="header" href="#access-control">Access control</a></h3>
+<p>Proper access control mechanisms should be implemented to ensure that only authorized individuals or entities can access sensitive user data. This includes authentication, authorization, and secure role-based access control.</p>
+<blockquote>
+<p>Move uses an account-based ownership model where each account has its own address and associated permissions. Access control can be enforced at the account level, ensuring that only authorized users can perform specific actions.</p>
+</blockquote>
+<h3 id="encryption"><a class="header" href="#encryption">Encryption</a></h3>
+<p>Sensitive user data stored in the blockchain or associated systems should be encrypted to protect it from unauthorized access. Encryption algorithms and protocols should be carefully chosen and implemented.</p>
+<h3 id="pseudonymization"><a class="header" href="#pseudonymization">Pseudonymization</a></h3>
+<p>To enhance privacy, blockchain applications can pseudonymize user data by replacing personally identifiable information with pseudonyms or cryptographic identifiers. This makes it difficult to directly link user identities to their data.</p>
+<h2 id="dos"><a class="header" href="#dos">DoS</a></h2>
+<p>Denial-of-Service (DoS) attacks aim to disrupt the availability of a blockchain application or the entire network by overwhelming the system with an excessive amount of requests or by exploiting vulnerabilities in the network's infrastructure. DoS attacks can result in service unavailability or degradation, impacting the application's functionality and user experience. Implementing robust DoS mitigation strategies is essential to protect against such attacks.</p>
+<blockquote>
+<p>As mentioned above, Avalanche's adaptive security approach it difficult to successfully deny network service.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../week_3/Deploying_on_M1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../week_3/Common_blockchain_system_design_patterns.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../week_3/Deploying_on_M1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../week_3/Common_blockchain_system_design_patterns.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

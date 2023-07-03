@@ -1,0 +1,384 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>DeFi</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../Prologue.html">Building with Movement</a></li><li class="chapter-item expanded "><a href="../week_1/week_1.html"><strong aria-hidden="true">1.</strong> Week 1: Introduction to Move and Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_1/Inro_to_move.html"><strong aria-hidden="true">1.1.</strong> Introduction to Move</a></li><li class="chapter-item expanded "><a href="../week_1/Developer_setup.html"><strong aria-hidden="true">1.2.</strong> Developer Setup</a></li><li class="chapter-item expanded "><a href="../week_1/Basic_move_syntax.html"><strong aria-hidden="true">1.3.</strong> Basic Move Syntax</a></li><li class="chapter-item expanded "><a href="../week_1/Module_and_build_system.html"><strong aria-hidden="true">1.4.</strong> Module and Build System</a></li><li class="chapter-item expanded "><a href="../week_1/Debugging_basics.html"><strong aria-hidden="true">1.5.</strong> Debugging Basic Move Programs</a></li><li class="chapter-item expanded "><a href="../week_1/Movement_standard_library.html"><strong aria-hidden="true">1.6.</strong> Movement Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="../week_2/week_2.html"><strong aria-hidden="true">2.</strong> Week 2: Advanced Move and Move for Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_2/Generics.html"><strong aria-hidden="true">2.1.</strong> Type Constraints, Polymorphism, and Generics</a></li><li class="chapter-item expanded "><a href="../week_2/Safety.html"><strong aria-hidden="true">2.2.</strong> Safety</a></li><li class="chapter-item expanded "><a href="../week_2/Intro_smart_contracts.html"><strong aria-hidden="true">2.3.</strong> Introduction to Smart Contracts</a></li><li class="chapter-item expanded "><a href="../week_2/Testing.html"><strong aria-hidden="true">2.4.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../week_2/Design_patterns.html"><strong aria-hidden="true">2.5.</strong> Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_2/Development_staging.html"><strong aria-hidden="true">2.6.</strong> Smart Contracts Development and Staging</a></li></ol></li><li class="chapter-item expanded "><a href="../week_3/week_3.html"><strong aria-hidden="true">3.</strong> Week 3: M1 and DeFi Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_3/Deploying_on_M1.html"><strong aria-hidden="true">3.1.</strong> Deploying on M1</a></li><li class="chapter-item expanded "><a href="../week_3/Security.html"><strong aria-hidden="true">3.2.</strong> Security</a></li><li class="chapter-item expanded "><a href="../week_3/Common_blockchain_system_design_patterns.html"><strong aria-hidden="true">3.3.</strong> Common Blockchain System Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_3/Access_control.html"><strong aria-hidden="true">3.4.</strong> Access Control</a></li><li class="chapter-item expanded "><a href="../week_3/DeFi.html" class="active"><strong aria-hidden="true">3.5.</strong> DeFi</a></li></ol></li><li class="chapter-item expanded "><a href="../week_4/week_4.html"><strong aria-hidden="true">4.</strong> Week 4: Projects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_4/Project_requirements_and_recommendations.html"><strong aria-hidden="true">4.1.</strong> Project Requirements and Recommendations</a></li><li class="chapter-item expanded "><a href="../week_4/Guidelines.html"><strong aria-hidden="true">4.2.</strong> Guidelines</a></li><li class="chapter-item expanded "><a href="../week_4/Next_steps.html"><strong aria-hidden="true">4.3.</strong> Next Steps</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="defi"><a class="header" href="#defi">DeFi</a></h1>
+<p>This section treats with a general overview DeFi problems and solution, and the faculties of Movement M1 to help create these solutions.</p>
+<h2 id="what-is-defi"><a class="header" href="#what-is-defi">What is DeFi?</a></h2>
+<p>Decentralized Finance (DeFi) refers to a category of financial applications and platforms built on blockchain networks that aim to provide open, permissionless, and decentralized alternatives to traditional financial systems. DeFi leverages the transparency, immutability, and programmability of blockchain technology to enable financial activities without the need for intermediaries or centralized authorities.</p>
+<h2 id="why-decentralize"><a class="header" href="#why-decentralize">Why Decentralize?</a></h2>
+<p>Decentralization in DeFi brings several advantages, including increased transparency, censorship resistance, improved accessibility, and reduced reliance on trusted third parties. By removing intermediaries and enabling peer-to-peer transactions, decentralization can enhance efficiency, reduce costs, and empower individuals to have more control over their financial activities.</p>
+<h2 id="financial-applications-of-decentralized-systems"><a class="header" href="#financial-applications-of-decentralized-systems">Financial Applications of Decentralized Systems</a></h2>
+<h3 id="purchasing"><a class="header" href="#purchasing">Purchasing</a></h3>
+<p>Decentralized systems allow for the direct peer-to-peer purchase of digital assets, cryptocurrencies, and other goods or services without the need for intermediaries or central authorities.</p>
+<h3 id="lending"><a class="header" href="#lending">Lending</a></h3>
+<p>DeFi platforms enable individuals to lend and borrow funds directly from other users through smart contracts, removing the need for traditional financial intermediaries such as banks.</p>
+<blockquote>
+<p>Check out <code>examples/movement/gimme_mini</code> for a toy implementation of both a direct and peer-pooled lending platform.</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// example supply function from gimme_mini direct lending platform
+public fun supply(
+    account: &amp;signer,
+    market_obj: Object&lt;Market&gt;,
+    underlying_fa: FungibleAsset
+): FungibleAsset acquires Vault, Market {
+    assert!(
+        fungible_asset::asset_metadata(&amp;underlying_fa) == fungible_asset::store_metadata(market_obj),
+        ERR_MARKET_MISMATCH
+    );
+
+    let underlying_amount = fungible_asset::amount(&amp;underlying_fa);
+
+    // update market fungible store
+    fungible_asset::deposit(market_obj, underlying_fa);
+
+    // mint ctoken
+    let ctoken_amount = underlying_to_ctoken(market_obj, underlying_amount);
+    let market = borrow_global_mut&lt;Market&gt;(object::object_address(&amp;market_obj));
+    let ctoken = fungible_asset::mint(&amp;market.ctoken_mint_ref, ctoken_amount);
+
+    // update user vault
+    init_vault_if_not_exists(account);
+    let vault = borrow_global_mut&lt;Vault&gt;(signer::address_of(account));
+    if (!vector::contains(&amp;vault.collaterals, &amp;market_obj)) {
+        vector::push_back(&amp;mut vault.collaterals, market_obj);
+    };
+
+    ctoken
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module peer_pooled_lend::peer_pooled_lend {
+
+    use std::signer;
+    friend mini_lend::LoanOfficer;
+
+    /// Lends funds to liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Check if account has enough funds to lend.
+    ///     2. Check for suspicious activity.
+    /// 2. If account has enough funds to lend...
+    ///     1. MiniLend will transfer funds from account to liquidity pool.
+    public fun lend(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Allows lender to seek repayment from liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Determine whether account is lender.
+    ///     2. Determine loan period is up.
+    /// 2. If the account is a valid lender and the loan period is up...
+    ///     1. MiniLend will transfer funds from liquidity pool to account or self-collateralize.
+    public fun seek_repayment(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Borrows funds from liquidity pool.
+    /// 1. LoanOfficer will... 
+    ///     1. Check if account has enough collateral
+    ///     2. Check account credit.
+    ///     3. If account has enough collateral and credit...
+    /// 2. If account has enough collateral and credit...
+    ///     1. MiniLend will borrow funds from liquidity pool
+    /// 3. Whether or not the account will successully borrow funds, run the audit function.
+    public fun borrow(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    public fun repay(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Looks over loan tables and dispatches events to manage loans
+    /// Anyone can call this function enabling decentralized book keeping.
+    public fun audit(account : signer){
+
+        // ...
+
+    }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="trading"><a class="header" href="#trading">Trading</a></h3>
+<p>Decentralized exchanges (DEXs) facilitate trustless trading of digital assets directly between users, eliminating the need for centralized order books and custody of funds by intermediaries.</p>
+<blockquote>
+<p>Movement has an ready-made DEX.</p>
+</blockquote>
+<h2 id="defi-phenomena"><a class="header" href="#defi-phenomena">DeFi Phenomena</a></h2>
+<h3 id="yield-farming"><a class="header" href="#yield-farming">Yield Farming</a></h3>
+<p>Yield farming involves leveraging various DeFi protocols to maximize returns on cryptocurrencies or digital assets by providing liquidity, staking, or participating in other activities to earn additional rewards.</p>
+<blockquote>
+<p>Check out <code>examples/movement/yield_gardner</code> for a toy implementation of a yield farmer.</p>
+</blockquote>
+<h3 id="flash-loans"><a class="header" href="#flash-loans">Flash Loans</a></h3>
+<p>Flash loans are uncollateralized loans that allow users to borrow funds temporarily for specific transactions within a single blockchain transaction. They exploit the composability and fast transaction finality of smart contracts.</p>
+<h3 id="automated-market-making"><a class="header" href="#automated-market-making">Automated Market Making</a></h3>
+<p>Automated market makers (AMMs) are decentralized protocols that use mathematical formulas to determine asset prices and provide liquidity for trading. They have revolutionized liquidity provision in DeFi by eliminating the need for order books and enabling continuous trading.</p>
+<blockquote>
+<p>Check out <code>examples/movement/gimme_mini</code> for a toy implementation of a lending platform built atop the <code>liquidswap</code> AMM.</p>
+</blockquote>
+<h3 id="coins"><a class="header" href="#coins">Coins</a></h3>
+<p>Coins are typically created and recorded on the blockchain through a consensus mechanism, ensuring their authenticity and immutability. They can be transferred between participants on the network, used for transactions, and sometimes serve additional purposes such as voting rights or access to certain functionalities within decentralized applications (dApps) built on the blockchain. Coins play a fundamental role in enabling economic activity and incentivizing participation within the blockchain ecosystem.</p>
+<blockquote>
+<p>Movement provides built-in utilties to easily create and managed coins at varying levels of abstraction.</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A managed coin.
+//:!:&gt;sun
+module sun_coin::sun_coin {
+    struct SunCoin {}
+
+    fun init_module(sender: &amp;signer) {
+        aptos_framework::managed_coin::initialize&lt;SunCoin&gt;(
+            sender,
+            b&quot;Sun Coin&quot;,
+            b&quot;SUN&quot;,
+            6,
+            false,
+        );
+    }
+}
+//&lt;:!:sun
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Handling coin transactions
+script {
+    use aptos_framework::coin;
+    use std::vector;
+
+    // There are two ways to approach this problem
+    // 1. Withdraw the total then distribute the pieces by breaking it up or
+    // 2. Transfer for each amount individually
+    fun main&lt;CoinType&gt;(sender: &amp;signer, split : vector&lt;address&gt;, amount: u64) {
+        
+        let i = 0;
+        let len = vector::length(split);
+        let coins = coin::withdraw&lt;CoinType&gt;(sender, amount);
+        
+        while (i &lt; len) {
+            let coins_pt = coin::extract(&amp;mut coins, amount / len);
+            coin::deposit(
+                vector::borrow(split, i), 
+                coins_pt
+            );
+        };
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Stablecoins are a type of coin that aims to maintain a stable value, typically pegged to a fiat currency like the US Dollar or a basket of assets. They provide price stability, making them suitable for various use cases within the decentralized finance ecosystem.</p>
+<h2 id="important-defi-algorithms"><a class="header" href="#important-defi-algorithms">Important DeFi Algorithms</a></h2>
+<h3 id="constant-product-market-maker-cpmm-and-constant-mean-market-maker-cmmm"><a class="header" href="#constant-product-market-maker-cpmm-and-constant-mean-market-maker-cmmm">Constant Product Market Maker (CPMM) and Constant Mean Market Maker (CMMM)</a></h3>
+<p>These algorithms are used in AMMs to maintain liquidity and determine prices based on the constant product or mean principles.</p>
+<h3 id="fraud-proof-and-binary-search"><a class="header" href="#fraud-proof-and-binary-search">Fraud Proof and Binary Search</a></h3>
+<p>These algorithms enhance security in DeFi protocols by detecting and mitigating potential fraud or malicious activities. Binary search is often used to optimize search and validation processes.</p>
+<h3 id="modern-portfolio-theory-mpt"><a class="header" href="#modern-portfolio-theory-mpt">Modern Portfolio Theory (MPT)</a></h3>
+<p>MPT is applied in DeFi to optimize asset allocation and portfolio management, considering risk, returns, and correlations among different assets.</p>
+<h3 id="risk-models"><a class="header" href="#risk-models">Risk Models</a></h3>
+<p>DeFi relies on various risk models and methodologies to assess and manage risks associated with lending, borrowing, and other financial activities in decentralized systems.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../week_3/Access_control.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../week_4/week_4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../week_3/Access_control.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../week_4/week_4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
