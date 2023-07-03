@@ -51,17 +51,17 @@ while (i < 10) {
 - Move has the primitive types `boolean`, `u8`, `u64`, `u128`, `address`, and `signer`.
 - Move also supports hex- and byte-string literals.
 ```rust
-let val = b"hello, world!"; // hex string
-let val = x"hello, world!"; // byte string
+let byte_val = b"hello, world!"; // byte string
+let hex_val = x"48656C6C6F210A"; // hex string
 ```
 - Integers can be type cast with the `as` keyword.
 - The signer type represents the sender of a transaction and is used for access control and authentication.
 
 ### Abilities
 Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.
-- `copy`: The `copy` ability allows for the type's value to be cloned.
+- `copy`: The `copy` ability allows for the type's value to be copied.
 - `drop`: The `drop` ability enables the necessary cleanup actions when the type goes out of scope.
-- `store`: The `store` ability allows the type to be stored inside global storage.
+- `store`: The `store` ability allows the type to be stored inside a struct in global storage.
 - `key`: The `key` ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.
 - Conditional abilities allow types to have different behaviors based on conditions.
 
@@ -83,10 +83,10 @@ public fun get_fee<X, Y, Curve>(): u64 acquires LiquidityPool {
 ```
 
 ## Resources, References, and Mutation
-- You can borrow a reference with `&`. 
+- You can create a reference with `&`. 
 - Reference 
 - Global storage operators `move_to`, `move_from`, `borrow_global_mut`, `borrow_global`, and `exists` in Move enable reading from and writing to resources stored in the blockchain's global storage.
-- The acquires keyword is used to specify which resources a function acquires ownership of a resource during execution.
+- The `acquires` keyword is used to specify which resources a function acquires ownership of a resource during execution.
 ```rust
 module collection::collection {
 
@@ -96,9 +96,9 @@ module collection::collection {
     }
 
     public fun add_item(account: &signer) acquires Collection {
-        let collection = borrow_global_mut<Collection>(Signer::address_of(account));
+        let collection = borrow_global_mut<Collection>(signer::address_of(account));
 
-        Vector::push_back(&mut collection.items, Item {});
+        vector::push_back(&mut collection.items, Item {});
     }
 }
 ```

@@ -25,7 +25,7 @@ module debug_demo::message {
         if (!exists<MessageHolder>(account_addr)) {
             move_to(&account, MessageHolder {
                 message,
-            })
+            });
         } else {
             let old_message_holder = borrow_global_mut<MessageHolder>(account_addr);
             old_message_holder.message = message;
@@ -33,7 +33,7 @@ module debug_demo::message {
     }
 
     #[test(account = @0x1)]
-    public entry fun sender_can_set_message(account: signer) acquires MessageHolder {
+    fun sender_can_set_message(account: signer) acquires MessageHolder {
         let addr = signer::address_of(&account);
         debug::print<address>(&addr);
         set_message(account,  b"Hello, Blockchain");

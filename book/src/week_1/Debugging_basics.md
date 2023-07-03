@@ -51,47 +51,49 @@ module resource_roulette::resource_roulette {
   }
 
   // Initialization function for the ResourceRoulette contract
-  public fun init(): ResourceRoulette {
+  public entry fun init(account: &signer) {
 
-    let mut bids = vector::empty<u8>();
-    let mut i = 0;
+    let bids = vector::empty<vector<address>>();
+    let i = 0;
     while i < 32 {
-      vector::push_back(&self.bids, vector::empty<address>())
+      vector::push_back(&mut bids, vector::empty<address>())
       i = i + 1;
-    }
+    };
 
-    ResourceRoulette {
+    move_to<ResourceRoulette>(account, ResourceRoulette {
       bids,
       owner: @resource_roulette,
-    }
+    });
 
   }
 
   // Bid function to allow signers to bid on a specific slot
-  public fun bid(slot: u8, sender: address) {
-    let self = &mut borrow_global_mut<ResourceRoulette>(@resource_roulette);
-    let bids_size = vector::length(&self.bids);
-    assert(slot < bids_size, 99);
+  public entry fun bid(sender: &signer, slot: u8) acquires ResourceRoulette {
+    let roulette = borrow_global_mut<ResourceRoulette>(@resource_roulette);
+    let bids_size = vector::length(&roulette.bids);
+    assert!(slot < bids_size, 99);
+    // assert bids size does not exceed 100
+    assert!(bids_size < 100, 0); 
 
-    let mut slot_bids = vector::borrow_mut(&self.bids, slot);
-    vector::push_back(slot_bids, sender);
-
+    let slot_bids = vector::borrow_mut(&mut roulette.bids, slot);
+    vector::push_back(&mut slot_bids, signer::address_of(sender));
   }
 
-  public fun total_bid() : u64 {
+  public fun total_bid(): u64 acquires ResourceRoulette {
     // Make this more complex to support actual bidding
-    return 100;
+    let roulette = borrow_global<ResourceRoulette>(@resource_roulette);
+    vector::length(&roulette.bids)
   }
 
   // Roll function to select a pseudorandom slot and pay out all signers who selected that slot
-  public fun spin() {
-    let self = &mut ResourceRoulette::borrow_global_mut();
-    assert(sender() == self.owner, 98);
+  public entry fun spin(sender: &signer) acquires ResourceRoulette {
+    let roulette = ResourceRoulette::borrow_global_mut();
+    assert!(singer::address_of(sender) == roulette.owner, 98);
 
-    let resource_vector_size = vector::length(&self.resource_vector);
-    let winning_slot = (0x1u64 % resource_vector_size as u64) as u8;
+    let resource_vector_size = vector::length(&roulette.bids);
+    let winning_slot = (0x1000 % resource_vector_size) as u8;
 
-    let winners = vector::borrow(&self.bids, winning_slot);
+    let winners = vector::borrow(&roulette.bids, winning_slot);
 
     let num_winners = vector::length(&winners_vec);
     let balance_per_winner = total_bid() / num_winners as u64;
@@ -102,7 +104,7 @@ module resource_roulette::resource_roulette {
       let mut winnings = borrow_global_mut<RouletteWinnings>(winner);
       winnings.amount = winnings.amount + balance_per_winner;
       i = i + 1;
-    }
+    };
 
   }
 
