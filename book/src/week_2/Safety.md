@@ -12,11 +12,11 @@ module 0x42::LinearLogicExample {
     use std::vector;
     use std::debug;
 
-    resource struct Token {
+    struct Token has drop {
         value: u8,
     }
 
-    fun use_token(mut token: Token) {
+    fun use_token(token: Token) {
         debug::print<vector<u8>>("Using token.");
         // Perform operations with the token...
     }

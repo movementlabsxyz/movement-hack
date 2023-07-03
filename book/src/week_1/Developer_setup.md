@@ -5,7 +5,7 @@ This section examines tooling and provides setup instructions for working with t
 The budding Move ecosystem sports a variety of developer friendly tools. As we list off tools that will be relevant to this booklet, keep in mind that there are number of projects we have not included.
 
 ### Virtual machines
-As previously discussed, there are several virtual machine implementations available for Move development--each of with is paired with particular blockchain. Besides the `Movement VM`, the most well-know Move virtual machines are `Move VM`, `Aptos VM`, and `Sui VM`
+As previously discussed, there are several virtual machine implementations available for Move development--each of with is paired with particular blockchain. Besides the `Movement VM`, the most well-known Move virtual machines are `Move VM`, `Aptos VM`, and `Sui VM`
 
 We provide a comparison of these different virtual machines in our [docs](https://docs.movementlabs.xyz/#what-is-move). 
 

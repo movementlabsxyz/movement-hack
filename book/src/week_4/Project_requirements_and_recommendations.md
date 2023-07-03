@@ -21,7 +21,7 @@ The content of this course should have prepared you to work on dApps such as the
 
 ### Infrastructure
 We're all about continuing to build out the Movement ecosystem to empower more awesome developers like you. At the time of writing, the following are all things we have a close eye on.
-- Connect a new wallet! Right now we only support [Potnem](https://pontem.network/) on testnet.
+- Connect a new wallet! Right now we only support [Pontem](https://pontem.network/) on testnet.
 - Create an L2 that allows us to deposit levered funds in another protocol.
 - Create a framework for borrowing funds against an asset.
 - Create a framework that allows for customizable liquidity strategies.

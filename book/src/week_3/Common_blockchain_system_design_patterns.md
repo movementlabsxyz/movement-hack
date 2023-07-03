@@ -55,10 +55,11 @@ module news_moves::news_moves {
 
     // Get the latest article from the contrac
 
-    let self = borrow_global<NewsMoves>(@news_moves);
-    assert(self.articles.len() > 0, 98); // Ensure there is at least one article
-    let latestArticleIndex = self.articles.len() - 1;
-    *self.articles[latestArticleIndex]
+    let moves = borrow_global<NewsMoves>(@news_moves);
+    let len = vector::length(&articles);
+    assert(len > 0, 98); // Ensure there is at least one article
+    let latestArticleIndex = len - 1;
+    *moves.articles[latestArticleIndex]
 
   }
   
