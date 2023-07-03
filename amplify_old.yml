@@ -1,3 +1,4 @@
+version: 1
 frontend:
   phases:
     preBuild:
@@ -6,3 +7,8 @@ frontend:
     build:
       commands:
         - cp -r book/book public
+  artifacts:
+    baseDirectory: public
+    files:
+      - '**/*'
+
