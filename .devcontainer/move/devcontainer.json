@@ -1,5 +1,5 @@
 {
-    "name": "movement",
+    "name": "move",
     "build" : {
         "dockerfile": "Dockerfile"
     },
