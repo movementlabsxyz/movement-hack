@@ -1,0 +1,8 @@
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd book && mdbook build
+    build:
+      commands:
+        - cp -r book/book public
