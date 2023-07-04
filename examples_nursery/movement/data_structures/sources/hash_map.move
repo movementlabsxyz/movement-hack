@@ -4,6 +4,10 @@
 module ds_std::hash_map {
     use std::option::{Self, Option};
     use std::vector;
+    use std::bcs;
+    use std::hash::sha2_256;
+
+    use ds_std::from_bytes;
 
     /// This key already exists in the map
     const EKeyAlreadyExists: u64 = 0;
@@ -21,6 +25,7 @@ module ds_std::hash_map {
     const EMapEmpty: u64 = 4;
 
     struct HashMap<K: copy, V> has copy, drop, store {
+        size: u64,
         entries: vector<Entry<K, V>>,
     }
 
@@ -30,8 +35,21 @@ module ds_std::hash_map {
         value: V,
     }
 
-    /// Create an empty `Map`
-    public fun new<K: copy, V>(): HashMap<K,V> {
-        HashMap { entries: vector::empty() }
+    /// Create an empty `HashMap`
+    public fun new<K: copy, V>(size: u64): HashMap<K,V> {
+        HashMap { 
+          entries: vector::empty(),
+          size
+        }
+    }
+    
+    public fun get_index<K>(key: K, size: u64) {
+      let bytes = bcs::to_bytes(&key);
+      
+    }
+
+    /// Insert a new Key-Value Pair
+    public fun insert<K, V>(map: &mut HashMap<K, V>, key: K, value: V) {
+      
     }
 }
