@@ -182,8 +182,12 @@ hello_blockchain = &quot;_&quot;
 <ol>
 <li>Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack</li>
 <li>Open the repo in VsCode.</li>
-<li>Based on the advice provided for a given project, reopen the repo in one of <code>move</code>, <code>movement</code>, <code>anchor</code>, or <code>solidity</code> <a href="https://code.visualstudio.com/docs/devcontainers/containers">devcontainers</a>.</li>
+<li>Based on the advice provided for a given project, reopen the repo in one of <code>move</code>, <code>movement-dev</code>, <code>anchor</code>, or <code>solidity</code> <a href="https://code.visualstudio.com/docs/devcontainers/containers">devcontainers</a>.</li>
 </ol>
+<p>Alternatively, when working with <code>movement-dev</code> you may:</p>
+<pre><code>docker image pull public.ecr.aws/c4i6k4r8/movement-dev
+docker run -it -v &quot;$(pwd):/workspace&quot; public.ecr.aws/c4i6k4r8/movement-dev /bin/bash
+</code></pre>
 <p>We will also occasionally use Rust and Python to complete various programming examples.</p>
 <p>We will also discuss using our proxy service with the JavaScript. The <code>movement-dev</code> developer container provides an easy start place for this alternative means of interacting with the <a href="https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract">subnet</a>.</p>
 
