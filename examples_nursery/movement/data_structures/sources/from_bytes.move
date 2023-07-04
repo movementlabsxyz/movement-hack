@@ -1,9 +1,12 @@
+// Copyright (c) Movement Labs, Inc.
+// SPDX-License-Identifier: Apache-2.0
+
 module ds_std::from_bytes {
     use std::vector;
 
     /// Errors
     const EIndexOutOfBound: u64 = 0;
-    const EInvalidVariable: u64 = 0;
+    const EInvalidVariable: u64 = 1;
 
     /// Read a `bool` value from bcs-serialized bytes.
     public fun read_bool(bytes: &vector<u8>): bool {

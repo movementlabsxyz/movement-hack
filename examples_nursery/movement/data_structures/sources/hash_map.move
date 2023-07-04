@@ -43,6 +43,7 @@ module ds_std::hash_map {
         }
     }
     
+    /// Calculate `hash` index from given `key`
     public fun get_index<K>(key: &K, size: u64): u64 {
         let bytes = bcs::to_bytes(key);
         let hash_bytes = sha2_256(bytes);
