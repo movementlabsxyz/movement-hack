@@ -118,7 +118,7 @@ fi
 
 # Set up the developer environment if not already set up
 cd "$MOVEMENT_DIR/movement-subnet/vm/aptos-vm"
-./script/dev_setup.sh
+./scripts/dev_setup.sh
 
 # Build the movement binary
 cargo build --release -p movement
