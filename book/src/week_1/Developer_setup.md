@@ -44,7 +44,14 @@ We'll be using the `move` and `movement` CLIs; no package manager; and VsCode mo
 To get started...
 1. Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack
 2. Open the repo in VsCode.
-3. Based on the advice provided for a given project, reopen the repo in one of `move`, `movement`, `anchor`, or `solidity` [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
+3. Based on the advice provided for a given project, reopen the repo in one of `move`, `movement-dev`, `anchor`, or `solidity` [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
+
+Alternatively, when working with `movement-dev` you may:
+
+```
+docker image pull public.ecr.aws/c4i6k4r8/movement-dev
+docker run -it -v "$(pwd):/workspace" public.ecr.aws/c4i6k4r8/movement-dev /bin/bash
+```
 
 We will also occasionally use Rust and Python to complete various programming examples.
 
