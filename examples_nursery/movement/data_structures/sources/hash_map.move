@@ -15,41 +15,131 @@ module ds_std::hash_map {
     /// This key does not exist in the map
     const EKeyDoesNotExist: u64 = 1;
 
-    /// Trying to destroy a map that is not empty
-    const EMapNotEmpty: u64 = 2;
-
     /// Trying to access an element of the map at an invalid index
-    const EIndexOutOfBounds: u64 = 3;
+    const EIndexOutOfBounds: u64 = 2;
 
-    /// Trying to pop from a map that is empty
-    const EMapEmpty: u64 = 4;
-
-    struct HashMap<K: copy, V> has copy, drop, store {
+    struct HashMap<K, V> has copy, drop, store {
         size: u64,
-        entries: vector<Entry<K, V>>,
+        entries: vector<Option<Entry<K, V>>>,
     }
 
     /// An entry in the map
-    struct Entry<K: copy, V> has copy, drop, store {
+    struct Entry<K, V> has copy, drop, store {
         key: K,
         value: V,
     }
 
     /// Create an empty `HashMap`
-    public fun new<K: copy, V>(size: u64): HashMap<K,V> {
+    public fun new<K, V>(size: u64): HashMap<K,V> {
+        let entries = vector::empty<Option<Entry<K, V>>>();
+        let i = 0;
+        while (i < size) {
+          vector::push_back(&mut entries, option::none());
+          i = i + 1;
+        };
         HashMap { 
-          entries: vector::empty(),
+          entries,
           size
         }
     }
     
-    public fun get_index<K>(key: K, size: u64) {
-      let bytes = bcs::to_bytes(&key);
-      
+    public fun get_index<K>(key: &K, size: u64): u64 {
+        let bytes = bcs::to_bytes(key);
+        let hash_bytes = sha2_256(bytes);
+        from_bytes::read_u64(&hash_bytes) % size
     }
 
-    /// Insert a new Key-Value Pair
+    /// Insert a new key/value pair to `map`
     public fun insert<K, V>(map: &mut HashMap<K, V>, key: K, value: V) {
-      
+        let index = get_index<K>(&key, map.size);
+        assert!(!contains<K, V>(map, &key), EKeyAlreadyExists);
+        let non_value = vector::borrow_mut(&mut map.entries, index);
+        option::fill(non_value, new_entry(key, value));
+    }
+
+    /// Remove the entry `key` |-> `value` from `map`. Aborts if related `value` is not found in `map`.
+    public fun remove<K, V>(map: &mut HashMap<K, V>, key: &K): (K, V) {
+        let index = get_index<K>(key, map.size);
+        assert!(contains<K, V>(map, key), EKeyDoesNotExist);
+        
+        let option_value = vector::borrow_mut(&mut map.entries, index);
+        let Entry { key: key, value } = option::extract(option_value);
+        (key, value)
+    }
+
+    /// Get a reference to the value bound to `key` in `map`.
+    public fun get<K, V>(map: &HashMap<K, V>, key: &K): (&K, &V) {
+        let index = get_index<K>(key, map.size);
+        assert!(contains<K, V>(map, key), EKeyDoesNotExist);
+        let option_value = vector::borrow(&map.entries, index);
+        let Entry { key: r_key, value: r_value } = option::borrow(option_value);
+        (r_key, r_value)
+    }
+
+    /// Return true if `map` contains an entry for `key`, false otherwise
+    public fun contains<K, V>(map: &HashMap<K, V>, key: &K): bool {
+        let index = get_index<K>(key, map.size);
+        assert!(index < map.size, EIndexOutOfBounds);
+        option::is_none(vector::borrow(&map.entries, index))
+    }
+
+    /// Unpack `map` into vectors of its keys and values.
+    /// The output keys and values are stored in arbitrary order, *not* in insertion order.
+    public fun into_keys_values<K, V>(map: HashMap<K, V>): (vector<K>, vector<V>) {
+        let HashMap { entries, size } = map;
+
+        let i = 0;
+        let keys = vector::empty();
+        let values = vector::empty();
+        while (i < size) {
+            let v = vector::pop_back(&mut entries);
+            if (option::is_some(&v)) {
+                let Entry { key, value } = option::extract(&mut v);
+                vector::push_back(&mut keys, key);
+                vector::push_back(&mut values, value);
+            };
+            option::destroy_none(v);
+            i = i + 1;
+        };
+        vector::destroy_empty(entries);
+        (keys, values)
+    }
+
+    /// Returns a list of keys in the map.
+    /// Do not assume any particular ordering.
+    public fun keys<K: copy, V>(map: &HashMap<K, V>): vector<K> {
+        let i = 0;
+        let keys = vector::empty();
+        while (i < map.size) {
+            let option_entry = vector::borrow(&map.entries, i);
+            if (option::is_some(option_entry)) {
+                vector::push_back(&mut keys, option::borrow(option_entry).key);
+            };
+            i = i + 1;
+        };
+        keys
+    }
+
+    /// Returns a list of values in the map.
+    /// Do not assume any particular ordering.
+    public fun values<K: copy, V: copy>(map: &HashMap<K, V>): vector<V> {
+        let i = 0;
+        let values = vector::empty();
+        while (i < map.size) {
+            let option_entry = vector::borrow(&map.entries, i);
+            if (option::is_some(option_entry)) {
+                vector::push_back(&mut values, option::borrow(option_entry).value);
+            };
+            i = i + 1;
+        };
+        values
+    }
+
+    /// Return a new entry with given key and value
+    public fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
+        Entry {
+            key,
+            value
+        }
     }
 }
