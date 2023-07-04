@@ -216,7 +216,7 @@ int main() {
 <ul>
 <li><a href="https://github.com/move-language/move/tree/main/language/tools/move-cli"><code>move</code></a>: the original CLI for Move development. </li>
 <li><code>aptos</code>: the CLI for Aptos development.</li>
-<li><code>movement</code>: our very own CLI.</li>
+<li><a href="https://movement.gitbook.io/english/developers/developer-tools/movement-cli"><code>movement</code></a>: our very own CLI.</li>
 </ul>
 <p>In this booklet we will be working with <code>move</code> and <code>movement</code>. </p>
 <h3 id="package-managers"><a class="header" href="#package-managers">Package managers</a></h3>
@@ -250,7 +250,7 @@ docker run -it -v &quot;$(pwd):/workspace&quot; public.ecr.aws/c4i6k4r8/movement
 <p>We will also occasionally use Rust and Python to complete various programming examples.</p>
 <p>We will also discuss using our proxy service with the JavaScript. The <code>movement-dev</code> developer container provides an easy start place for this alternative means of interacting with the <a href="https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract">subnet</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-move-syntax"><a class="header" href="#basic-move-syntax">Basic Move Syntax</a></h1>
-<p>This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive gudies can be found at <a href="https://move-book.com/">move-book.com</a> and <a href="https://move-language.github.io/move/">move-language.github.io</a>.</p>
+<p>This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive guides can be found at <a href="https://move-book.com/">move-book.com</a> and <a href="https://move-language.github.io/move/">move-language.github.io</a>.</p>
 <h2 id="allocation-and-the-move-memory-model"><a class="header" href="#allocation-and-the-move-memory-model">Allocation and the Move Memory Model</a></h2>
 <p>Move's resource-oriented language model leads to a unique memory model:</p>
 <ul>
@@ -314,7 +314,7 @@ let hex_val = x&quot;48656C6C6F210A&quot;; // hex string
 <ul>
 <li><code>copy</code>: The <code>copy</code> ability allows for the type's value to be copied.</li>
 <li><code>drop</code>: The <code>drop</code> ability enables the necessary cleanup actions when the type goes out of scope.</li>
-<li><code>store</code>: The <code>store</code> ability allows the type to be stored inside a struct in global storage.</li>
+<li><code>store</code>: The <code>store</code> ability allows the type's value to be stored inside a struct in global storage.</li>
 <li><code>key</code>: The <code>key</code> ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.</li>
 <li>Conditional abilities allow types to have different behaviors based on conditions.</li>
 </ul>
@@ -749,7 +749,7 @@ fn main() {
 <ul>
 <li><code>copy</code>: The <code>copy</code> ability allows for the type's value to be cloned.</li>
 <li><code>drop</code>: The <code>drop</code> ability enables the necessary cleanup actions when the type goes out of scope.</li>
-<li><code>store</code>: The <code>store</code> ability allows the type to be stored inside global storage.</li>
+<li><code>store</code>: The <code>store</code> ability allows the type's value to be stored inside a struct in global storage.</li>
 <li><code>key</code>: The <code>key</code> ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.</li>
 </ul>
 <p>These abilites may be used to define type bounds for generic functions and structs.</p>
