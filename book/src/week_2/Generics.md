@@ -124,7 +124,7 @@ Further below, we will discuss more advanced means of achieving similar subtypin
 ## The Four Type Abilities: `copy`, `drop`, `store`, and `key`
 - `copy`: The `copy` ability allows for the type's value to be cloned.
 - `drop`: The `drop` ability enables the necessary cleanup actions when the type goes out of scope.
-- `store`: The `store` ability allows the type to be stored inside global storage.
+- `store`: The `store` ability allows the type's value to be stored inside a struct in global storage.
 - `key`: The `key` ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.
 
 These abilites may be used to define type bounds for generic functions and structs.
