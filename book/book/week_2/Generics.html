@@ -1,0 +1,511 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Type Constraints, Polymorphism, and Generics</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../Prologue.html">Building with Movement</a></li><li class="chapter-item expanded "><a href="../week_1/week_1.html"><strong aria-hidden="true">1.</strong> Week 1: Introduction to Move and Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_1/Inro_to_move.html"><strong aria-hidden="true">1.1.</strong> Introduction to Move</a></li><li class="chapter-item expanded "><a href="../week_1/Developer_setup.html"><strong aria-hidden="true">1.2.</strong> Developer Setup</a></li><li class="chapter-item expanded "><a href="../week_1/Basic_move_syntax.html"><strong aria-hidden="true">1.3.</strong> Basic Move Syntax</a></li><li class="chapter-item expanded "><a href="../week_1/Module_and_build_system.html"><strong aria-hidden="true">1.4.</strong> Module and Build System</a></li><li class="chapter-item expanded "><a href="../week_1/Debugging_basics.html"><strong aria-hidden="true">1.5.</strong> Debugging Basic Move Programs</a></li><li class="chapter-item expanded "><a href="../week_1/Movement_standard_library.html"><strong aria-hidden="true">1.6.</strong> Movement Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="../week_2/week_2.html"><strong aria-hidden="true">2.</strong> Week 2: Advanced Move and Move for Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_2/Generics.html" class="active"><strong aria-hidden="true">2.1.</strong> Type Constraints, Polymorphism, and Generics</a></li><li class="chapter-item expanded "><a href="../week_2/Safety.html"><strong aria-hidden="true">2.2.</strong> Safety</a></li><li class="chapter-item expanded "><a href="../week_2/Intro_smart_contracts.html"><strong aria-hidden="true">2.3.</strong> Introduction to Smart Contracts</a></li><li class="chapter-item expanded "><a href="../week_2/Testing.html"><strong aria-hidden="true">2.4.</strong> Testing</a></li><li class="chapter-item expanded "><a href="../week_2/Design_patterns.html"><strong aria-hidden="true">2.5.</strong> Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_2/Development_staging.html"><strong aria-hidden="true">2.6.</strong> Smart Contracts Development and Staging</a></li></ol></li><li class="chapter-item expanded "><a href="../week_3/week_3.html"><strong aria-hidden="true">3.</strong> Week 3: M1 and DeFi Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_3/Deploying_on_M1.html"><strong aria-hidden="true">3.1.</strong> Deploying on M1</a></li><li class="chapter-item expanded "><a href="../week_3/Security.html"><strong aria-hidden="true">3.2.</strong> Security</a></li><li class="chapter-item expanded "><a href="../week_3/Common_blockchain_system_design_patterns.html"><strong aria-hidden="true">3.3.</strong> Common Blockchain System Design Patterns</a></li><li class="chapter-item expanded "><a href="../week_3/Access_control.html"><strong aria-hidden="true">3.4.</strong> Access Control</a></li><li class="chapter-item expanded "><a href="../week_3/DeFi.html"><strong aria-hidden="true">3.5.</strong> DeFi</a></li></ol></li><li class="chapter-item expanded "><a href="../week_4/week_4.html"><strong aria-hidden="true">4.</strong> Week 4: Projects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../week_4/Project_requirements_and_recommendations.html"><strong aria-hidden="true">4.1.</strong> Project Requirements and Recommendations</a></li><li class="chapter-item expanded "><a href="../week_4/Guidelines.html"><strong aria-hidden="true">4.2.</strong> Guidelines</a></li><li class="chapter-item expanded "><a href="../week_4/Next_steps.html"><strong aria-hidden="true">4.3.</strong> Next Steps</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="generics-type-constraints-and-polymorphism"><a class="header" href="#generics-type-constraints-and-polymorphism">Generics, type constraints, and polymorphism</a></h1>
+<p>In this section we will examine Move's support for common type-level program models. Owing to the strictness of its programming model, many of the features found in modern programming languages are not available in Move. </p>
+<p>We conclude with a programming example, <em>💻 MoveNav</em>, that implements a polymorphic navigation module using Move.</p>
+<h2 id="generics"><a class="header" href="#generics">Generics</a></h2>
+<p>Generics act as abstract stand-ins for concrete types and allow for type-independent code. A single function written with generics can be used for any type. In the Move language, generics can be applied to struct and function signatures. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/generics.html
+fun id&lt;T&gt;(x: T): T {
+    // this type annotation is unnecessary but valid
+    (x: T)
+}
+
+struct Foo&lt;T&gt; has copy, drop { x: T }
+
+let x = id&lt;bool&gt;(true); // ok!
+let x = id&lt;u64&gt;(true); // error! true is not a u64
+
+struct Foo&lt;T&gt; has copy, drop { x: T }
+
+let foo = Foo&lt;bool&gt; { x: 0 }; // error! 0 is not a bool
+let Foo&lt;address&gt; { x } = foo; // error! bool is incompatible with address
+let bar = Foo&lt;bool&gt; { x : true }; // ok!
+<span class="boring">}</span></code></pre></pre>
+<h2 id="move-does-not-support-subtyping-or-composable-type-constraints"><a class="header" href="#move-does-not-support-subtyping-or-composable-type-constraints">Move does not support subtyping or composable type constraints</a></h2>
+<p>In Rust you can write code that composes traits to implement functionality similar to subtyping in other languages.</p>
+<pre><pre class="playground"><code class="language-rust">trait Animal {
+    fn make_sound(&amp;self);
+}
+
+trait Fly {
+    fn fly(&amp;self);
+}
+
+trait Swim {
+    fn swim(&amp;self);
+}
+
+trait FlyingSwimmingAnimal: Animal + Fly + Swim {
+    fn do_flying_swimming_stuff(&amp;self) {
+        self.make_sound();
+        self.fly();
+        self.swim();
+    }
+}
+
+struct Duck {
+    name: String,
+}
+
+impl Animal for Duck {
+    fn make_sound(&amp;self) {
+        println!(&quot;The duck {} says quack!&quot;, self.name);
+    }
+}
+
+impl Fly for Duck {
+    fn fly(&amp;self) {
+        println!(&quot;The duck {} is flying.&quot;, self.name);
+    }
+}
+
+impl Swim for Duck {
+    fn swim(&amp;self) {
+        println!(&quot;The duck {} is swimming.&quot;, self.name);
+    }
+}
+
+fn perform_actions&lt;T: Animal + Fly + Swim&gt;(animal: &amp;T) {
+    animal.make_sound();
+    animal.fly();
+    animal.swim();
+}
+
+fn main() {
+    let duck = Duck {
+        name: String::from(&quot;Donald&quot;),
+    };
+    
+    perform_actions(&amp;duck);
+}</code></pre></pre>
+<p>As part of the strictness of its programming model, Move does not support these constructs. Instead to achieve something similar to subtyping, it is often best to compose structs. That is, while you cannot establish an <em>is</em> relationship between types, you can establish a <em>has</em> relationship. This may be a more familiar model for those used to programming in C.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0x42::Animal {
+    use std::string;
+    use std::debug;
+
+    struct Animal {
+        sound : string;
+        name : string;
+    }
+
+    struct FlyingAnimal {
+        flies : bool;
+        speed : u8;
+        animal : Animal;
+    }
+
+    struct Bird {
+        flying_animal : FlyingAnimal;
+        feather_description : string;
+    }
+
+    fun make_sound(animal : Animal){
+        debug::print(animal.sound);
+    }
+
+    fun bird_make_sound(bird : Bird){
+        make_sound(bird.flying_animal.animal);
+    }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Importantly, however, you cannot compose types to provide bounds on generic functions. An equivalent of <code>fn perform_actions&lt;T: Animal + Fly + Swim&gt;(animal: &amp;T)</code> does not exist. </p>
+<p>Further below, we will discuss more advanced means of achieving similar subtyping and polymorphism. However, in most cases, you will be better off simply choosing a simpler programming model.</p>
+<h2 id="the-four-type-abilities-copy-drop-store-and-key"><a class="header" href="#the-four-type-abilities-copy-drop-store-and-key">The Four Type Abilities: <code>copy</code>, <code>drop</code>, <code>store</code>, and <code>key</code></a></h2>
+<ul>
+<li><code>copy</code>: The <code>copy</code> ability allows for the type's value to be cloned.</li>
+<li><code>drop</code>: The <code>drop</code> ability enables the necessary cleanup actions when the type goes out of scope.</li>
+<li><code>store</code>: The <code>store</code> ability allows the type's value to be stored inside a struct in global storage.</li>
+<li><code>key</code>: The <code>key</code> ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.</li>
+</ul>
+<p>These abilites may be used to define type bounds for generic functions and structs.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/global-storage-operators.html#global-storage-operators-with-generics
+
+struct Box&lt;T&gt; has key { t: T }
+
+// Publish a Container storing a type T of the caller's choosing
+fun publish_generic_box&lt;T&gt;(account: &amp;signer, t: T) {
+    move_to&lt;Box&lt;T&gt;&gt;(account, Box { t })
+}
+
+/// Publish a container storing a u64
+fun publish_instantiated_generic_box(account: &amp;signer, t: u64) {
+    move_to&lt;Box&lt;u64&gt;&gt;(account, Box { t })
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Importantly, in the <code>publish_generic_box</code> example above, the type <code>T</code> must also have the <code>has</code> and <code>store</code> abilities owing to Move's rules of ability composition:</p>
+<ul>
+<li><code>copy</code>: All fields must have copy.</li>
+<li><code>drop</code>: All fields must have drop.</li>
+<li><code>store</code>: All fields must have store.</li>
+<li><code>key</code>: All fields must have store.</li>
+</ul>
+<h2 id="storage-polymorphism"><a class="header" href="#storage-polymorphism">Storage polymorphism</a></h2>
+<p>Storage polymorphism is the ability to index into global storage via a type parameter chosen at runtime. By leveraging storage polymorphism in combination with generics, Move developers can write generic algorithms, functions, and modules that can work with different resource types stored in the blockchain's storage. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/global-storage-operators.html#global-storage-operators-with-generics
+
+struct Box&lt;T&gt; has key { t: T }
+
+// Publish a Container storing a type T of the caller's choosing
+fun publish_generic_box&lt;T&gt;(account: &amp;signer, t: T) {
+    move_to&lt;Box&lt;T&gt;&gt;(account, Box { t })
+}
+
+/// Publish a container storing a u64
+fun publish_instantiated_generic_box(account: &amp;signer, t: u64) {
+    move_to&lt;Box&lt;u64&gt;&gt;(account, Box { t })
+}
+<span class="boring">}</span></code></pre></pre>
+<p>While not as flexible as general polymorphism found in some languages, Move's storage polymorphism can quickly compose complex and useful operations for the blockchain. The below is an example of function for adding liquidity from Movement's dex router. Under the hood, global storage polymorphism is being used to enable to the publication of generic coins.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Add liquidity to pool `X`/`Y` with rationality checks.
+/// * `coin_x` - coin X to add as liquidity.
+/// * `min_coin_x_val` - minimum amount of coin X to add as liquidity.
+/// * `coin_y` - coin Y to add as liquidity.
+/// * `min_coin_y_val` - minimum amount of coin Y to add as liquidity.
+/// Returns remainders of coins X and Y, and LP coins: `(Coin&lt;X&gt;, Coin&lt;Y&gt;, Coin&lt;LP&lt;X, Y, Curve&gt;&gt;)`.
+///
+/// Note: X, Y generic coin parameters must be sorted.
+public fun add_liquidity&lt;X, Y, Curve&gt;(
+    coin_x: Coin&lt;X&gt;,
+    min_coin_x_val: u64,
+    coin_y: Coin&lt;Y&gt;,
+    min_coin_y_val: u64,
+): (Coin&lt;X&gt;, Coin&lt;Y&gt;, Coin&lt;LP&lt;X, Y, Curve&gt;&gt;) {
+    assert!(coin_helper::is_sorted&lt;X, Y&gt;(), ERR_WRONG_COIN_ORDER);
+
+    let coin_x_val = coin::value(&amp;coin_x);
+    let coin_y_val = coin::value(&amp;coin_y);
+
+    assert!(coin_x_val &gt;= min_coin_x_val, ERR_INSUFFICIENT_X_AMOUNT);
+    assert!(coin_y_val &gt;= min_coin_y_val, ERR_INSUFFICIENT_Y_AMOUNT);
+
+    let (optimal_x, optimal_y) =
+        calc_optimal_coin_values&lt;X, Y, Curve&gt;(
+            coin_x_val,
+            coin_y_val,
+            min_coin_x_val,
+            min_coin_y_val
+        );
+
+    let coin_x_opt = coin::extract(&amp;mut coin_x, optimal_x);
+    let coin_y_opt = coin::extract(&amp;mut coin_y, optimal_y);
+
+    let lp_coins = liquidity_pool::mint&lt;X, Y, Curve&gt;(coin_x_opt, coin_y_opt);
+    (coin_x, coin_y, lp_coins)
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="unused-and-phantom-types"><a class="header" href="#unused-and-phantom-types">Unused and phantom types</a></h2>
+<p>In order to enforce type constraints at compile-time, unused type parameters can be marked as phantom type parameters. Arguments to phantom type parameters won't be considered when determining the abilities of the generic type. Thus, this eliminates the need for spurious ability annotations. </p>
+<p>Generics, along with storage polymorphism and phantom type parameters, offer flexibility, code reuse, and type safety. These features make it easier to create modular and reusable code components for safe contracts in the Move language. For instance, generics can be used to define generic data structures such as lists, maps, or queues that can store and manipulate values of any type. In addition, generics enable the creation of templatized algorithms which can operate on different types of data. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/generics.html?highlight=phantom%20types#unused-type-parameters
+module 0x2::m {
+    // Currency Specifiers
+    struct Currency1 {}
+    struct Currency2 {}
+
+    // A generic coin type that can be instantiated using a currency
+    // specifier type.
+    //   e.g. Coin&lt;Currency1&gt;, Coin&lt;Currency2&gt; etc.
+    struct Coin&lt;Currency&gt; has store {
+        value: u64
+    }
+
+    // Write code generically about all currencies
+    public fun mint_generic&lt;Currency&gt;(value: u64): Coin&lt;Currency&gt; {
+        Coin { value }
+    }
+
+    // Write code concretely about one currency
+    public fun mint_concrete(value: u64): Coin&lt;Currency1&gt; {
+        Coin { value }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="-movenav"><a class="header" href="#-movenav">💻 MoveNav</a></h2>
+<p>💻 MoveNav implements Dijkstra's algorithm for navigating over a graph with different navigation types in move. </p>
+<p>We'll use a simple approach to domain modeling outlined below.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// redacted version of examples/movement/MoveNav
+module 0x42::MoveNav {
+    use std::vector;
+    use std::option;
+    use std::debug;
+
+    struct Graph {
+        nodes: vector&lt;Vector3&gt;,
+        edges: vector&lt;Edge&gt;,
+    }
+
+    struct Vector3 {
+        x: u8,
+        y: u8,
+        z: u8,
+    }
+
+    struct Edge {
+        source: u8,
+        target: u8,
+        weight: u8,
+    }
+
+    struct Navigation {
+        graph: Graph,
+        navigation_type: NavigationType,
+    }
+
+    struct NavigationType {
+        name: string,
+        speed: u8,
+    }
+
+    fun navigate(nav: Navigation, start: Vector3, end: Vector3): option::Option&lt;vector::Vector3&gt; {
+        debug::print(&quot;Navigating from &quot;, start, &quot; to &quot;, end);
+
+        let nav_type = &amp;nav.navigation_type;
+
+        if nav_type.name == &quot;Walk&quot; {
+            debug::print(&quot;Walking at speed &quot;, nav_type.speed);
+            // Perform walking navigation logic
+            return option::None;
+        } 
+        
+        if nav_type.name == &quot;Run&quot; {
+            debug::print(&quot;Running at speed &quot;, nav_type.speed);
+            // Perform running navigation logic
+            return option::None;
+        } 
+        
+        if nav_type.name == &quot;Fly&quot; {
+            debug::print(&quot;Flying at speed &quot;, nav_type.speed);
+            // Perform flying navigation logic
+            return option::None;
+        } else {
+            debug::print(&quot;Unsupported navigation type&quot;);
+            return option::None;
+        }
+
+    
+    }
+
+    fun set_graph(nav: &amp;mut Navigation, graph: Graph) {
+        nav.graph = graph;
+    }
+
+    fun set_navigation_type(nav: &amp;mut Navigation, nav_type: NavigationType) {
+        nav.navigation_type = nav_type;
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>To dive into the project, please clone this book's repo, and navigate to <code>examples/movement/MoveNav</code>.</p>
+<h2 id="the-future-of-move-type-programming"><a class="header" href="#the-future-of-move-type-programming">The future of Move type programming</a></h2>
+<p>The <a href="https://github.com/move-language/move/blob/main/language/move-prover/doc/user/spec-lang.md#quantifiers">MSL</a> specification provides for more advanced type-level constructs. For ambitious developers, these may be powerful contribution objectives!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../week_2/week_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../week_2/Safety.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../week_2/week_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../week_2/Safety.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

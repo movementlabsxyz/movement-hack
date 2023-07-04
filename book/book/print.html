@@ -1,0 +1,1761 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="Prologue.html">Building with Movement</a></li><li class="chapter-item expanded "><a href="week_1/week_1.html"><strong aria-hidden="true">1.</strong> Week 1: Introduction to Move and Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="week_1/Inro_to_move.html"><strong aria-hidden="true">1.1.</strong> Introduction to Move</a></li><li class="chapter-item expanded "><a href="week_1/Developer_setup.html"><strong aria-hidden="true">1.2.</strong> Developer Setup</a></li><li class="chapter-item expanded "><a href="week_1/Basic_move_syntax.html"><strong aria-hidden="true">1.3.</strong> Basic Move Syntax</a></li><li class="chapter-item expanded "><a href="week_1/Module_and_build_system.html"><strong aria-hidden="true">1.4.</strong> Module and Build System</a></li><li class="chapter-item expanded "><a href="week_1/Debugging_basics.html"><strong aria-hidden="true">1.5.</strong> Debugging Basic Move Programs</a></li><li class="chapter-item expanded "><a href="week_1/Movement_standard_library.html"><strong aria-hidden="true">1.6.</strong> Movement Standard Library</a></li></ol></li><li class="chapter-item expanded "><a href="week_2/week_2.html"><strong aria-hidden="true">2.</strong> Week 2: Advanced Move and Move for Movement</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="week_2/Generics.html"><strong aria-hidden="true">2.1.</strong> Type Constraints, Polymorphism, and Generics</a></li><li class="chapter-item expanded "><a href="week_2/Safety.html"><strong aria-hidden="true">2.2.</strong> Safety</a></li><li class="chapter-item expanded "><a href="week_2/Intro_smart_contracts.html"><strong aria-hidden="true">2.3.</strong> Introduction to Smart Contracts</a></li><li class="chapter-item expanded "><a href="week_2/Testing.html"><strong aria-hidden="true">2.4.</strong> Testing</a></li><li class="chapter-item expanded "><a href="week_2/Design_patterns.html"><strong aria-hidden="true">2.5.</strong> Design Patterns</a></li><li class="chapter-item expanded "><a href="week_2/Development_staging.html"><strong aria-hidden="true">2.6.</strong> Smart Contracts Development and Staging</a></li></ol></li><li class="chapter-item expanded "><a href="week_3/week_3.html"><strong aria-hidden="true">3.</strong> Week 3: M1 and DeFi Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="week_3/Deploying_on_M1.html"><strong aria-hidden="true">3.1.</strong> Deploying on M1</a></li><li class="chapter-item expanded "><a href="week_3/Security.html"><strong aria-hidden="true">3.2.</strong> Security</a></li><li class="chapter-item expanded "><a href="week_3/Common_blockchain_system_design_patterns.html"><strong aria-hidden="true">3.3.</strong> Common Blockchain System Design Patterns</a></li><li class="chapter-item expanded "><a href="week_3/Access_control.html"><strong aria-hidden="true">3.4.</strong> Access Control</a></li><li class="chapter-item expanded "><a href="week_3/DeFi.html"><strong aria-hidden="true">3.5.</strong> DeFi</a></li></ol></li><li class="chapter-item expanded "><a href="week_4/week_4.html"><strong aria-hidden="true">4.</strong> Week 4: Projects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="week_4/Project_requirements_and_recommendations.html"><strong aria-hidden="true">4.1.</strong> Project Requirements and Recommendations</a></li><li class="chapter-item expanded "><a href="week_4/Guidelines.html"><strong aria-hidden="true">4.2.</strong> Guidelines</a></li><li class="chapter-item expanded "><a href="week_4/Next_steps.html"><strong aria-hidden="true">4.3.</strong> Next Steps</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="building-with-movement"><a class="header" href="#building-with-movement">Building with Movement</a></h1>
+<p>Welcome to <em>Building with Movement</em>! Over the course of this booklet, we will be addressing topics related to developing for the Movement blockchain.</p>
+<p>This booklet was originally developed for a month-long hackathon, and so has content covering four weeks. While we think this pacing is nice, the book is concise enough to do in far less time and resumable enough to spread out over more time.</p>
+<p>By the end of this book, you will have the skills to build for the Movement blockchain and the contextual awareness to understand its advantages.</p>
+<p>If you are looking for in-depth documentation of Movement or the <code>movement</code> CLI please head to <a href="https://docs.movementlabs.xyz/">docs.movementlabs.xyz</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-1-introduction-to-move-and-movement"><a class="header" href="#week-1-introduction-to-move-and-movement">Week 1: Introduction to Move and Movement</a></h1>
+<p>This week kicks off our exploration of the Move language and Movement ecosystem. We will begin by introducing Move, setting up an appropriate developer environment, and covering the basics of the Move language. Many of the topics concerning the move language will be revisited in greater depth during Week 2. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-move-and-movement"><a class="header" href="#introduction-to-move-and-movement">Introduction to Move and Movement</a></h1>
+<p>This section is intended to orient the reader on the history of the language and various Move virtual machine implementations.</p>
+<h2 id="libradiem"><a class="header" href="#libradiem">Libra/Diem</a></h2>
+<p>The Move programming language was originally developed by Facebook's Libra project, now known as Diem, to facilitate the creation of smart contracts on its blockchain platform. The language takes its name from the underlying concept of moving resources rather than copying them, aligning with the principles of resource-oriented programming. Move was designed to address the unique challenges of blockchain development, such as security, efficiency, and scalability. Its origins can be traced back to the vision of creating a blockchain-based financial infrastructure that would be accessible to billions of people around the world. Today, Move continues to evolve as an open-source language, with a growing ecosystem and community supporting its development and adoption.</p>
+<h2 id="resource-orientation-and-the-blockchain"><a class="header" href="#resource-orientation-and-the-blockchain">Resource-orientation and the blockchain</a></h2>
+<p>Resource-orientation is a fundamental concept in programming languages like Move that greatly benefits the blockchain ecosystem. By aligning with the principles of resource-oriented programming, the blockchain can enhance security, efficiency, and reliability of smart contracts.</p>
+<h3 id="stack-model-programming-and-function-ownership"><a class="header" href="#stack-model-programming-and-function-ownership">Stack Model Programming and Function Ownership</a></h3>
+<p>In resource-oriented programming, like Move, the stack model is employed to manage data ownership and control access. Take for example the following unsafe C program.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+void printAndFree(char* data) {
+    printf(&quot;Data: %s\n&quot;, data);
+    free(data); // Function takes ownership and frees the memory
+}
+
+int main() {
+    char* value = (char*)malloc(strlen(&quot;Hello&quot;) + 1);
+    strcpy(value, &quot;Hello&quot;);
+    
+    printAndFree(value); // Pass ownership of 'value' to the function
+
+    // Attempt to access the value after it has been freed
+    printf(&quot;Data after freeing: %s\n&quot;, value); // Unsafe access!
+
+    return 0;
+}
+</code></pre>
+<p>In Move, this kind of unsafe access would not be possible because of strict ownership conditions.</p>
+<p>Each function owns the resources it creates and is responsible for their lifecycle. This ownership model ensures that resources are properly managed and prevents unauthorized access or modification, bolstering the security of blockchain-based applications.</p>
+<h3 id="access-restriction-all-the-way-down"><a class="header" href="#access-restriction-all-the-way-down">Access Restriction All the Way Down</a></h3>
+<p>Resource-oriented programming languages like Move implement access restrictions at all levels of code execution. From the top-level contract to individual functions, access to resources is strictly controlled. This granular access control minimizes the risk of unauthorized operations and ensures that only authorized parties can interact with specific resources, promoting secure and auditable transactions on the blockchain.</p>
+<h3 id="type-linearity-and-ownership"><a class="header" href="#type-linearity-and-ownership">Type Linearity and Ownership</a></h3>
+<p>Type linearity is a crucial aspect of resource-oriented programming that enforces the linear use of resources. In Move, resources have linear types, meaning they can only be consumed or moved, not duplicated. This feature prevents resource duplication, reduces memory consumption, and eliminates the risk of double-spending, ensuring the integrity and accuracy of transactions on the blockchain.</p>
+<h3 id="double-spending"><a class="header" href="#double-spending">Double-Spending</a></h3>
+<p>Double-spending is a significant concern in decentralized systems where digital assets are involved. Resource-oriented programming, like Move, mitigates the risk of double-spending by enforcing strict ownership and borrowing rules. Resources can only be moved or consumed once, preventing malicious actors from creating multiple transactions using the same resource and effectively eliminating the possibility of double-spending attacks.</p>
+<h2 id="virtual-machines-and-the-blockchain"><a class="header" href="#virtual-machines-and-the-blockchain">Virtual machines and the blockchain</a></h2>
+<p>Virtual machines play a crucial role in the blockchain ecosystem, particularly in executing and enforcing the logic of smart contracts. They ensure that all nodes on the blockchain network run the same logic, enabling verification and consensus among participants.</p>
+<h3 id="smart-contracts-nodes-running-the-same-logic"><a class="header" href="#smart-contracts-nodes-running-the-same-logic">Smart Contracts: Nodes Running the Same Logic</a></h3>
+<p>Smart contracts are self-executing agreements with predefined conditions encoded in code. In the blockchain context, smart contracts are executed by nodes across the network. Virtual machines, such as the Move Virtual Machine (Move VM) used in the Move programming language, ensure that all nodes interpret and execute the smart contract code uniformly. This guarantees that the same logic is executed across the network, promoting trust and enabling reliable transaction execution.</p>
+<h3 id="verification-nodes-talking-about-running-the-same-logic"><a class="header" href="#verification-nodes-talking-about-running-the-same-logic">Verification: Nodes Talking About Running the Same Logic</a></h3>
+<p>Verification is a critical aspect of the blockchain ecosystem. Nodes need to agree on the validity of transactions and smart contract execution. Virtual machines facilitate this verification process by providing a standardized environment where nodes can discuss and agree upon the execution of the same logic. By achieving consensus on the outcomes, nodes can ensure the integrity and consistency of the blockchain.</p>
+<h3 id="virtual-machine-makes-sure-the-same-logic-is-the-same-logic"><a class="header" href="#virtual-machine-makes-sure-the-same-logic-is-the-same-logic">Virtual Machine: Makes Sure the Same Logic is the Same Logic</a></h3>
+<p>The virtual machine acts as an execution environment for smart contracts and other blockchain operations. It ensures that the same logic applied to a smart contract on one node is identical to the logic applied on every other node. This consistency is essential for achieving consensus and maintaining the immutability of the blockchain. Virtual machines, such as the Move VM, enforce the rules and protocols defined by the blockchain platform, allowing for secure and reliable execution of smart contracts.</p>
+<h3 id="move-virtual-machines"><a class="header" href="#move-virtual-machines">Move Virtual Machines</a></h3>
+<p>Several implementations of the Move virtual machine exist, including the Move VM, Aptos VM, and Sui VM. These implementations provide alternative approaches to executing Move code and offer flexibility and compatibility with different blockchain platforms and ecosystems. Each implementation has its own characteristics, optimizations, and use cases, catering to diverse blockchain development requirements.</p>
+<h3 id="limitations-and-movement"><a class="header" href="#limitations-and-movement">Limitations and Movement</a></h3>
+<p>The transaction processing speed (TPS) of the underlying blockchain is a primary limitation on smart contract complexity. Higher TPS allows for more intricate and computationally intensive smart contracts to be executed within a given time frame.</p>
+<p>Movement facilitates a theoretical maximum TPS of 160,000 by combining the technologies of Move and Avalanche Snowball consensus. This scalability enhancement enables more sophisticated and resource-intensive smart contracts to be processed efficiently.</p>
+<p>In addition to its high TPS, Movement provides developer-friendly features via its Aptos-based VM and an ergonomic standard library .</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="developer-setup"><a class="header" href="#developer-setup">Developer Setup</a></h1>
+<p>This section examines tooling and provides setup instructions for working with the Movement blockchain and the various examples in covered in this booklet.</p>
+<h2 id="the-move-ecosystem"><a class="header" href="#the-move-ecosystem">The Move ecosystem</a></h2>
+<p>The budding Move ecosystem sports a variety of developer friendly tools. As we list off tools that will be relevant to this booklet, keep in mind that there are number of projects we have not included.</p>
+<h3 id="virtual-machines"><a class="header" href="#virtual-machines">Virtual machines</a></h3>
+<p>As previously discussed, there are several virtual machine implementations available for Move development--each of with is paired with particular blockchain. Besides the <code>Movement VM</code>, the most well-known Move virtual machines are <code>Move VM</code>, <code>Aptos VM</code>, and <code>Sui VM</code></p>
+<p>We provide a comparison of these different virtual machines in our <a href="https://docs.movementlabs.xyz/#what-is-move">docs</a>. </p>
+<p>When selecting a virtual machine for development its important to consider performance, ease of use, and stability. <code>Aptos VM</code> built upon the original and stable <code>Move VM</code> to provide an improved developer experience. The <code>Movement VM</code> builds upon <code>Aptos VM</code> to provide improved performance.</p>
+<h3 id="clis"><a class="header" href="#clis">CLIs</a></h3>
+<p>There are three CLIs worth note in the Move language development space. All support building, testing, deploying, and running smart contracts.</p>
+<ul>
+<li><a href="https://github.com/move-language/move/tree/main/language/tools/move-cli"><code>move</code></a>: the original CLI for Move development. </li>
+<li><code>aptos</code>: the CLI for Aptos development.</li>
+<li><a href="https://movement.gitbook.io/english/developers/developer-tools/movement-cli"><code>movement</code></a>: our very own CLI.</li>
+</ul>
+<p>In this booklet we will be working with <code>move</code> and <code>movement</code>. </p>
+<h3 id="package-managers"><a class="header" href="#package-managers">Package managers</a></h3>
+<p>Move has a package manager, <a href="https://www.movey.net/">movey</a>. However, generally we will recommend adding dependencies directly to your <code>Move.toml</code> file. </p>
+<pre><code class="language-toml">[package]
+name = &quot;hello_world&quot;
+version = &quot;0.0.0&quot;
+
+[dependencies]
+# MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+MovementFramework = {  git = &quot;https://github.com/movemntdev/movement-subnet.git&quot;, subdir = &quot;vm/aptos-vm/aptos-move/aptos-framework&quot;, rev = &quot;main&quot; }
+
+[addresses]
+std =  &quot;0x1&quot;
+hello_blockchain = &quot;_&quot;
+</code></pre>
+<h3 id="ide"><a class="header" href="#ide">IDE</a></h3>
+<p>There are several useful development enviroments for Move. This book will be geared towards using VsCode because of the its developer container features and its <a href="https://marketplace.visualstudio.com/items?itemName=move.move-analyzer">Move analyzer</a>. However, syntax highlighting has been implemented for other IDEs including <a href="https://github.com/rvmelkonian/move.vim">Vim</a>.</p>
+<h2 id="our-setup"><a class="header" href="#our-setup">Our Setup</a></h2>
+<p>We'll be using the <code>move</code> and <code>movement</code> CLIs; no package manager; and VsCode most-often running the <code>movement-dev</code> Docker container from <a href="week_1/public.ecr.aws/c4i6k4r8/movement-dev">public.ecr.aws/c4i6k4r8/movement-dev</a>.</p>
+<p>To get started...</p>
+<ol>
+<li>Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack</li>
+<li>Open the repo in VsCode.</li>
+<li>Based on the advice provided for a given project, reopen the repo in one of <code>move</code>, <code>movement-dev</code>, <code>anchor</code>, or <code>solidity</code> <a href="https://code.visualstudio.com/docs/devcontainers/containers">devcontainers</a>.</li>
+</ol>
+<p>Alternatively, when working with <code>movement-dev</code> you may:</p>
+<pre><code>docker image pull public.ecr.aws/c4i6k4r8/movement-dev
+docker run -it -v &quot;$(pwd):/workspace&quot; public.ecr.aws/c4i6k4r8/movement-dev /bin/bash
+</code></pre>
+<p>We will also occasionally use Rust and Python to complete various programming examples.</p>
+<p>We will also discuss using our proxy service with the JavaScript. The <code>movement-dev</code> developer container provides an easy start place for this alternative means of interacting with the <a href="https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract">subnet</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-move-syntax"><a class="header" href="#basic-move-syntax">Basic Move Syntax</a></h1>
+<p>This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive guides can be found at <a href="https://move-book.com/">move-book.com</a> and <a href="https://move-language.github.io/move/">move-language.github.io</a>.</p>
+<h2 id="allocation-and-the-move-memory-model"><a class="header" href="#allocation-and-the-move-memory-model">Allocation and the Move Memory Model</a></h2>
+<p>Move's resource-oriented language model leads to a unique memory model:</p>
+<ul>
+<li>Resources in Move are allocated and deallocated implicitly based on their defined lifespan and ownership semantics. This ensures proper resource management without the need for explicit memory allocation or deallocation.</li>
+<li>Resources are created and stored on the blockchain as part of a transaction, providing a persistent and tamper-resistant storage mechanism.</li>
+<li>Global storage in Move allows for the storage of resource data that can be accessed across multiple transactions and smart contracts.</li>
+</ul>
+<p>While function ownership in Move is similar to Rust, it is less permissive and closer to being purely linear--restricting the set of possible borrows.</p>
+<h2 id="expressions-and-control-flow"><a class="header" href="#expressions-and-control-flow">Expressions and Control Flow</a></h2>
+<h3 id="expressions"><a class="header" href="#expressions">Expressions</a></h3>
+<p>Move use a similar expression-orientation to Rusts. Block returns are possible. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun eight() : u8 {
+    8
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="if"><a class="header" href="#if"><code>if</code></a></h3>
+<p>Branching in Move is accomplished via <code>if</code> and <code>else</code> statements. There is not an <code>else if</code> statement.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>if (a) {
+    debug::print&lt;u8&gt;(&amp;0);
+} else {
+    debug::print&lt;u8&gt;(&amp;99);
+};
+<span class="boring">}</span></code></pre></pre>
+<p><code>if</code> is an expression.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let value = if (true) { 8 } else {0}; // value set to 8
+<span class="boring">}</span></code></pre></pre>
+<p>Move syntax for expressions and control flow shares similarities with Rust. Basic control flow constructs like if, while, and loop are present in Move as well. However, Move has a more limited set of expressions and control flow features compared to Rust.</p>
+<h3 id="while-and-loop"><a class="header" href="#while-and-loop"><code>while</code> and <code>loop</code></a></h3>
+<p>Move supports <code>while</code> and <code>loop</code> looping constructs. <code>while</code> loops while  condition is true. <code>loop</code> loops infinitely. There is no <code>for</code> loop, both <code>while</code> and <code>loop</code> are roughly equally used as replacements.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// example of while loop
+while (i &lt; 10) {
+    Vector::push_back(&amp;mut a, i);
+    i = i + 1;
+};
+<span class="boring">}</span></code></pre></pre>
+<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<h3 id="primitives"><a class="header" href="#primitives">Primitives</a></h3>
+<ul>
+<li>Move has the primitive types <code>boolean</code>, <code>u8</code>, <code>u64</code>, <code>u128</code>, <code>address</code>, and <code>signer</code>.</li>
+<li>Move also supports hex- and byte-string literals.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let byte_val = b&quot;hello, world!&quot;; // byte string
+let hex_val = x&quot;48656C6C6F210A&quot;; // hex string
+<span class="boring">}</span></code></pre></pre>
+<ul>
+<li>Integers can be type cast with the <code>as</code> keyword.</li>
+<li>The signer type represents the sender of a transaction and is used for access control and authentication.</li>
+</ul>
+<h3 id="abilities"><a class="header" href="#abilities">Abilities</a></h3>
+<p>Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.</p>
+<ul>
+<li><code>copy</code>: The <code>copy</code> ability allows for the type's value to be copied.</li>
+<li><code>drop</code>: The <code>drop</code> ability enables the necessary cleanup actions when the type goes out of scope.</li>
+<li><code>store</code>: The <code>store</code> ability allows the type's value to be stored inside a struct in global storage.</li>
+<li><code>key</code>: The <code>key</code> ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.</li>
+<li>Conditional abilities allow types to have different behaviors based on conditions.</li>
+</ul>
+<h3 id="generic-and-behavior"><a class="header" href="#generic-and-behavior">Generic and behavior</a></h3>
+<ul>
+<li>Move supports generics for structs and functions.</li>
+<li>It's possible to achieve polymorphic behavior with generics and phantom types.</li>
+<li>Often you will want to <a href="https://www.move-patterns.com/nestable-resources.html">nest</a> generic structures inside of resources to achieve polymorphism. See the <code>LiquidityPool</code> generic structure below for an example.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// polymorphic coin fee obtainment from liquidswap.
+/// Get fee for specific pool.
+public fun get_fee&lt;X, Y, Curve&gt;(): u64 acquires LiquidityPool {
+    assert!(coin_helper::is_sorted&lt;X, Y&gt;(), ERR_WRONG_PAIR_ORDERING);
+    assert!(exists&lt;LiquidityPool&lt;X, Y, Curve&gt;&gt;(@liquidswap_pool_account), ERR_POOL_DOES_NOT_EXIST);
+
+    let pool = borrow_global&lt;LiquidityPool&lt;X, Y, Curve&gt;&gt;(@liquidswap_pool_account);
+    pool.fee
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="resources-references-and-mutation"><a class="header" href="#resources-references-and-mutation">Resources, References, and Mutation</a></h2>
+<ul>
+<li>You can create a reference with <code>&amp;</code>. </li>
+<li>Reference </li>
+<li>Global storage operators <code>move_to</code>, <code>move_from</code>, <code>borrow_global_mut</code>, <code>borrow_global</code>, and <code>exists</code> in Move enable reading from and writing to resources stored in the blockchain's global storage.</li>
+<li>The <code>acquires</code> keyword is used to specify which resources a function acquires ownership of a resource during execution.</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module collection::collection {
+
+    struct Item has store, drop {}
+    struct Collection has key, store {
+        items: vector&lt;Item&gt;
+    }
+
+    public fun add_item(account: &amp;signer) acquires Collection {
+        let collection = borrow_global_mut&lt;Collection&gt;(signer::address_of(account));
+
+        vector::push_back(&amp;mut collection.items, Item {});
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Move allows the creation of read-only references to resources, ensuring that functions cannot modify them.
+Here's a small code snippet demonstrating the use of Move syntax:</p>
+<h2 id="misc-syntax"><a class="header" href="#misc-syntax">Misc. syntax</a></h2>
+<ul>
+<li>The <code>public</code> keyword in Move indicates that a function can be invoked from outside the current module.</li>
+<li>The <code>native</code> keyword is used to declare functions that are implemented in the blockchain runtime or in an external module.</li>
+<li>There are VM specific directives; in Movement we will address <code>#[inline]</code>, <code>#[view]</code>, <code>#[test_only]</code>, and <code>#[test]</code>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="modules-and-build-system"><a class="header" href="#modules-and-build-system">Modules and Build System</a></h1>
+<p>This section treats with the basic functionality of the module and build system for Move.</p>
+<h2 id="packages"><a class="header" href="#packages">Packages</a></h2>
+<p>A folder with a <code>Move.toml</code> and compilable move code is a package. Packages may define external dependencies, which can be local or store at a remote repository. All Move clients used herein will automatically fetch and compile dependencies. When using <code>movement</code>, we will also define package addresses in the <code>Move.toml</code>.</p>
+<pre><code class="language-toml">[package]
+name = &quot;hello_world&quot;
+version = &quot;0.0.0&quot;
+
+[dependencies]
+# MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+MovementFramework = {  git = &quot;https://github.com/movemntdev/movement-subnet.git&quot;, subdir = &quot;vm/aptos-vm/aptos-move/aptos-framework&quot;, rev = &quot;main&quot; }
+
+[addresses]
+std =  &quot;0x1&quot;
+hello_blockchain = &quot;_&quot;
+</code></pre>
+<h2 id="program-types"><a class="header" href="#program-types">Program types</a></h2>
+<p>Move has two different types of program: <em>modules</em> and <em>scripts</em>. As a general rule, you should use <em>scripts</em> for short proofs of concept or as an entrypoint, see <a href="https://www.move-patterns.com/script-based-design.html">Script Based Design</a>. You can define multiple scripts and modules in the same file. </p>
+<h3 id="modules"><a class="header" href="#modules">Modules</a></h3>
+<p>Modules are great for code reuse. They can be reference and linked.  A module takes the following form.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module &lt;address&gt;::&lt;identifier&gt; {
+    (&lt;use&gt; | &lt;friend&gt; | &lt;type&gt; | &lt;function&gt; | &lt;constant&gt;)*
+}
+<span class="boring">}</span></code></pre></pre>
+<p>When attempting to use logic in a module, you must specify the member function that you wish to call.</p>
+<h3 id="scripts"><a class="header" href="#scripts">Scripts</a></h3>
+<p>Scripts are a slightly easier to use alternative to modules. They take the following form.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    &lt;use&gt;*
+    &lt;constants&gt;*
+    fun &lt;identifier&gt;&lt;[type parameters: constraint]*&gt;([identifier: type]*) &lt;function_body&gt;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Scripts can only have one function in their body.</p>
+<h2 id="building"><a class="header" href="#building">Building</a></h2>
+<p>When developing for <em>modules</em> in move you will typically need to manually publish the module before being able to run. The exception to this rule is when using <code>movement</code> to run unit tests. <code>movement move publish</code> will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run <code>movement move build</code>.</p>
+<p>Below is an example bash script for publishing and running a function in a module end-to-end using the Movement CLI.</p>
+<pre><code class="language-bash">#!/bin/bash -e
+
+# Function to echo text as cyan with emoji
+function begin() {
+  echo -e &quot;🔹 \033[36m$1\033[0m&quot;
+}
+
+# Function to echo text as green with increased font-weight and emoji
+function finish() {
+  echo -e &quot;✅ \033[1;32m$1\033[0m&quot;
+}
+
+begin &quot;Funding account for hello_blockchain deployment and call...&quot;
+movement account fund-with-faucet --account default
+finish &quot;Funded account for hello_blockchain deployment and call!&quot;
+
+begin &quot;Publishing hello_blockchain module...&quot;
+echo &quot;y&quot; | movement move publish --named-addresses hello_blockchain=default
+finish &quot;Published hello_blockchain module!&quot;
+
+begin &quot;Setting hello_blockchain message to 'hello!'...&quot;
+echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:hello!
+finish &quot;Set hello_blockchain message to 'hello'!&quot;
+
+begin &quot;Querying resources for account...&quot;
+movement account list --query resources --account default
+finish &quot;Queryed resourced for account!&quot;
+</code></pre>
+<h3 id="named_addresses"><a class="header" href="#named_addresses"><code>named_addresses</code></a></h3>
+<p>Within <code>aptos_framework</code>, you will be able to use named addresses. These will be replaced at compile time whether they are in the adrress position in a module <code>&lt;my_address_name&gt;::my_module</code> or marked with an <code>@&lt;my_address_name&gt;</code>.</p>
+<p>In your <code>Move.toml</code>, you may specify these addresses as below.</p>
+<pre><code class="language-toml">[addresses]
+std =  &quot;0x1&quot;
+&lt;my_address_name&gt; = &quot;_&quot;
+</code></pre>
+<p>You may then specify them when compiling using <code>--&lt;my_address_name&gt;=&lt;my_value&gt;</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-basic-smart-contracts"><a class="header" href="#debugging-basic-smart-contracts">Debugging Basic Smart Contracts</a></h1>
+<p>This section introduces a few basic smart contracts from this repository as a starting point for programming activites.</p>
+<h2 id="-helloworld"><a class="header" href="#-helloworld">💻 HelloWorld</a></h2>
+<p>Is a very simple program for <code>MoveVM</code>. You can find it at <code>examples/move/hello_world</code>. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script {
+    use std::debug;
+    // use std::vector;
+    fun debug_script(account : signer) {
+
+        // Encode the &quot;Hello, world!&quot; as a byte string.
+        let hello = b&quot;Hello, world!&quot;;
+
+        // Print the byte string as a vector&lt;u8&gt; by passing a reference to the byte string.
+        debug::print&lt;vector&lt;u8&gt;&gt;(&amp;hello);
+
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>To run...</p>
+<pre><code class="language-bash">move sandbox run sources/hello_world_script.move --signers 0xf
+&gt; [debug] 0x48656c6c6f2c20776f726c6421
+</code></pre>
+<p>Double-check the output hex...</p>
+<pre><code class="language-bash">echo 48656c6c6f2c20776f726c6421 | xxd -r - p
+</code></pre>
+<h2 id="-fib"><a class="header" href="#-fib">💻 Fib</a></h2>
+<p>The obligatory Move program that computes the $nth$ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it <code>examples/move/fib</code>. </p>
+<h2 id="-resourceroulette"><a class="header" href="#-resourceroulette">💻 ResourceRoulette</a></h2>
+<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it <code>examples/move/resource_roulette</code>. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module resource_roulette::resource_roulette {
+  use std::vector;
+
+  // ResourceRoulette struct representing the contract state
+  struct ResourceRoulette {
+    bids: vector&lt;vector&lt;address&gt;&gt;,
+    owner: address,
+  }
+
+  struct RouletteWinnings {
+    amount : u64
+  }
+
+  // Initialization function for the ResourceRoulette contract
+  public entry fun init(account: &amp;signer) {
+
+    let bids = vector::empty&lt;vector&lt;address&gt;&gt;();
+    let i = 0;
+    while i &lt; 32 {
+      vector::push_back(&amp;mut bids, vector::empty&lt;address&gt;())
+      i = i + 1;
+    };
+
+    move_to&lt;ResourceRoulette&gt;(account, ResourceRoulette {
+      bids,
+      owner: @resource_roulette,
+    });
+
+  }
+
+  // Bid function to allow signers to bid on a specific slot
+  public entry fun bid(sender: &amp;signer, slot: u8) acquires ResourceRoulette {
+    let roulette = borrow_global_mut&lt;ResourceRoulette&gt;(@resource_roulette);
+    let bids_size = vector::length(&amp;roulette.bids);
+    assert!(slot &lt; bids_size, 99);
+    // assert bids size does not exceed 100
+    assert!(bids_size &lt; 100, 0); 
+
+    let slot_bids = vector::borrow_mut(&amp;mut roulette.bids, slot);
+    vector::push_back(&amp;mut slot_bids, signer::address_of(sender));
+  }
+
+  public fun total_bid(): u64 acquires ResourceRoulette {
+    // Make this more complex to support actual bidding
+    let roulette = borrow_global&lt;ResourceRoulette&gt;(@resource_roulette);
+    vector::length(&amp;roulette.bids)
+  }
+
+  // Roll function to select a pseudorandom slot and pay out all signers who selected that slot
+  public entry fun spin(sender: &amp;signer) acquires ResourceRoulette {
+    let roulette = ResourceRoulette::borrow_global_mut();
+    assert!(singer::address_of(sender) == roulette.owner, 98);
+
+    let resource_vector_size = vector::length(&amp;roulette.bids);
+    let winning_slot = (0x1000 % resource_vector_size) as u8;
+
+    let winners = vector::borrow(&amp;roulette.bids, winning_slot);
+
+    let num_winners = vector::length(&amp;winners_vec);
+    let balance_per_winner = total_bid() / num_winners as u64;
+
+    let mut i = 0;
+    while i &lt; num_winners {
+      let winner = vector::borrow(&amp;winners_vec, i);
+      let mut winnings = borrow_global_mut&lt;RouletteWinnings&gt;(winner);
+      winnings.amount = winnings.amount + balance_per_winner;
+      i = i + 1;
+    };
+
+  }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="movement-standard-library"><a class="header" href="#movement-standard-library">Movement Standard Library</a></h1>
+<p>This section examines the standard library and framework that ships with Movement. Both are based on their Aptos namesakes. </p>
+<p><strong>Disclaimer:</strong> there are many more useful modules in the standard library and framework. We will discuss some of them in this course and encourage you to explore them as you go.</p>
+<h2 id="stddebug-and-aptos_stddebug"><a class="header" href="#stddebug-and-aptos_stddebug"><code>std::debug</code> and <code>aptos_std::debug</code></a></h2>
+<p>Prints to a message to the console using a VM <code>native</code> func. The associated <code>[debug]</code> outputs are easiest to view when unit testing.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module debug_demo::message {
+    use std::string;
+    use std::signer;
+    use aptos_std::debug;
+
+    struct MessageHolder has key {
+        message: string::String,
+    }
+
+
+    public entry fun set_message(account: signer, message_bytes: vector&lt;u8&gt;)
+    acquires MessageHolder {
+        debug::print_stack_trace();
+        let message = string::utf8(message_bytes);
+        let account_addr = signer::address_of(&amp;account);
+        if (!exists&lt;MessageHolder&gt;(account_addr)) {
+            move_to(&amp;account, MessageHolder {
+                message,
+            });
+        } else {
+            let old_message_holder = borrow_global_mut&lt;MessageHolder&gt;(account_addr);
+            old_message_holder.message = message;
+        }
+    }
+
+    #[test(account = @0x1)]
+    fun sender_can_set_message(account: signer) acquires MessageHolder {
+        let addr = signer::address_of(&amp;account);
+        debug::print&lt;address&gt;(&amp;addr);
+        set_message(account,  b&quot;Hello, Blockchain&quot;);
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="stdvector-and-aptos_stdbig_vector"><a class="header" href="#stdvector-and-aptos_stdbig_vector"><code>std::vector</code> and <code>aptos_std::big_vector</code></a></h2>
+<p>A useful dynamically size collection with an <code>aptos_std::</code> counterpart optimized for a large number of elements.</p>
+<h2 id="aptos_stdtable"><a class="header" href="#aptos_stdtable"><code>aptos_std::table</code></a></h2>
+<p>An associative array. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun run_table(account: signer) {
+    let t = table::new&lt;u64, u8&gt;();
+    let key: u64 = 100;
+    let error_code: u64 = 1;
+    assert!(!table::contains(&amp;t, key), error_code);
+    assert!(*table::borrow_with_default(&amp;t, key, &amp;12) == 12, error_code);
+    add(&amp;mut t, key, 1);
+    assert!(*table::borrow_with_default(&amp;t, key, &amp;12) == 1, error_code);
+    move_to(&amp;account, TableHolder{ t });
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="stdoption"><a class="header" href="#stdoption"><code>std::option</code></a></h2>
+<p>This module defines the Option type and its methods to represent and handle an optional value. The implementation is based on a vector.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fun option_contains() {
+    let none = option::none&lt;u64&gt;();
+    let some = option::some(5);
+    let some_other = option::some(6);
+    assert!(option::contains(&amp;some, &amp;5), 0);
+    assert!(option::contains(&amp;some_other, &amp;6), 1);
+    assert!(!option::contains(&amp;none, &amp;5), 2);
+    assert!(!option::contains(&amp;some_other, &amp;5), 3);
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="aptos_framworkresource_account"><a class="header" href="#aptos_framworkresource_account"><code>aptos_framwork::resource_account</code></a></h2>
+<p>A resource account is used to manage resources independent of an account managed by a user. This is is useful for building things like liquidity providers which we will discuss later in the course.</p>
+<h2 id="-resourceroulette-pt-2"><a class="header" href="#-resourceroulette-pt-2">💻 ResourceRoulette pt. 2</a></h2>
+<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell, but only when cash out. Balances are tracked in a <code>aptos_std::table</code>. You can find it and instructions to run it <code>examples/movement/resource_roulette</code>. </p>
+<h2 id="-minifs"><a class="header" href="#-minifs">💻 MiniFs</a></h2>
+<p>A tiny key value store for <code>vector&lt;u8&gt;</code> files. Implements <code>store</code> and <code>load</code> functionality using a <code>aptos_framework::resource_account</code> and a <code>aptos_std::table</code>. You can find it and instructions to run it <code>examples/movement/mini_fs</code>. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-2-advanced-move-and-move-for-movement"><a class="header" href="#week-2-advanced-move-and-move-for-movement">Week 2: Advanced Move and Move for Movement</a></h1>
+<p>This week treats with more advanced concepts in the Move language and focuses our Move development efforts on the Movement blockchain. This is also intended as an opportunity to practice and revisit concepts from Week 1. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="generics-type-constraints-and-polymorphism"><a class="header" href="#generics-type-constraints-and-polymorphism">Generics, type constraints, and polymorphism</a></h1>
+<p>In this section we will examine Move's support for common type-level program models. Owing to the strictness of its programming model, many of the features found in modern programming languages are not available in Move. </p>
+<p>We conclude with a programming example, <em>💻 MoveNav</em>, that implements a polymorphic navigation module using Move.</p>
+<h2 id="generics"><a class="header" href="#generics">Generics</a></h2>
+<p>Generics act as abstract stand-ins for concrete types and allow for type-independent code. A single function written with generics can be used for any type. In the Move language, generics can be applied to struct and function signatures. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/generics.html
+fun id&lt;T&gt;(x: T): T {
+    // this type annotation is unnecessary but valid
+    (x: T)
+}
+
+struct Foo&lt;T&gt; has copy, drop { x: T }
+
+let x = id&lt;bool&gt;(true); // ok!
+let x = id&lt;u64&gt;(true); // error! true is not a u64
+
+struct Foo&lt;T&gt; has copy, drop { x: T }
+
+let foo = Foo&lt;bool&gt; { x: 0 }; // error! 0 is not a bool
+let Foo&lt;address&gt; { x } = foo; // error! bool is incompatible with address
+let bar = Foo&lt;bool&gt; { x : true }; // ok!
+<span class="boring">}</span></code></pre></pre>
+<h2 id="move-does-not-support-subtyping-or-composable-type-constraints"><a class="header" href="#move-does-not-support-subtyping-or-composable-type-constraints">Move does not support subtyping or composable type constraints</a></h2>
+<p>In Rust you can write code that composes traits to implement functionality similar to subtyping in other languages.</p>
+<pre><pre class="playground"><code class="language-rust">trait Animal {
+    fn make_sound(&amp;self);
+}
+
+trait Fly {
+    fn fly(&amp;self);
+}
+
+trait Swim {
+    fn swim(&amp;self);
+}
+
+trait FlyingSwimmingAnimal: Animal + Fly + Swim {
+    fn do_flying_swimming_stuff(&amp;self) {
+        self.make_sound();
+        self.fly();
+        self.swim();
+    }
+}
+
+struct Duck {
+    name: String,
+}
+
+impl Animal for Duck {
+    fn make_sound(&amp;self) {
+        println!(&quot;The duck {} says quack!&quot;, self.name);
+    }
+}
+
+impl Fly for Duck {
+    fn fly(&amp;self) {
+        println!(&quot;The duck {} is flying.&quot;, self.name);
+    }
+}
+
+impl Swim for Duck {
+    fn swim(&amp;self) {
+        println!(&quot;The duck {} is swimming.&quot;, self.name);
+    }
+}
+
+fn perform_actions&lt;T: Animal + Fly + Swim&gt;(animal: &amp;T) {
+    animal.make_sound();
+    animal.fly();
+    animal.swim();
+}
+
+fn main() {
+    let duck = Duck {
+        name: String::from(&quot;Donald&quot;),
+    };
+    
+    perform_actions(&amp;duck);
+}</code></pre></pre>
+<p>As part of the strictness of its programming model, Move does not support these constructs. Instead to achieve something similar to subtyping, it is often best to compose structs. That is, while you cannot establish an <em>is</em> relationship between types, you can establish a <em>has</em> relationship. This may be a more familiar model for those used to programming in C.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0x42::Animal {
+    use std::string;
+    use std::debug;
+
+    struct Animal {
+        sound : string;
+        name : string;
+    }
+
+    struct FlyingAnimal {
+        flies : bool;
+        speed : u8;
+        animal : Animal;
+    }
+
+    struct Bird {
+        flying_animal : FlyingAnimal;
+        feather_description : string;
+    }
+
+    fun make_sound(animal : Animal){
+        debug::print(animal.sound);
+    }
+
+    fun bird_make_sound(bird : Bird){
+        make_sound(bird.flying_animal.animal);
+    }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Importantly, however, you cannot compose types to provide bounds on generic functions. An equivalent of <code>fn perform_actions&lt;T: Animal + Fly + Swim&gt;(animal: &amp;T)</code> does not exist. </p>
+<p>Further below, we will discuss more advanced means of achieving similar subtyping and polymorphism. However, in most cases, you will be better off simply choosing a simpler programming model.</p>
+<h2 id="the-four-type-abilities-copy-drop-store-and-key"><a class="header" href="#the-four-type-abilities-copy-drop-store-and-key">The Four Type Abilities: <code>copy</code>, <code>drop</code>, <code>store</code>, and <code>key</code></a></h2>
+<ul>
+<li><code>copy</code>: The <code>copy</code> ability allows for the type's value to be cloned.</li>
+<li><code>drop</code>: The <code>drop</code> ability enables the necessary cleanup actions when the type goes out of scope.</li>
+<li><code>store</code>: The <code>store</code> ability allows the type's value to be stored inside a struct in global storage.</li>
+<li><code>key</code>: The <code>key</code> ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.</li>
+</ul>
+<p>These abilites may be used to define type bounds for generic functions and structs.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/global-storage-operators.html#global-storage-operators-with-generics
+
+struct Box&lt;T&gt; has key { t: T }
+
+// Publish a Container storing a type T of the caller's choosing
+fun publish_generic_box&lt;T&gt;(account: &amp;signer, t: T) {
+    move_to&lt;Box&lt;T&gt;&gt;(account, Box { t })
+}
+
+/// Publish a container storing a u64
+fun publish_instantiated_generic_box(account: &amp;signer, t: u64) {
+    move_to&lt;Box&lt;u64&gt;&gt;(account, Box { t })
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Importantly, in the <code>publish_generic_box</code> example above, the type <code>T</code> must also have the <code>has</code> and <code>store</code> abilities owing to Move's rules of ability composition:</p>
+<ul>
+<li><code>copy</code>: All fields must have copy.</li>
+<li><code>drop</code>: All fields must have drop.</li>
+<li><code>store</code>: All fields must have store.</li>
+<li><code>key</code>: All fields must have store.</li>
+</ul>
+<h2 id="storage-polymorphism"><a class="header" href="#storage-polymorphism">Storage polymorphism</a></h2>
+<p>Storage polymorphism is the ability to index into global storage via a type parameter chosen at runtime. By leveraging storage polymorphism in combination with generics, Move developers can write generic algorithms, functions, and modules that can work with different resource types stored in the blockchain's storage. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/global-storage-operators.html#global-storage-operators-with-generics
+
+struct Box&lt;T&gt; has key { t: T }
+
+// Publish a Container storing a type T of the caller's choosing
+fun publish_generic_box&lt;T&gt;(account: &amp;signer, t: T) {
+    move_to&lt;Box&lt;T&gt;&gt;(account, Box { t })
+}
+
+/// Publish a container storing a u64
+fun publish_instantiated_generic_box(account: &amp;signer, t: u64) {
+    move_to&lt;Box&lt;u64&gt;&gt;(account, Box { t })
+}
+<span class="boring">}</span></code></pre></pre>
+<p>While not as flexible as general polymorphism found in some languages, Move's storage polymorphism can quickly compose complex and useful operations for the blockchain. The below is an example of function for adding liquidity from Movement's dex router. Under the hood, global storage polymorphism is being used to enable to the publication of generic coins.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>/// Add liquidity to pool `X`/`Y` with rationality checks.
+/// * `coin_x` - coin X to add as liquidity.
+/// * `min_coin_x_val` - minimum amount of coin X to add as liquidity.
+/// * `coin_y` - coin Y to add as liquidity.
+/// * `min_coin_y_val` - minimum amount of coin Y to add as liquidity.
+/// Returns remainders of coins X and Y, and LP coins: `(Coin&lt;X&gt;, Coin&lt;Y&gt;, Coin&lt;LP&lt;X, Y, Curve&gt;&gt;)`.
+///
+/// Note: X, Y generic coin parameters must be sorted.
+public fun add_liquidity&lt;X, Y, Curve&gt;(
+    coin_x: Coin&lt;X&gt;,
+    min_coin_x_val: u64,
+    coin_y: Coin&lt;Y&gt;,
+    min_coin_y_val: u64,
+): (Coin&lt;X&gt;, Coin&lt;Y&gt;, Coin&lt;LP&lt;X, Y, Curve&gt;&gt;) {
+    assert!(coin_helper::is_sorted&lt;X, Y&gt;(), ERR_WRONG_COIN_ORDER);
+
+    let coin_x_val = coin::value(&amp;coin_x);
+    let coin_y_val = coin::value(&amp;coin_y);
+
+    assert!(coin_x_val &gt;= min_coin_x_val, ERR_INSUFFICIENT_X_AMOUNT);
+    assert!(coin_y_val &gt;= min_coin_y_val, ERR_INSUFFICIENT_Y_AMOUNT);
+
+    let (optimal_x, optimal_y) =
+        calc_optimal_coin_values&lt;X, Y, Curve&gt;(
+            coin_x_val,
+            coin_y_val,
+            min_coin_x_val,
+            min_coin_y_val
+        );
+
+    let coin_x_opt = coin::extract(&amp;mut coin_x, optimal_x);
+    let coin_y_opt = coin::extract(&amp;mut coin_y, optimal_y);
+
+    let lp_coins = liquidity_pool::mint&lt;X, Y, Curve&gt;(coin_x_opt, coin_y_opt);
+    (coin_x, coin_y, lp_coins)
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="unused-and-phantom-types"><a class="header" href="#unused-and-phantom-types">Unused and phantom types</a></h2>
+<p>In order to enforce type constraints at compile-time, unused type parameters can be marked as phantom type parameters. Arguments to phantom type parameters won't be considered when determining the abilities of the generic type. Thus, this eliminates the need for spurious ability annotations. </p>
+<p>Generics, along with storage polymorphism and phantom type parameters, offer flexibility, code reuse, and type safety. These features make it easier to create modular and reusable code components for safe contracts in the Move language. For instance, generics can be used to define generic data structures such as lists, maps, or queues that can store and manipulate values of any type. In addition, generics enable the creation of templatized algorithms which can operate on different types of data. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// source: https://move-language.github.io/move/generics.html?highlight=phantom%20types#unused-type-parameters
+module 0x2::m {
+    // Currency Specifiers
+    struct Currency1 {}
+    struct Currency2 {}
+
+    // A generic coin type that can be instantiated using a currency
+    // specifier type.
+    //   e.g. Coin&lt;Currency1&gt;, Coin&lt;Currency2&gt; etc.
+    struct Coin&lt;Currency&gt; has store {
+        value: u64
+    }
+
+    // Write code generically about all currencies
+    public fun mint_generic&lt;Currency&gt;(value: u64): Coin&lt;Currency&gt; {
+        Coin { value }
+    }
+
+    // Write code concretely about one currency
+    public fun mint_concrete(value: u64): Coin&lt;Currency1&gt; {
+        Coin { value }
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="-movenav"><a class="header" href="#-movenav">💻 MoveNav</a></h2>
+<p>💻 MoveNav implements Dijkstra's algorithm for navigating over a graph with different navigation types in move. </p>
+<p>We'll use a simple approach to domain modeling outlined below.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// redacted version of examples/movement/MoveNav
+module 0x42::MoveNav {
+    use std::vector;
+    use std::option;
+    use std::debug;
+
+    struct Graph {
+        nodes: vector&lt;Vector3&gt;,
+        edges: vector&lt;Edge&gt;,
+    }
+
+    struct Vector3 {
+        x: u8,
+        y: u8,
+        z: u8,
+    }
+
+    struct Edge {
+        source: u8,
+        target: u8,
+        weight: u8,
+    }
+
+    struct Navigation {
+        graph: Graph,
+        navigation_type: NavigationType,
+    }
+
+    struct NavigationType {
+        name: string,
+        speed: u8,
+    }
+
+    fun navigate(nav: Navigation, start: Vector3, end: Vector3): option::Option&lt;vector::Vector3&gt; {
+        debug::print(&quot;Navigating from &quot;, start, &quot; to &quot;, end);
+
+        let nav_type = &amp;nav.navigation_type;
+
+        if nav_type.name == &quot;Walk&quot; {
+            debug::print(&quot;Walking at speed &quot;, nav_type.speed);
+            // Perform walking navigation logic
+            return option::None;
+        } 
+        
+        if nav_type.name == &quot;Run&quot; {
+            debug::print(&quot;Running at speed &quot;, nav_type.speed);
+            // Perform running navigation logic
+            return option::None;
+        } 
+        
+        if nav_type.name == &quot;Fly&quot; {
+            debug::print(&quot;Flying at speed &quot;, nav_type.speed);
+            // Perform flying navigation logic
+            return option::None;
+        } else {
+            debug::print(&quot;Unsupported navigation type&quot;);
+            return option::None;
+        }
+
+    
+    }
+
+    fun set_graph(nav: &amp;mut Navigation, graph: Graph) {
+        nav.graph = graph;
+    }
+
+    fun set_navigation_type(nav: &amp;mut Navigation, nav_type: NavigationType) {
+        nav.navigation_type = nav_type;
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>To dive into the project, please clone this book's repo, and navigate to <code>examples/movement/MoveNav</code>.</p>
+<h2 id="the-future-of-move-type-programming"><a class="header" href="#the-future-of-move-type-programming">The future of Move type programming</a></h2>
+<p>The <a href="https://github.com/move-language/move/blob/main/language/move-prover/doc/user/spec-lang.md#quantifiers">MSL</a> specification provides for more advanced type-level constructs. For ambitious developers, these may be powerful contribution objectives!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="safety"><a class="header" href="#safety">Safety</a></h1>
+<p>This section examines the safety features of Move in greater and more theoretical detail. There are no programming exercises designed for this section. It is primarily intended to motivate the usage of Move language in the context of blockchain.</p>
+<h2 id="linear-logic"><a class="header" href="#linear-logic">Linear logic</a></h2>
+<p>The Move Language was inspired by linear logic, a formal system of logic that was developed by Jean-Yves Girard in 1987. In linear logic, formulas were regarded as resources which could only be used once. Similarly, in the Move language, resources can only be moved between storage locations, never copied or dropped.</p>
+<h2 id="move-type-system"><a class="header" href="#move-type-system">Move type system</a></h2>
+<p>Move's type system enables special safety guarantees for resources. It ensures that move resources can not be duplicated, reused, or implicitly discarded. Attempts to duplicate, reuse, or implicitly discard a resource will result in a bytecode verification error. Notwithstanding these unique safeguards, resources in the Move language possess the characteristics of regular program values. They can be stored in data structures, passed as arguments to procedures, and utilized in similar ways.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module 0x42::LinearLogicExample {
+    use std::vector;
+    use std::debug;
+
+    struct Token has drop {
+        value: u8,
+    }
+
+    fun use_token(token: Token) {
+        debug::print&lt;vector&lt;u8&gt;&gt;(&quot;Using token.&quot;);
+        // Perform operations with the token...
+    }
+
+    public fun main() {
+        let token: Token;
+
+        token = Token { value: 10 };
+
+        debug::print&lt;vector&lt;u8&gt;&gt;(b&quot;Before use:&quot;);
+        debug::print&lt;u8&gt;(token.value);
+
+        use_token(token);
+
+        debug::print&lt;u8&gt;(token.value);
+        // Attempting to access `token` here would result in a compile-time error
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="the-move-prover"><a class="header" href="#the-move-prover"><a href="https://www-cs.stanford.edu/~yoniz/cav20.pdf">The Move Prover</a></a></h2>
+<p><a href="https://www-cs.stanford.edu/~yoniz/cav20.pdf">The Move Prover</a> is a formal verification tool specifically designed for the Move programming language. The Move Prover performs static analysis of Move programs, exploring all possible execution paths and applying various verification techniques. It can reason about program behaviors, ownership and borrowing rules, resource lifecycles, and other aspects of Move's type system and semantics. By leveraging the Move Prover, developers can gain increased confidence in the correctness and security of their Move smart contracts. This tool helps identify potential issues before deployment, reducing the risk of vulnerabilities, ensuring adherence to best practices, and promoting the development of robust and reliable blockchain applications.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-smart-contracts"><a class="header" href="#introduction-to-smart-contracts">Introduction to Smart Contracts</a></h1>
+<h2 id="origins-of-smart-contracts"><a class="header" href="#origins-of-smart-contracts">Origins of smart contracts</a></h2>
+<p>Long before blockchain technology, American cryptographer and programmer, Nick Szabo, proposed the idea of the smart contracts in 1996. At the time of his proposal, the distributed ledger did not exist, and thus his idea could be not built upon. The first cryptocurrency, Bitcoin, was created in 2008, which helped to motivate the development of smart contracts. In 2013, Ethereum became the first platform to host smart contracts. Now, there are plenty of platforms that are used to bring Szabo's idea to life. </p>
+<p>When it comes to implementing smart contracts, resource orientation plays a crucial role in ensuring security, efficiency, and reliability. Resource-oriented programming languages, such as Move, have emerged as a powerful tool for developing smart contracts on blockchain platforms. Move, specifically designed for the Libra blockchain, places a strong emphasis on resource-oriented programming principles, which have proven to be highly beneficial in the context of smart contracts. Here's why resource orientation is important in languages like Move:</p>
+<ol>
+<li>
+<p>Security and Safety: Smart contracts often handle valuable digital assets, and any vulnerability or flaw in the contract's code can lead to disastrous consequences, including financial losses. Resource-oriented programming in Move enforces strict ownership and borrowing rules, ensuring that resources are properly managed and protected. The language's type system guarantees the absence of common vulnerabilities like reentrancy and enables static verification of contracts, minimizing the risk of critical bugs and making smart contracts more secure.</p>
+</li>
+<li>
+<p>Efficient Resource Management: In traditional programming languages, objects or data structures are often copied or cloned when passed between functions or contracts. This can lead to unnecessary memory consumption and performance bottlenecks. Resource-oriented programming in Move takes a different approach. Resources are moved between functions or contracts, rather than being copied, ensuring efficient use of memory and reducing the risk of unintended side effects. Move's ownership model allows for fine-grained control over resource lifecycles, enabling optimized resource management within smart contracts.</p>
+</li>
+<li>
+<p>Immutable and Transparent State: Blockchain technology inherently involves a distributed and immutable ledger that maintains the state of smart contracts. Resource-oriented programming aligns well with these characteristics, as Move enforces immutability for resources. Once a resource is created, its state cannot be modified directly, ensuring the integrity and consistency of the contract's data. This immutability also contributes to the transparency of the blockchain, as the entire history of resource states can be audited and verified by any participant.</p>
+</li>
+<li>
+<p>Concurrent and Parallel Execution: In decentralized blockchain networks, multiple transactions can be executed concurrently, requiring smart contracts to handle concurrent access to shared resources. Resource-oriented programming provides a solid foundation for handling concurrent execution. Move's borrowing mechanism allows for controlled and safe concurrent access to resources, preventing data races and ensuring deterministic execution. This capability enables scalable and efficient execution of smart contracts in a distributed environment.</p>
+</li>
+<li>
+<p>Upgradeability and Evolution: Smart contracts often need to evolve and adapt over time to incorporate new features, fix bugs, or address changing business requirements. Resource-oriented programming facilitates upgradability by decoupling the contract's data from its logic. By defining the behavior of resources separately from the contract's code, Move allows for smooth migration and upgrade of contracts while preserving the integrity of existing data and ensuring backward compatibility.</p>
+</li>
+</ol>
+<p>Resource orientation in languages like Move plays a pivotal role in the development of secure, efficient, and reliable smart contracts. By enforcing ownership and borrowing rules, enabling efficient resource management, ensuring immutability and transparency of state, supporting concurrent execution, and facilitating upgradability, Move empowers developers to build robust and future-proof smart contracts on the blockchain.</p>
+<h2 id="comparison--multicontractfib"><a class="header" href="#comparison--multicontractfib">Comparison: 💻 MulticontractFib</a></h2>
+<p>We've implemented a multi-contract fibonacci number computation in Solidity, Anchor, and Movement to illustrate the benefits of the move language and Movement. We encourage to run and compare the source for each. We've included devcontainers for Solidity and Anchor in the associated repo.</p>
+<h3 id="solidity"><a class="header" href="#solidity">Solidity</a></h3>
+<p>Solidity is high-level, object-oriented programming language used to implement smart contracts. It is the primary programming language used on the Ethereum blockchain.</p>
+<p>To work with the Solidity implementation, use the <code>solidity</code> devcontainer and work from the <code>examples/solidity/multicontract_fib</code> directory. </p>
+<h3 id="anchor"><a class="header" href="#anchor">Anchor</a></h3>
+<p>Anchor is Solana's Sealevel runtime framework. It provides several developer tools for writing smart contracts in order to simplify the process and help developers to focus on their product.</p>
+<p>To work with the Anchor implementation, use the <code>anchor</code> devcontainer and work from the <code>examples/anchor/multicontract_fib</code> directory. </p>
+<h3 id="movement"><a class="header" href="#movement">Movement</a></h3>
+<p>This is us!</p>
+<p>To work with the Anchor implementation, use the <code>movement</code> devcontainer and work from the <code>examples/movement/multicontract_fib</code> directory. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="testing"><a class="header" href="#testing">Testing</a></h1>
+<p>This section examines testing strategies for Move smart contracts on Movement. We will cover both automated and manual strategies for testing functionality.</p>
+<h2 id="movement-profile-configuration"><a class="header" href="#movement-profile-configuration">Movement profile configuration</a></h2>
+<pre><code class="language-bash">movement init --network testnet
+</code></pre>
+<p>When building and testing an application, you will want to work against either the Movement testnet or a local network. The <code>movement</code> devcontainer is equipped with the <code>movement</code> CLI and uses <code>docker-compose</code> to start a local network; both options are available without additional setup when working with the devcontainer.</p>
+<p>When beginning a project, run <code>movement init</code> and specify either <code>testnet</code> or <code>local</code>. The first profile you create will be called <code>default</code>.</p>
+<p>To create a new profile run <code>movement init --profile &lt;name-of-profile&gt;</code>. You can then specify which profile you would like to use in various commands by <code>--profile &lt;name-of-profile&gt;</code>, e.g., <code>move run --profile default ...</code>.</p>
+<p>You can inspect the details of all of your profiles at <code>.movement/config.yaml</code> in your working directory.</p>
+<pre><code class="language-yaml"># config.yaml
+---
+profiles:
+  default:
+    private_key: &quot;0x23978a9c5a8c9291c3cb0283f5c4eee243f7ae81d62b3d3243aa06ac0fcde2cf&quot;
+    public_key: &quot;0xf6ad6834565bda0f3fa8a093311f1a1308855773d2108cd04dd770da9c078ecd&quot;
+    account: 29f06cb1f4139484e8c3dcd9f915ad39acb2aee9a8e8064ee48cfc255ecf10ca
+    rest_url: &quot;https://fullnode.devnet.aptoslabs.com/&quot;
+    faucet_url: &quot;https://faucet.devnet.aptoslabs.com/&quot;
+</code></pre>
+<h2 id="automated-testing"><a class="header" href="#automated-testing">Automated testing</a></h2>
+<p>Movement's CLI <code>movement</code> provides an <code>aptos</code>-like interface for building and testing Move smart contracts. The built-in testing functionality is best suited for unit testing. You can define tests in the same module or separately.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// hello_blockchain.move
+module hello_blockchain::message {
+    use std::error;
+    use std::signer;
+    use std::string;
+    use aptos_framework::account;
+    use aptos_framework::event;
+
+    // ...
+
+    #[test(account = @0x1)]
+    public entry fun sender_can_set_message(account: signer) acquires MessageHolder {
+        let addr = signer::address_of(&amp;account);
+        aptos_framework::account::create_account_for_test(addr);
+        set_message(account,  string::utf8(b&quot;Hello, Blockchain&quot;));
+
+        assert!(
+          get_message(addr) == string::utf8(b&quot;Hello, Blockchain&quot;),
+          ENO_MESSAGE
+        );
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// hello_blockchain_test.move
+#[test_only]
+module hello_blockchain::message_tests {
+    use std::signer;
+    use std::unit_test;
+    use std::vector;
+    use std::string;
+
+    use hello_blockchain::message;
+
+    fun get_account(): signer {
+        vector::pop_back(&amp;mut unit_test::create_signers_for_testing(1))
+    }
+
+    #[test]
+    public entry fun sender_can_set_message() {
+        let account = get_account();
+        let addr = signer::address_of(&amp;account);
+        aptos_framework::account::create_account_for_test(addr);
+        message::set_message(account,  string::utf8(b&quot;Hello, Blockchain&quot;));
+
+        assert!(
+          message::get_message(addr) == string::utf8(b&quot;Hello, Blockchain&quot;),
+          0
+        );
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>You can then run tests for the package containing modules from the movement CLI.</p>
+<pre><code class="language-bash">movement move test --named-addresses hello_blockchain=default
+</code></pre>
+<p>For advanced use of <code>movement</code> for automated testing, such as coverage, see the <code>movement</code> CLI <a href="https://docs.movemnt.dev/movement/">documentation</a>.</p>
+<h2 id="manual-testing"><a class="header" href="#manual-testing">Manual testing</a></h2>
+<p>Often, automated unit testing will be insufficient to determine that your smart contracts are ready for production. You will want to apply a set of end-to-end strategies to ensure smart contract quality. At the moment, all of these strategies are manual; however, automation can be built on-top of them.</p>
+<blockquote>
+<p><strong>Contribution</strong>
+{: .contributor-block}
+Help us develop better tools for automated e2e and integration testing. </p>
+</blockquote>
+<h3 id="with-movement"><a class="header" href="#with-movement">With <code>movement</code></a></h3>
+<p>There three key instructions for manual testing using <code>movement</code>:</p>
+<ul>
+<li><code>movement move publish</code>: publishes modules and scripts to the Movement blockchain.</li>
+<li><code>movement move run</code>: runs a module or script.</li>
+<li><code>movement account list</code>: lists resources values.</li>
+</ul>
+<p>When testing manually, you will typically adopt a flow of <code>publish-&gt;run-&gt;list</code>. In the examples provided with this book's repository, you will commonly see bash scripts for running and testing Movement smart contract that orchestrate these three commands. The following is an example from our <code>hello_blockchain</code> contract:</p>
+<pre><code class="language-bash">#!/bin/bash -e
+
+# Function to echo text as cyan with emoji
+function begin() {
+  echo -e &quot;🔹 \033[36m$1\033[0m&quot;
+}
+
+# Function to echo text as green with increased font-weight and emoji
+function finish() {
+  echo -e &quot;✅ \033[1;32m$1\033[0m&quot;
+}
+
+begin &quot;Funding account for hello_blockchain deployment and call...&quot;
+movement account fund-with-faucet --account default
+finish &quot;Funded account for hello_blockchain deployment and call!&quot;
+
+begin &quot;Publishing hello_blockchain module...&quot;
+echo &quot;y&quot; | movement move publish --named-addresses hello_blockchain=default
+finish &quot;Published hello_blockchain module!&quot;
+
+begin &quot;Setting hello_blockchain message to 'hello!'...&quot;
+echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:hello!
+finish &quot;Set hello_blockchain message to 'hello'!&quot;
+
+begin &quot;Querying resources for account...&quot;
+movement account list --query resources --account default
+finish &quot;Queryed resourced for account!&quot;
+
+begin &quot;Setting hello_blockchain message to 'goodbye!'...&quot;
+echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:goodbye!
+finish &quot;Set hello_blockchain message to 'goodbye'!&quot;
+
+begin &quot;Querying resources for account...&quot;
+movement account list --query resources --account default
+finish &quot;Queryed resourced for account!&quot;
+</code></pre>
+<h3 id="semi-automation"><a class="header" href="#semi-automation">Semi-automation</a></h3>
+<p>In many cases, you will find opportunities to automate the inspection of resources via <code>bash</code>, <code>python</code>, and other scripts. As you develop any of these testing strategies, we encourage you to share them with us so that we might make improvements to our CLI's capabilities.</p>
+<blockquote>
+<p><strong>Share</strong>
+{: .share-block}
+Share your semi-automated workflows with us!</p>
+</blockquote>
+<h2 id="mocks-stubs-and-state-based-simulation"><a class="header" href="#mocks-stubs-and-state-based-simulation">Mocks, stubs, and state-based simulation</a></h2>
+<p>In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies. </p>
+<h3 id="mocks-and-stubs"><a class="header" href="#mocks-and-stubs">Mocks and stubs</a></h3>
+<p>Mocks and stubs are both techniques used to simulate or replace certain components of a system being tested. A mock is a fake implementation of a method or an object, meant to simulate its real behavior. Stubs, on the other hand, are simplified implementations that do not imitate the real behavior. Instead, stubs produce a predefined response to a specific method call or input. Thus, mocks verify the behavior of code and stubs verify the state of the code.</p>
+<p>Some of the modules in the standard library and framework will be suitable for mocking. The example below uses a resource account function to mock a specialized publishing process. A good strong understanding of the standard library can result in much cleaner solutions to mocking problems.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test_only]
+public entry fun set_up_test(origin_account: &amp;signer, resource_account: &amp;signer) {
+    use std::vector;
+
+    account::create_account_for_test(signer::address_of(origin_account));
+
+    // create a resource account from the origin account, mocking the module publishing process
+    resource_account::create_resource_account(origin_account, vector::empty&lt;u8&gt;(), vector::empty&lt;u8&gt;());
+    init_module(resource_account);
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="state-based-simulation"><a class="header" href="#state-based-simulation">State-based simulation</a></h3>
+<p>State-based simulation is a testing technique that focuses on verifying a program based the correctness of its state transitions. First, one must identify and define the states that the program can be in. Next, the events or actions that trigger a transition between states must be defined. Using this information, proper test cases should be generated to explore different state transitions and scenarios. </p>
+<h3 id="for-movement"><a class="header" href="#for-movement">For <code>movement</code></a></h3>
+<p>Beyond the <code>test</code> and <code>test_only</code> directives, Movement does not not provide any additional ergonomics for mocking, stubbing, or state-based simulation. However, opting for a common environment module may be suitable for more complex cases. The example below uses storage polymorphism to implement a common environment store.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>address 0x42::Environment {
+
+    // Unused type for global storage differentiation
+    struct VariableA {}
+    struct VariableB {}
+
+    // A generic variable type that can be instantiated with different types
+    struct VariableStore&lt;phantom K, V&gt; has store {
+        value: V,
+    }
+
+    // Set the value of a variable
+    public fun set_variable&lt;K, V&gt;(value: V) acquires VariableStore&lt;K, V&gt; {
+        move_to&lt;VariableStore&lt;K, V&gt;&gt;(account, VariableSore { value })
+    }
+
+    // Get the value of a variable
+    public fun get_variable&lt;K, V&gt;(): V acquires VariableStore&lt;K, V&gt; {
+        borrow_global&lt;VariableStore&lt;K, V&gt;&gt;(addr).value
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>When setting up your tests, you would then want to run something like the below. You'll likely want to simply create a type bridge in the module above to enable external sets from the CLI.</p>
+<pre><code class="language-bash">#!/bin/bash -e
+
+# set environment
+begin &quot;Setting environment to slow...&quot;
+echo &quot;y&quot; | movement move run --function-id default::message::set_slow_variable --args string:slow
+finish &quot;Set environment to slow!&quot;
+</code></pre>
+<blockquote>
+<p><strong>Contribution</strong>
+{: .contributor-block}
+Help us develop mocking and stubbing tools for Movement. </p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="design-patterns"><a class="header" href="#design-patterns">Design Patterns</a></h1>
+<p>Ville Sundell has already provided an <a href="https://www.move-patterns.com/capability.html">expert overview of useful design patterns</a> in Move. As this book improves, we may include some of our own here. However, for now, we defer to Ville.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="smart-contracts-development-and-staging"><a class="header" href="#smart-contracts-development-and-staging">Smart Contracts development and staging</a></h1>
+<h2 id="development"><a class="header" href="#development">Development</a></h2>
+<p>When building smart contracts for <code>movement</code> you can use both the <code>move</code> client and <code>movement</code> itself.</p>
+<h3 id="move"><a class="header" href="#move"><code>move</code></a></h3>
+<p>The <code>move</code> CLI is a suitable tool for early and primitive development. You will not have access to the same onchain resources as when working with the <code>movement</code> CLI, such as access to our DEX. However, you will be able to use the <code>move sandbox</code> to build and run contracts. </p>
+<p>To make sure you are building with out standard library, include the following in your <code>Move.toml</code>.</p>
+<pre><code class="language-toml">[package]
+name = &quot;hello_world&quot;
+version = &quot;0.0.0&quot;
+
+[dependencies]
+# MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
+MovementFramework = {  git = &quot;https://github.com/movemntdev/movement-subnet.git&quot;, subdir = &quot;vm/aptos-vm/aptos-move/aptos-framework&quot;, rev = &quot;main&quot; }
+
+[addresses]
+std =  &quot;0x1&quot;
+hello_blockchain = &quot;_&quot;
+</code></pre>
+<h3 id="movement-1"><a class="header" href="#movement-1"><code>movement</code></a></h3>
+<p>The <code>movement</code> CLI provides an <code>aptos</code>-like interface for running Move language scripts and modules. For more details see the <code>movement</code> CLI docs.</p>
+<p>When using <code>movement</code> in its default configuration, you will test and run contracts against our testnet. This is ideal for most Movement development.</p>
+<h2 id="staging"><a class="header" href="#staging">Staging</a></h2>
+<p>The best way to publicly stage smart contracts for Movement is simply to us a <code>movement</code> CLI. If you are interested in a more private staging environment, you may use the <code>movement</code> CLI with the provided <code>movement</code> devcontainer to compose and stage against a local network.</p>
+<blockquote>
+<p><strong>Contribution</strong>
+{: .contributor-block}
+Help us develop better tools for movement staging!</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-3-m1-and-defi-applications"><a class="header" href="#week-3-m1-and-defi-applications">Week 3: M1 and DeFi Applications</a></h1>
+<p>M1 is Movement's first L1. This week is be all about building applications, particular DeFi applications, with Movement.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deploying-on-m1"><a class="header" href="#deploying-on-m1">Deploying on M1</a></h1>
+<p>At the time of writing, only the M1 testnet is available. To set up for deployment you only need to make sure you have a testnet profile configured.</p>
+<pre><code class="language-bash">movement init --network testnet
+</code></pre>
+<p>You may then use the <code>movement</code> CLI to publish your package.</p>
+<pre><code class="language-bash">movement move publish --named-addresses hello_blockchain=default
+</code></pre>
+<p>We encourage however to take a look at <code>aptos_framework::resource_account</code> and <code>aptos_framework::resource_group</code> for more advanced publication options.</p>
+<h2 id="-multicontractfib"><a class="header" href="#-multicontractfib">💻 MulticontractFib</a></h2>
+<p>We encourage you to checkout <code>examples/movement/multicontract_fib</code> for an easy to inspect deployment. Once you've deployed, simply run the command below to check out the on-chain resources.</p>
+<pre><code class="language-bash">movement account list --query resources --account default
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="security"><a class="header" href="#security">Security</a></h1>
+<p>This section provides a high-level overview of common blockchain concerns and points to features of Movement or modules from the Movement standard library that can be used to help.</p>
+<h2 id="m1"><a class="header" href="#m1">M1</a></h2>
+<p>When working with M1 you will be able benefit from Avalanche's adaptive security and Move's strict programming model to avoid many of the vulnerabilities you would commonly encounter in smart contract development. You should, of course, remain aware of the vectors of attack.</p>
+<h2 id="attack-surface"><a class="header" href="#attack-surface">Attack Surface</a></h2>
+<h3 id="blockchain"><a class="header" href="#blockchain">Blockchain</a></h3>
+<h4 id="network-layer"><a class="header" href="#network-layer">Network layer</a></h4>
+<p>The network layer of a blockchain application is susceptible to various attacks, such as distributed denial-of-service (DDoS) attacks, eclipse attacks, and Sybil attacks. These attacks can disrupt the network's functionality and compromise its security.</p>
+<h4 id="consensus"><a class="header" href="#consensus">Consensus</a></h4>
+<p>The consensus mechanism used in a blockchain application can be targeted by attackers through attacks like 51% attacks, where they gain majority control over the network's computing power and manipulate transactions or block validation.</p>
+<blockquote>
+<p>Thankfully, Avalanche consensus--which underpins movement--is designed to resist various attacks, including sybil attacks, distributed denial-of-service (DDoS) attacks, and collusion attacks. Its probabilistic nature ensures that the consensus outcome converges to the desired state, even when the network is under attack.</p>
+</blockquote>
+<h4 id="blockchain-protocol"><a class="header" href="#blockchain-protocol">Blockchain protocol:</a></h4>
+<p>The underlying blockchain protocol may have vulnerabilities that can be exploited by attackers. Weaknesses in the protocol's cryptographic algorithms, consensus algorithms, or validation mechanisms can lead to security breaches.</p>
+<h3 id="smart-contracts"><a class="header" href="#smart-contracts">Smart contracts</a></h3>
+<h4 id="environment"><a class="header" href="#environment">Environment</a></h4>
+<p>Smart contracts rely on the execution environment in which they run. Insecure environments can expose smart contracts to attacks, such as sandbox escapes or unauthorized access to system resources.</p>
+<h4 id="external-dependencies"><a class="header" href="#external-dependencies">External dependencies</a></h4>
+<p>Smart contracts often interact with external systems or data sources. These dependencies can introduce security risks, such as malicious data feeds or vulnerabilities in the connected systems.</p>
+<h4 id="code-vulnerabilities"><a class="header" href="#code-vulnerabilities">Code vulnerabilities</a></h4>
+<p>Flaws in the code of smart contracts can lead to various vulnerabilities, including reentrancy attacks, integer overflow/underflow, and logic errors. These vulnerabilities can be exploited to manipulate contract behavior or steal funds.</p>
+<blockquote>
+<p>Thankfully, thanks to its type-system, resource-orientation, and linear programming model, the Move language makes it difficult to publish code with many of the common smart contract vulnerabilities.</p>
+</blockquote>
+<h4 id="upgradability"><a class="header" href="#upgradability">Upgradability</a></h4>
+<p>The ability to upgrade smart contracts introduces potential security risks. Unauthorized or malicious upgrades can compromise the integrity of the contract or introduce vulnerabilities that can be exploited.</p>
+<blockquote>
+<p>Thankfully, the Move language introduces the concept of modules, which are self-contained units of code that encapsulate the functionality of smart contracts. Unlike traditional smart contracts, Move modules can be upgraded without disrupting the entire system or requiring complex migration processes.</p>
+</blockquote>
+<h3 id="dapps"><a class="header" href="#dapps">dApps</a></h3>
+<h4 id="integration-risks"><a class="header" href="#integration-risks">Integration risks</a></h4>
+<p>Decentralized applications (dApps) often integrate with external services or APIs. Insecure integration points can expose dApps to security risks, such as unauthorized data access or injection of malicious code.</p>
+<h2 id="handling-user-data"><a class="header" href="#handling-user-data">Handling User Data</a></h2>
+<h3 id="data-minimization"><a class="header" href="#data-minimization">Data minimization</a></h3>
+<p>Blockchain applications should follow the principle of data minimization, collecting only the necessary data and avoiding the storage of sensitive information that is not required for the application's functionality.</p>
+<h3 id="access-control"><a class="header" href="#access-control">Access control</a></h3>
+<p>Proper access control mechanisms should be implemented to ensure that only authorized individuals or entities can access sensitive user data. This includes authentication, authorization, and secure role-based access control.</p>
+<blockquote>
+<p>Move uses an account-based ownership model where each account has its own address and associated permissions. Access control can be enforced at the account level, ensuring that only authorized users can perform specific actions.</p>
+</blockquote>
+<h3 id="encryption"><a class="header" href="#encryption">Encryption</a></h3>
+<p>Sensitive user data stored in the blockchain or associated systems should be encrypted to protect it from unauthorized access. Encryption algorithms and protocols should be carefully chosen and implemented.</p>
+<h3 id="pseudonymization"><a class="header" href="#pseudonymization">Pseudonymization</a></h3>
+<p>To enhance privacy, blockchain applications can pseudonymize user data by replacing personally identifiable information with pseudonyms or cryptographic identifiers. This makes it difficult to directly link user identities to their data.</p>
+<h2 id="dos"><a class="header" href="#dos">DoS</a></h2>
+<p>Denial-of-Service (DoS) attacks aim to disrupt the availability of a blockchain application or the entire network by overwhelming the system with an excessive amount of requests or by exploiting vulnerabilities in the network's infrastructure. DoS attacks can result in service unavailability or degradation, impacting the application's functionality and user experience. Implementing robust DoS mitigation strategies is essential to protect against such attacks.</p>
+<blockquote>
+<p>As mentioned above, Avalanche's adaptive security approach it difficult to successfully deny network service.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="common-blockchain-system-design-patterns"><a class="header" href="#common-blockchain-system-design-patterns">Common blockchain system design patterns</a></h1>
+<h2 id="oracles"><a class="header" href="#oracles">Oracles</a></h2>
+<p>Oracles play a crucial role in blockchain applications by providing a bridge between the blockchain and the external world. They are trusted entities or mechanisms that bring off-chain data onto the blockchain, making it accessible to smart contracts and decentralized applications. Oracles enable the blockchain to interact with real-world events, data feeds, APIs, and other external systems. By leveraging oracles, blockchain applications can access and process external information in a reliable and secure manner.</p>
+<blockquote>
+<p>We built 💻 NewsMoves, <code>examples/movement/new_moves</code>, as a toy oracle contract that allows a trusted entity to write the latest Google news articles onto the blockchain. Please checkout the directory to publish the contract and run the Python data entity.</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module news_moves::news_moves {
+
+  use std::signer;
+  use std::vector;
+
+  // Struct representing a news article entry
+  struct Article has copy {
+    timestamp: u64,
+    title: vector&lt;u8&gt;,
+    content: vector&lt;u8&gt;,
+  }
+
+  // NewsMoves struct representing the contract state
+  struct NewsMoves {
+    articles: vector&lt;Article&gt;,
+  }
+
+  // Initialization function for the NewsMoves contract
+  public fun init() {
+    move_to(@news_moves, NewsMoves {
+      articles: vector::empty&lt;Article&gt;(),
+    });
+  }
+
+  public fun update&lt;X, Y, Curve&gt;(
+    account: &amp;signer,
+    timestamp: u64,
+    title: vector&lt;u8&gt;,
+    content: vector&lt;u8&gt;,
+  ) acquires NewsMoves {
+
+      // update the contract at the account
+      let account_addr = signer::address_of(account);
+      let self = borrow_global_mut&lt;NewsMoves&gt;(account_addr);
+
+      // add the new article
+      vector::push_back(&amp;mut self.articles, Article {
+          timestamp: timestamp,
+          title: title,
+          content: content,
+      });
+
+    }
+
+  // Function to get the latest news article from the contract
+  public fun getLatestArticle(): Article {
+
+    // Get the latest article from the contrac
+
+    let moves = borrow_global&lt;NewsMoves&gt;(@news_moves);
+    let len = vector::length(&amp;articles);
+    assert(len &gt; 0, 98); // Ensure there is at least one article
+    let latestArticleIndex = len - 1;
+    *moves.articles[latestArticleIndex]
+
+  }
+  
+}
+<span class="boring">}</span></code></pre></pre>
+<h2 id="rollups"><a class="header" href="#rollups">Rollups</a></h2>
+<p>Rollups are a layer 2 scaling solution for blockchains that aim to improve scalability and reduce transaction costs. They work by aggregating multiple transactions off-chain and then submitting a summary or proof of those transactions to the main chain. This reduces the burden on the main chain, allowing for faster and more efficient processing. Rollups can significantly increase transaction throughput and enable complex applications to run smoothly on the blockchain while maintaining a high level of security.</p>
+<blockquote>
+<p>We added a toy dispute mechanism 💻 NewsMoves, <code>examples/movement/new_moves</code>  to demonstrate how part of a rollup could implemented.</p>
+</blockquote>
+<h2 id="tokenization"><a class="header" href="#tokenization">Tokenization</a></h2>
+<p>Tokenization is the process of representing real-world or digital assets as tokens on a blockchain. It enables the creation of digital representations (tokens) that can be owned, transferred, and managed on the blockchain. Tokenization has broad applications, ranging from representing physical assets like real estate or artwork to creating digital assets like utility tokens or security tokens. By tokenizing assets, blockchain-based systems can provide increased liquidity, fractional ownership, and facilitate seamless transferability of assets in a secure and transparent manner.</p>
+<blockquote>
+<p>We implement a toy tokenization scheme and separately used our framework's <code>aptos_token_objects</code> to augment 💻 NewsMoves, <code>examples/movement/new_moves</code> and demonstrate Movement token utilities.</p>
+</blockquote>
+<h2 id="state-channels"><a class="header" href="#state-channels">State Channels</a></h2>
+<p>State channels are a scalability solution in blockchain that allows off-chain execution of transactions between participants. They enable fast and low-cost transactions by keeping most of the interactions off-chain, while the final state is settled on the main blockchain. State channels are particularly useful for frequent and fast interactions, such as microtransactions or gaming applications, as they reduce congestion and improve transaction throughput.</p>
+<h2 id="side-chains"><a class="header" href="#side-chains">Side Chains</a></h2>
+<p>Side chains are separate blockchains that are connected to the main blockchain, often referred to as the &quot;main chain&quot; or &quot;parent chain.&quot; They provide an additional layer of scalability and flexibility by allowing specific use cases or applications to operate on their own chain while still being interoperable with the main chain. Side chains can handle transactions and smart contracts independently, reducing the load on the main chain and enabling specialized functionalities.</p>
+<h2 id="collaborative-governance"><a class="header" href="#collaborative-governance">Collaborative Governance</a></h2>
+<p>Collaborative governance refers to the process of making collective decisions and managing blockchain networks through the participation and collaboration of multiple stakeholders. It involves mechanisms such as voting, consensus-building, and community-driven decision-making to govern the rules, upgrades, and overall direction of a blockchain network. Collaborative governance aims to ensure inclusivity, transparency, and alignment of interests among network participants.</p>
+<blockquote>
+<p><code>aptos_framework::aptos_governance</code> provides a host of out of the box tools for handling proposals, dynamic voting systems, and member rewards. Using it you can implement a DAO and tests in a about a thousand lines of code.</p>
+</blockquote>
+<h2 id="atomic-swaps"><a class="header" href="#atomic-swaps">Atomic Swaps</a></h2>
+<p>Atomic swaps are a mechanism that allows the exchange of different cryptocurrencies or digital assets between two parties without the need for an intermediary or trusted third party. It enables secure peer-to-peer transactions directly between participants, ensuring that either the entire transaction is executed or none of it occurs. Atomic swaps enhance interoperability and facilitate decentralized exchanges by eliminating the need for centralized intermediaries.</p>
+<h2 id="proofs-and-zero-knowledge"><a class="header" href="#proofs-and-zero-knowledge">Proofs and Zero-Knowledge</a></h2>
+<p>Zero-knowledge proofs are cryptographic techniques that enable a party to prove knowledge of certain information without revealing the actual information itself. They allow for privacy-preserving transactions and interactions on the blockchain, where participants can validate the correctness of a statement or the possession of certain data without disclosing sensitive details. Zero-knowledge proofs enhance confidentiality and confidentiality in blockchain applications, ensuring that privacy-sensitive information remains secure while still being verifiable.</p>
+<blockquote>
+<p>At Movement, we're working on a Zero-Knowledge VM powered by the Move Prover. </p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="access-control-1"><a class="header" href="#access-control-1">Access Control</a></h1>
+<p>This section briefly covers some considerations of blockchain access control and highlights places where Movement and this repo may be helpful.</p>
+<h2 id="signatures-and-certificates"><a class="header" href="#signatures-and-certificates">Signatures and certificates</a></h2>
+<p>Signatures and certificates play a crucial role in access control on the blockchain. They enable authentication and ensure that only authorized entities can perform specific actions or access certain resources. Signatures provide proof of ownership and authenticity, while certificates verify the identity and permissions of participants. By utilizing strong cryptographic signatures and certificates, blockchain applications can establish secure and tamper-proof access control mechanisms.</p>
+<blockquote>
+<p>Avalanche uses Transport Layer Security, TLS, to protect node-to-node communications from eavesdroppers. The Avalanche virtual machine uses elliptic curve cryptography, specifically <code>secp256k1</code>, for its signatures on the blockchain, and signs all messages.</p>
+</blockquote>
+<h2 id="acls-rbac-and-abac"><a class="header" href="#acls-rbac-and-abac">ACLs, RBAC, and ABAC</a></h2>
+<p>Access Control Lists (ACLs), Role-Based Access Control (RBAC), and Attribute-Based Access Control (ABAC) are common frameworks used to manage and enforce access control policies in blockchain applications. ACLs define permissions based on a list of entities and their associated access rights. RBAC assigns permissions to roles, allowing for more centralized management of access control. ABAC grants access based on attributes, such as user attributes or environmental conditions. Each framework has its strengths and can be tailored to meet specific access control requirements in a blockchain  application.</p>
+<p>A common pattern in Move and Movement development is to assert a contract owner. Using named addresses, <code>@named_address</code>. </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>script owner_address::important_script {
+
+    const ERNO_OWNER_ONLY : u64 = 0
+
+    fun do_important_thing(signer : address){
+
+        assert!(signer == @owner_address, ERNO_OWNER_ONLY);
+
+        // do thing...
+
+    }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Manipulation of addresses often serves as the basis for Movement access control mechanisms.</p>
+<blockquote>
+<p>The Move language provides host of unique safe ways to implement access controls for resources. <code>aptos_framework::aptos_governance</code> provides an easy to use module for governance which can allow for decentralized managed of these control lists.</p>
+</blockquote>
+<h2 id="permissioned-chains"><a class="header" href="#permissioned-chains">Permissioned chains</a></h2>
+<p>Permissioned chains are blockchain networks that restrict participation to authorized entities only. Unlike public or permissionless blockchains, permissioned chains require participants to obtain explicit permission or be part of a predefined set of trusted entities. Permissioned chains are often employed in enterprise or consortium settings, where privacy, confidentiality, and control over network participants are paramount. By leveraging permissioned chains, blockchain applications can enforce stricter access control and maintain a trusted network environment.</p>
+<blockquote>
+<p>While the Movement testnet is not a permissioned chain, our virtual machines strong access controls--due to the Move language--make it easy to restrict access to select resources.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defi"><a class="header" href="#defi">DeFi</a></h1>
+<p>This section treats with a general overview DeFi problems and solution, and the faculties of Movement M1 to help create these solutions.</p>
+<h2 id="what-is-defi"><a class="header" href="#what-is-defi">What is DeFi?</a></h2>
+<p>Decentralized Finance (DeFi) refers to a category of financial applications and platforms built on blockchain networks that aim to provide open, permissionless, and decentralized alternatives to traditional financial systems. DeFi leverages the transparency, immutability, and programmability of blockchain technology to enable financial activities without the need for intermediaries or centralized authorities.</p>
+<h2 id="why-decentralize"><a class="header" href="#why-decentralize">Why Decentralize?</a></h2>
+<p>Decentralization in DeFi brings several advantages, including increased transparency, censorship resistance, improved accessibility, and reduced reliance on trusted third parties. By removing intermediaries and enabling peer-to-peer transactions, decentralization can enhance efficiency, reduce costs, and empower individuals to have more control over their financial activities.</p>
+<h2 id="financial-applications-of-decentralized-systems"><a class="header" href="#financial-applications-of-decentralized-systems">Financial Applications of Decentralized Systems</a></h2>
+<h3 id="purchasing"><a class="header" href="#purchasing">Purchasing</a></h3>
+<p>Decentralized systems allow for the direct peer-to-peer purchase of digital assets, cryptocurrencies, and other goods or services without the need for intermediaries or central authorities.</p>
+<h3 id="lending"><a class="header" href="#lending">Lending</a></h3>
+<p>DeFi platforms enable individuals to lend and borrow funds directly from other users through smart contracts, removing the need for traditional financial intermediaries such as banks.</p>
+<blockquote>
+<p>Check out <code>examples/movement/gimme_mini</code> for a toy implementation of both a direct and peer-pooled lending platform.</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// example supply function from gimme_mini direct lending platform
+public fun supply(
+    account: &amp;signer,
+    market_obj: Object&lt;Market&gt;,
+    underlying_fa: FungibleAsset
+): FungibleAsset acquires Vault, Market {
+    assert!(
+        fungible_asset::asset_metadata(&amp;underlying_fa) == fungible_asset::store_metadata(market_obj),
+        ERR_MARKET_MISMATCH
+    );
+
+    let underlying_amount = fungible_asset::amount(&amp;underlying_fa);
+
+    // update market fungible store
+    fungible_asset::deposit(market_obj, underlying_fa);
+
+    // mint ctoken
+    let ctoken_amount = underlying_to_ctoken(market_obj, underlying_amount);
+    let market = borrow_global_mut&lt;Market&gt;(object::object_address(&amp;market_obj));
+    let ctoken = fungible_asset::mint(&amp;market.ctoken_mint_ref, ctoken_amount);
+
+    // update user vault
+    init_vault_if_not_exists(account);
+    let vault = borrow_global_mut&lt;Vault&gt;(signer::address_of(account));
+    if (!vector::contains(&amp;vault.collaterals, &amp;market_obj)) {
+        vector::push_back(&amp;mut vault.collaterals, market_obj);
+    };
+
+    ctoken
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>module peer_pooled_lend::peer_pooled_lend {
+
+    use std::signer;
+    friend mini_lend::LoanOfficer;
+
+    /// Lends funds to liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Check if account has enough funds to lend.
+    ///     2. Check for suspicious activity.
+    /// 2. If account has enough funds to lend...
+    ///     1. MiniLend will transfer funds from account to liquidity pool.
+    public fun lend(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Allows lender to seek repayment from liquidity pool.
+    /// 1. LoanOfficer will...
+    ///     1. Determine whether account is lender.
+    ///     2. Determine loan period is up.
+    /// 2. If the account is a valid lender and the loan period is up...
+    ///     1. MiniLend will transfer funds from liquidity pool to account or self-collateralize.
+    public fun seek_repayment(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Borrows funds from liquidity pool.
+    /// 1. LoanOfficer will... 
+    ///     1. Check if account has enough collateral
+    ///     2. Check account credit.
+    ///     3. If account has enough collateral and credit...
+    /// 2. If account has enough collateral and credit...
+    ///     1. MiniLend will borrow funds from liquidity pool
+    /// 3. Whether or not the account will successully borrow funds, run the audit function.
+    public fun borrow(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    public fun repay(account : signer, amount : u64){
+
+        // ...
+
+    }
+
+    /// Looks over loan tables and dispatches events to manage loans
+    /// Anyone can call this function enabling decentralized book keeping.
+    public fun audit(account : signer){
+
+        // ...
+
+    }
+
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="trading"><a class="header" href="#trading">Trading</a></h3>
+<p>Decentralized exchanges (DEXs) facilitate trustless trading of digital assets directly between users, eliminating the need for centralized order books and custody of funds by intermediaries.</p>
+<blockquote>
+<p>Movement has an ready-made DEX.</p>
+</blockquote>
+<h2 id="defi-phenomena"><a class="header" href="#defi-phenomena">DeFi Phenomena</a></h2>
+<h3 id="yield-farming"><a class="header" href="#yield-farming">Yield Farming</a></h3>
+<p>Yield farming involves leveraging various DeFi protocols to maximize returns on cryptocurrencies or digital assets by providing liquidity, staking, or participating in other activities to earn additional rewards.</p>
+<blockquote>
+<p>Check out <code>examples/movement/yield_gardner</code> for a toy implementation of a yield farmer.</p>
+</blockquote>
+<h3 id="flash-loans"><a class="header" href="#flash-loans">Flash Loans</a></h3>
+<p>Flash loans are uncollateralized loans that allow users to borrow funds temporarily for specific transactions within a single blockchain transaction. They exploit the composability and fast transaction finality of smart contracts.</p>
+<h3 id="automated-market-making"><a class="header" href="#automated-market-making">Automated Market Making</a></h3>
+<p>Automated market makers (AMMs) are decentralized protocols that use mathematical formulas to determine asset prices and provide liquidity for trading. They have revolutionized liquidity provision in DeFi by eliminating the need for order books and enabling continuous trading.</p>
+<blockquote>
+<p>Check out <code>examples/movement/gimme_mini</code> for a toy implementation of a lending platform built atop the <code>liquidswap</code> AMM.</p>
+</blockquote>
+<h3 id="coins"><a class="header" href="#coins">Coins</a></h3>
+<p>Coins are typically created and recorded on the blockchain through a consensus mechanism, ensuring their authenticity and immutability. They can be transferred between participants on the network, used for transactions, and sometimes serve additional purposes such as voting rights or access to certain functionalities within decentralized applications (dApps) built on the blockchain. Coins play a fundamental role in enabling economic activity and incentivizing participation within the blockchain ecosystem.</p>
+<blockquote>
+<p>Movement provides built-in utilties to easily create and managed coins at varying levels of abstraction.</p>
+</blockquote>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A managed coin.
+//:!:&gt;sun
+module sun_coin::sun_coin {
+    struct SunCoin {}
+
+    fun init_module(sender: &amp;signer) {
+        aptos_framework::managed_coin::initialize&lt;SunCoin&gt;(
+            sender,
+            b&quot;Sun Coin&quot;,
+            b&quot;SUN&quot;,
+            6,
+            false,
+        );
+    }
+}
+//&lt;:!:sun
+<span class="boring">}</span></code></pre></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Handling coin transactions
+script {
+    use aptos_framework::coin;
+    use std::vector;
+
+    // There are two ways to approach this problem
+    // 1. Withdraw the total then distribute the pieces by breaking it up or
+    // 2. Transfer for each amount individually
+    fun main&lt;CoinType&gt;(sender: &amp;signer, split : vector&lt;address&gt;, amount: u64) {
+        
+        let i = 0;
+        let len = vector::length(split);
+        let coins = coin::withdraw&lt;CoinType&gt;(sender, amount);
+        
+        while (i &lt; len) {
+            let coins_pt = coin::extract(&amp;mut coins, amount / len);
+            coin::deposit(
+                vector::borrow(split, i), 
+                coins_pt
+            );
+        };
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Stablecoins are a type of coin that aims to maintain a stable value, typically pegged to a fiat currency like the US Dollar or a basket of assets. They provide price stability, making them suitable for various use cases within the decentralized finance ecosystem.</p>
+<h2 id="important-defi-algorithms"><a class="header" href="#important-defi-algorithms">Important DeFi Algorithms</a></h2>
+<h3 id="constant-product-market-maker-cpmm-and-constant-mean-market-maker-cmmm"><a class="header" href="#constant-product-market-maker-cpmm-and-constant-mean-market-maker-cmmm">Constant Product Market Maker (CPMM) and Constant Mean Market Maker (CMMM)</a></h3>
+<p>These algorithms are used in AMMs to maintain liquidity and determine prices based on the constant product or mean principles.</p>
+<h3 id="fraud-proof-and-binary-search"><a class="header" href="#fraud-proof-and-binary-search">Fraud Proof and Binary Search</a></h3>
+<p>These algorithms enhance security in DeFi protocols by detecting and mitigating potential fraud or malicious activities. Binary search is often used to optimize search and validation processes.</p>
+<h3 id="modern-portfolio-theory-mpt"><a class="header" href="#modern-portfolio-theory-mpt">Modern Portfolio Theory (MPT)</a></h3>
+<p>MPT is applied in DeFi to optimize asset allocation and portfolio management, considering risk, returns, and correlations among different assets.</p>
+<h3 id="risk-models"><a class="header" href="#risk-models">Risk Models</a></h3>
+<p>DeFi relies on various risk models and methodologies to assess and manage risks associated with lending, borrowing, and other financial activities in decentralized systems.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-4-projects"><a class="header" href="#week-4-projects">Week 4: Projects</a></h1>
+<p>Week 4 is all about building projects. If you're reading through this notebook outside of our hackathon, we hope you find the resources useful for building your first Movement project.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-requirements-and-recommendations"><a class="header" href="#project-requirements-and-recommendations">Project Requirements and Recommendations</a></h1>
+<p>In this section we discuss project requirements and recommendations. Many of the recommendations involve working on technologies that we're keen on developing and incubating for Movement!</p>
+<h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
+<p>For all hackathon participants, we expect...</p>
+<ul>
+<li>a pitch deck,</li>
+<li>a paper,</li>
+<li>links to source developed during the hackathon.</li>
+</ul>
+<p>We've included templates for <code>LaTeX</code> and <code>PPT</code> in the <code>templates/presentation</code> folder. You will make five minute pitches using your deck at the end of the hackathon.</p>
+<h2 id="project-recommendations"><a class="header" href="#project-recommendations">Project recommendations</a></h2>
+<p>There are a variety of ways to use and contribute to the Movement ecosystem. These include dApp development, infrastructure development, bounties, and direct contributions to our software.</p>
+<h3 id="dapps-1"><a class="header" href="#dapps-1">dApps</a></h3>
+<p>The content of this course should have prepared you to work on dApps such as the following.</p>
+<ul>
+<li>Continue with 💻 GimmeMini, <code>examples/movement/gimme_mini</code></li>
+<li>Continue with 💻 MiniDex, <code>examples/movement/mini_dex</code>.</li>
+<li>Create a mini oracle provider, rollup provider, or validator set management system. You may wish to continue from 💻 NewsMoves <code>examples/movement/new_moves</code></li>
+<li>Decentralized Twitter clone. You may fish to continue from 💻 MyFirstDapp <code>examples/movement/my_first_dapp</code>.</li>
+</ul>
+<h3 id="infrastructure"><a class="header" href="#infrastructure">Infrastructure</a></h3>
+<p>We're all about continuing to build out the Movement ecosystem to empower more awesome developers like you. At the time of writing, the following are all things we have a close eye on.</p>
+<ul>
+<li>Connect a new wallet! Right now we only support <a href="https://pontem.network/">Pontem</a> on testnet.</li>
+<li>Create an L2 that allows us to deposit levered funds in another protocol.</li>
+<li>Create a framework for borrowing funds against an asset.</li>
+<li>Create a framework that allows for customizable liquidity strategies.</li>
+<li>Build integrations with <a href="https://docs.perp.com/">Perp</a>.</li>
+<li>Develop a stable swap with another subnet</li>
+</ul>
+<h3 id="bounties"><a class="header" href="#bounties">Bounties</a></h3>
+<p>We've also put together a <a href="week_4/zealy.io">zealy.io</a> community. Some of our bounties include.</p>
+<ul>
+<li>Report UI/UX bug</li>
+<li>Report backend bug</li>
+<li>Deploy App with 100 unique smart contract interactions </li>
+<li>Community Award To 3 Most used dApps</li>
+<li>Screenshot using App</li>
+<li>Deploy project from Aptos / Sui </li>
+<li>Contribute to Champions </li>
+</ul>
+<h3 id="contribute"><a class="header" href="#contribute">Contribute</a></h3>
+<p>We welcome contributions to our source, including the <a href="https://github.com/movemntdev/movement-hack">movement-hack</a> repo from which this book is sourced. Generally speaking we encourage you to...</p>
+<ul>
+<li>Develop new starter code and example modules.</li>
+<li>Submit PRs against open issues.</li>
+<li>Improve documentation.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="guidelines"><a class="header" href="#guidelines">Guidelines</a></h1>
+<p>This section outlines some best practices for the project and Movement success, as well as how to get in touch with the team for support.</p>
+<h2 id="requirements-gathering"><a class="header" href="#requirements-gathering">Requirements Gathering</a></h2>
+<p>Requirements gathering is a critical phase in the software development process that involves capturing, analyzing, and documenting the needs and expectations of stakeholders. It lays the foundation for a successful project by ensuring a clear understanding of what needs to be built. Here are some steps for successful requirements gathering:</p>
+<ol>
+<li>
+<p><strong>Identify Stakeholders:</strong> Identify and involve all relevant stakeholders, including clients, end-users, subject matter experts, and other project team members. Each stakeholder brings unique perspectives and insights into the project requirements.</p>
+</li>
+<li>
+<p><strong>Define the Scope:</strong> Clearly define the scope of the project by outlining its objectives, boundaries, and limitations. This helps set realistic expectations and ensures that the requirements gathering process remains focused.</p>
+</li>
+<li>
+<p><strong>Conduct Interviews and Workshops:</strong> Engage in one-on-one interviews and group workshops with stakeholders to gather their input, understand their needs, and identify any existing challenges or pain points. Encourage open and honest communication to capture comprehensive requirements.</p>
+</li>
+<li>
+<p><strong>Document Requirements:</strong> Document the gathered requirements in a structured manner, ensuring clarity, completeness, and traceability. Use techniques such as use cases, user stories, functional and non-functional requirements, and process flows to capture different aspects of the system.</p>
+</li>
+<li>
+<p><strong>Validate and Verify:</strong> Validate the gathered requirements by reviewing them with stakeholders to ensure accuracy and alignment with their expectations. Seek their feedback and address any concerns or discrepancies. Verify the requirements against the project objectives and constraints.</p>
+</li>
+<li>
+<p><strong>Prioritize Requirements:</strong> Prioritize the requirements based on their importance, urgency, and impact on project success. Collaborate with stakeholders to establish a clear understanding of the most critical and high-priority features.</p>
+</li>
+<li>
+<p><strong>Iterate and Refine:</strong> Requirements gathering is an iterative process. Continuously refine and iterate the requirements based on feedback, changing project needs, and evolving stakeholder requirements. Regularly communicate and collaborate with stakeholders to ensure ongoing alignment.</p>
+</li>
+</ol>
+<p>Remember, successful requirements gathering involves effective communication, active listening, and collaboration with stakeholders throughout the process. By following these steps, developers can gather comprehensive and accurate requirements that form a solid foundation for successful software development. If you require further assistance or guidance, feel free to reach out to Movement Labs using the contact information below in <a href="week_4/Guidelines.html#support">Support</a>.</p>
+<h2 id="pitching-and-presenting"><a class="header" href="#pitching-and-presenting">Pitching and presenting</a></h2>
+<h3 id="crafting-a-paper-and-deck"><a class="header" href="#crafting-a-paper-and-deck">Crafting a paper and deck</a></h3>
+<p>Crafting a concise and visually appealing pitch deck is crucial for effectively presenting your small blockchain project at the end of a hackathon. Structure your deck to highlight the problem your project solves, the solution you've developed, the target market, and the unique value it offers. Emphasize the key features and benefits of your project, along with any notable achievements during the hackathon. Use clear and concise language, visual aids, and a consistent design to enhance the overall presentation.</p>
+<blockquote>
+<p>We've provided a templates for LaTeX and PPT in <code>presentations/templates</code>.</p>
+</blockquote>
+<h3 id="the-pitch"><a class="header" href="#the-pitch">The pitch</a></h3>
+<p>During the pitch, focus on delivering a compelling and concise message that captures the attention of the judges and participants. Clearly articulate the problem your project addresses, the solution it provides, and how it leverages blockchain technology. Highlight the practical applications, benefits, and potential market opportunities of your project. Demonstrate how your project differentiates itself from existing solutions and how it aligns with the hackathon's theme or challenges. Be confident, enthusiastic, and passionate about your project, conveying the potential impact and value it brings.</p>
+<h3 id="the-presentation"><a class="header" href="#the-presentation">The presentation</a></h3>
+<p>When delivering your presentation, aim for clarity, professionalism, and effective communication. Begin with a concise and attention-grabbing introduction to hook the audience. Provide a brief overview of your project's development process, focusing on the key milestones achieved during the hackathon. Showcase any live demos, prototypes, or working features of your project, demonstrating its functionality and value proposition. Highlight the technical aspects of your project, such as the blockchain technology used, any smart contracts implemented, and the scalability or security measures in place. Conclude your presentation with a compelling call-to-action, inviting the judges and participants to engage with your project and explore its potential.</p>
+<h2 id="support"><a class="header" href="#support">Support</a></h2>
+<p>We're happy to support all developers on Movement. Whatever your problems, needs or desires, we hope we can help out.</p>
+<h3 id="general-outreach"><a class="header" href="#general-outreach">General outreach</a></h3>
+<p>For general questions, comments, and concerns please email <a href="mailto:liam@movementlabs.xyz">liam@movementlabs.xyz</a> or open up a new discussion in <a href="https://github.com/movemntdev/movement-hack">movemntdev/movement-hack</a>.</p>
+<h3 id="bugs"><a class="header" href="#bugs">Bugs</a></h3>
+<p>If you believe you've identified a bug, please create an issue in <a href="https://github.com/movemntdev/movement-hack">movemntdev/movement-hack</a>. We will triage accordingly.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h1>
+<p>Now that you've completed this book and your projects, we invite you to provide your feedback and stay in touch!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

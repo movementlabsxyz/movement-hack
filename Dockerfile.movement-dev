@@ -1,0 +1,84 @@
+FROM rust:latest as builder
+ENV DEBIAN_FRONTEND=noninteractive
+ENV CARGO_BUILD_JOBS=8
+
+# Set default values for ARGs
+ARG APP_DIR="/root/movement/app"
+ARG SUBNET_DIR="/root/movement/subnet"
+ARG LOCALNET_DIR="/root/movement/localnet"
+ARG CLI_DIR="/root/movement/cli"
+ARG PLUGIN_DIR="/root/movement/plugins"
+ARG SETUP_DIR="/root/movement/setup"
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    pkg-config \
+    libudev-dev \
+    openssh-client \
+    sudo
+
+# Download public key for github.com
+RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# Clone repo
+RUN --mount=type=ssh git clone git@github.com:movemntdev/movement-subnet.git "$APP_DIR/movement-subnet"
+
+# Create directories if they don't exist
+RUN mkdir -p "$APP_DIR" \
+    "$SUBNET_DIR" \
+    "$LOCALNET_DIR" \
+    "$CLI_DIR" \
+    "$PLUGIN_DIR"
+
+# Set the working directory
+WORKDIR "$APP_DIR/movement-subnet/vm/aptos-vm"
+
+# Pre-fetch crates
+RUN cargo generate-lockfile
+RUN cargo fetch
+# RUN cargo vendor
+
+# Run dev_setup.sh
+RUN chmod -R 755 ./scripts/dev_setup.sh && echo "y" | ./scripts/dev_setup.sh
+
+### SUBNET ###
+# Build subnet
+RUN cargo build -j $CARGO_BUILD_JOBS -p subnet --release
+
+# Build cli
+RUN cargo build -j $CARGO_BUILD_JOBS -p movement --release
+
+# Copy the cli binary to the cli directory
+RUN cp "$APP_DIR/movement-subnet/vm/aptos-vm/target/release/movement" "$CLI_DIR"
+
+# Copy the subnet binary to the plugins directory
+RUN cp "$APP_DIR/movement-subnet/vm/aptos-vm/target/release/subnet" "$PLUGIN_DIR/b6z34iYog6Qm8uUWmssHYWDhShhufDC1XEkXDQRabFWA3Ac6Y"
+
+WORKDIR ${SUBNET_DIR}
+
+# Download avalanchego
+RUN curl -L -o "$SUBNET_DIR/avalanchego.tar.gz" "https://github.com/ava-labs/avalanchego/releases/download/v1.10.2/avalanchego-linux-arm64-v1.10.2.tar.gz"
+
+# Extract avalanchego
+RUN tar -xzf "$SUBNET_DIR/avalanchego.tar.gz" -C "$SUBNET_DIR"
+
+# Add the local tesnet client
+RUN curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-network-runner/main/scripts/install.sh | sh -s
+
+RUN cp /$HOME/bin/avalanche-network-runner "$LOCALNET_DIR"
+
+FROM rust:latest as movement
+ARG APP_DIR="/root/movement/app"
+ARG SUBNET_DIR="/root/movement/subnet"
+ARG LOCALNET_DIR="/root/movement/localnet"
+ARG CLI_DIR="/root/movement/cli"
+ARG PLUGIN_DIR="/root/movement/plugins"
+ARG SETUP_DIR="/root/movement/setup"
+
+COPY --from=builder ${CLI_DIR}/movement /bin/movement
+COPY --from=builder ${LOCALNET_DIR}/avalanche-network-runner /bin/avalanche-network-runner
+COPY --from=builder ${PLUGIN_DIR} ${PLUGIN_DIR}
+RUN mkdir -p $HOME/.avalanchego
+RUN cp -r ${PLUGIN_DIR} $HOME/.avalanchego
