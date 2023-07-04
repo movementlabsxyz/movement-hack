@@ -15,7 +15,7 @@ When selecting a virtual machine for development its important to consider perfo
 There are three CLIs worth note in the Move language development space. All support building, testing, deploying, and running smart contracts.
 - [`move`](https://github.com/move-language/move/tree/main/language/tools/move-cli): the original CLI for Move development. 
 - `aptos`: the CLI for Aptos development.
-- `movement`: our very own CLI.
+- [`movement`](https://movement.gitbook.io/english/developers/developer-tools/movement-cli): our very own CLI.
 
 In this booklet we will be working with `move` and `movement`. 
 
