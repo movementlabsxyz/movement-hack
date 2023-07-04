@@ -1,5 +1,5 @@
 # Basic Move Syntax
-This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive gudies can be found at [move-book.com](https://move-book.com/) and [move-language.github.io](https://move-language.github.io/move/).
+This section treats with basic Move syntax, comparing the language to Rust. This is merely intended to provide some guidance for booklet participants. More comprehensive guides can be found at [move-book.com](https://move-book.com/) and [move-language.github.io](https://move-language.github.io/move/).
 
 
 ## Allocation and the Move Memory Model
@@ -61,7 +61,7 @@ let hex_val = x"48656C6C6F210A"; // hex string
 Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.
 - `copy`: The `copy` ability allows for the type's value to be copied.
 - `drop`: The `drop` ability enables the necessary cleanup actions when the type goes out of scope.
-- `store`: The `store` ability allows the type to be stored inside a struct in global storage.
+- `store`: The `store` ability allows the type's value to be stored inside a struct in global storage.
 - `key`: The `key` ability allows the type's value to be used as a unique identifier or index in the global storage of the Move blockchain.
 - Conditional abilities allow types to have different behaviors based on conditions.
 
