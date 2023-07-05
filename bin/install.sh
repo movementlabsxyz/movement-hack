@@ -36,6 +36,20 @@ MOVEMENT_WORKSPACE="$MOVEMENT_DIR/workspace"
 PLUGINS_DIR="$MOVEMENT_DIR/plugins"
 BIN_DIR="$MOVEMENT_DIR/bin"
 
+if [ -d "$MOVEMENT_DIR" ]; then
+    read -p "The movement directory already exists. Do you want to removing and replace? (y/n) " choice
+    case "$choice" in
+        y|Y )
+            echo "Removing..."
+            rm -rf "$AVALANCHEGO_DIR" "$MOVEMENT_DIR" "$PLUGINS_DIR" "$BIN_DIR" "$MOVEMENT_WORKSPACE"
+            ;;
+        n|N )
+            echo "Installation aborted."
+            exit 0
+            ;;
+        * )
+
+
 # Create the necessary directories
 mkdir -p "$AVALANCHEGO_DIR" "$MOVEMENT_DIR" "$PLUGINS_DIR" "$BIN_DIR" "$MOVEMENT_WORKSPACE"
 
@@ -115,10 +129,6 @@ ln -s "$AVALANCHEGO_DIR/plugins/qCP4kDnEWVorqyoUmcAtAmJybm8gXZzhHZ7pZibrJJEWECoo
 if [ ! -d "$MOVEMENT_DIR/movement-subnet" ]; then
   git clone https://github.com/movemntdev/movement-subnet "$MOVEMENT_DIR/movement-subnet"
 fi
-
-# Set up the developer environment if not already set up
-cd "$MOVEMENT_DIR/movement-subnet/vm/aptos-vm"
-./script/dev_setup.sh
 
 # Build the movement binary
 cargo build --release -p movement
