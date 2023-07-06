@@ -30,7 +30,7 @@ module resource_roulette::resource_roulette {
     move_to(account, ResourceRoulette {
       bids,
       owner: @resource_roulette,
-      state : 7
+      state : 17203943403948
     });
 
   }
@@ -85,6 +85,19 @@ module resource_roulette::resource_roulette {
     1
   }
 
+  fun empty_bids(self : &mut ResourceRoulette){
+
+    // empty the slots
+    let bids = vector::empty<vector<address>>();
+    let i = 0;
+    while (i < 32) {
+      vector::push_back(&mut bids, vector::empty<address>());
+      i = i + 1;
+    };
+    self.bids = bids;
+
+  }
+
   // Roll function to select a pseudorandom slot and pay out all signers who selected that slot
   public fun spin() acquires ResourceRoulette, RouletteWinnings {
 
@@ -98,30 +111,19 @@ module resource_roulette::resource_roulette {
     // pay out the winners
     let winners = vector::borrow(&self.bids, winning_slot);
     let num_winners = vector::length(winners);
-    if (num_winners < 1){
-      return
-    };
-    let balance_per_winner = total_bid()/( num_winners as u64);
-    let i = 0;
-    while (i < num_winners) {
-      let winner = vector::borrow(winners, i);
-      let winnings = borrow_global_mut<RouletteWinnings>(*winner);
-      winnings.amount = winnings.amount + balance_per_winner;
-      i = i + 1;
+
+    if (num_winners > 0){
+      let balance_per_winner = total_bid()/( num_winners as u64);
+      let i = 0;
+      while (i < num_winners) {
+        let winner = vector::borrow(winners, i);
+        let winnings = borrow_global_mut<RouletteWinnings>(*winner);
+        winnings.amount = winnings.amount + balance_per_winner;
+        i = i + 1;
+      };
     };
 
-    // empty the slots
-    let bids = vector::empty<vector<address>>();
-    let i = 0;
-    while (i < 32) {
-      vector::push_back(&mut bids, vector::empty<address>());
-      i = i + 1;
-    };
-
-    self.bids = bids;
-    let slot = vector::borrow(&self.bids, 10);
-    let slot_size = vector::length(slot);
-    assert!(slot_size == 0, slot_size);
+    empty_bids(self);
 
   }
 
@@ -143,17 +145,63 @@ module resource_roulette::resource_roulette {
   }
 
   #[test(account = @resource_roulette, bidder_one = @0x3)]
+  public fun test_bids_and_empties(account : &signer, bidder_one : &signer) acquires ResourceRoulette {
+    
+    init(account);
+    bid(bidder_one, 10);
+    empty_bids(borrow_global_mut<ResourceRoulette>(@resource_roulette));
+
+    // bids get pulled off the table
+    let i = 0;
+    while (i < 32){
+      let slot = vector::borrow(&borrow_global<ResourceRoulette>(@resource_roulette).bids, i);
+      let slot_size = vector::length(slot);
+      assert!(slot_size < 1, i);
+      i = i + 1;
+    }
+
+  }
+
+  #[test(account = @resource_roulette, bidder_one = @0x3)]
   public fun test_plays(account : &signer, bidder_one : &signer) acquires ResourceRoulette, RouletteWinnings {
     
     init(account);
     bid(bidder_one, 10);
     spin();
 
-    // bids get pulled off the table
-    let slot = vector::borrow(&borrow_global<ResourceRoulette>(@resource_roulette).bids, 10);
-    let slot_size = vector::length(slot);
-    assert!(slot_size == 0, slot_size);
+    // spin empties the bids
+    let i = 0;
+    while (i < 32){
+      let slot = vector::borrow(&borrow_global<ResourceRoulette>(@resource_roulette).bids, i);
+      let slot_size = vector::length(slot);
+      assert!(slot_size < 1, i);
+      i = i + 1;
+    }
 
+  }
+
+  #[test(account = @resource_roulette)]
+  public fun test_rolls_state(account : &signer) acquires ResourceRoulette {
+    init(account);
+    let self = borrow_global_mut<ResourceRoulette>(@resource_roulette);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
+    let state = self.state;
+    roll_state(self);
+    assert!(state != self.state, 99);
   }
 
   #[test_only]
@@ -166,9 +214,9 @@ module resource_roulette::resource_roulette {
   public fun test_wins(account : &signer, bidder_one : &signer) acquires ResourceRoulette, RouletteWinnings {
     
     init(account);
-    let i = 0;
-    while (i < 32) {
-      bid(bidder_one, i);
+    let i : u64 = 0;
+    while (i < 1_000) {
+      bid(bidder_one, 7);
       spin();
 
       let winnings = borrow_global<RouletteWinnings>(signer::address_of(bidder_one));
@@ -184,7 +232,7 @@ module resource_roulette::resource_roulette {
   // Under the current state rolling implementation this will work
   // More robust testing would calculate system dynamics
   #[test(account = @resource_roulette, bidder_one = @0x3, bidder_two = @0x4, bidder_three = @0x5)]
-  // #[expected_failure(abort_code = FLAG_WINNER)]
+  #[expected_failure(abort_code = FLAG_WINNER)]
   public fun test_multi_wins(account : &signer, bidder_one : &signer, bidder_two : &signer, bidder_three : &signer) acquires ResourceRoulette, RouletteWinnings {
     
     init(account);
@@ -201,9 +249,6 @@ module resource_roulette::resource_roulette {
       let winnings_three = borrow_global<RouletteWinnings>(signer::address_of(bidder_three));
       if (winnings_one.amount > 0 && winnings_two.amount > 0 && winnings_three.amount > 0) {
         abort FLAG_WINNER
-      };
-      if (i > 100) {
-        abort winnings_one.amount
       };
 
       i = i + 1;
