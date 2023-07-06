@@ -1,10 +1,13 @@
 version: 1
 frontend:
   phases:
+    preBuild:
+      commands: []
     build:
-      artifacts:
-        # IMPORTANT - Please verify your build output directory
-        baseDirectory: book/book
-        files:
-          - '**/*'
+      commands: []
+  artifacts:
+    baseDirectory: book/book
+    files:
+      - '**/*'
+
 
