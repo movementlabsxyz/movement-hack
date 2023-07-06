@@ -55,7 +55,8 @@ let byte_val = b"hello, world!"; // byte string
 let hex_val = x"48656C6C6F210A"; // hex string
 ```
 - Integers can be type cast with the `as` keyword.
-- The signer type represents the sender of a transaction and is used for access control and authentication.
+- `signer` represents the sender of a transaction and is used for access control and authentication.
+- `signer` can be converted to address with `signer::address_of`.
 
 ### Abilities
 Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.
@@ -83,12 +84,13 @@ public fun get_fee<X, Y, Curve>(): u64 acquires LiquidityPool {
 ```
 
 ## Resources, References, and Mutation
-- You can create a reference with `&`. 
-- Reference 
+- You can create a reference with `&` and `&mut`. 
+- You cannot use the `mut` keyword during assignment, .e.g., `let mut value = ...` will not compile.
 - Global storage operators `move_to`, `move_from`, `borrow_global_mut`, `borrow_global`, and `exists` in Move enable reading from and writing to resources stored in the blockchain's global storage.
 - The `acquires` keyword is used to specify which resources a function acquires ownership of a resource during execution.
 ```rust
 module collection::collection {
+    use std::signer;
 
     struct Item has store, drop {}
     struct Collection has key, store {

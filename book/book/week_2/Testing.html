@@ -30,6 +30,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
     <div id="body-container">
@@ -117,6 +119,12 @@
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack/edit/main/book/src/week_2/Testing.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
                     </div>
@@ -279,9 +287,52 @@ finish &quot;Queryed resourced for account!&quot;
 <p>In many cases, you will find opportunities to automate the inspection of resources via <code>bash</code>, <code>python</code>, and other scripts. As you develop any of these testing strategies, we encourage you to share them with us so that we might make improvements to our CLI's capabilities.</p>
 <blockquote>
 <p><strong>Share</strong>
-{: .share-block}
 Share your semi-automated workflows with us!</p>
 </blockquote>
+<h2 id="testing-directives"><a class="header" href="#testing-directives">Testing directives</a></h2>
+<p>Movement provides several directives for testing which are important to understand.</p>
+<h3 id="test"><a class="header" href="#test"><code>#[test]</code></a></h3>
+<p>Marks a test function. Can be provided with arguments.</p>
+<p>When testing procedures that require signers, you will need set their values in the directive. Take the example below from 💻 ResourceRoulette</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span> #[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &amp;signer, bidder_one : &amp;signer) acquires 
+<span class="boring">}</span></code></pre></pre>
+<p>Here our test expects both resource account, i.e., <code>resource_roulette</code>, and a bidder signer, i.e., <code>bidder_one</code>. We will discuss how these are used below.</p>
+<h3 id="test_only"><a class="header" href="#test_only"><code>#[test_only]</code></a></h3>
+<p>Test only is used for defining symbols that will only be compiled when testing. It can be useful for creating mocks and stubs, test boundaries and more.</p>
+<h3 id="expect_failure"><a class="header" href="#expect_failure"><code>#[expect_failure]</code></a></h3>
+<p>Allows you to check if a routine aborts as expected, i.e., matching a certain error code.</p>
+<p>In addition to asserting intended failures, you can use this behavior to define more complex tests that are based on boundary conditions being crossed. The example below from 💻 Resource Roulette uses this pattern to test whether winners emerge from the pseudorandom spinner.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test_only]
+const BOUNDARY_WINNER : u64 = 1;
+
+// Under the current state rolling implementation this will work
+// More robust testing would calculate system dynamics
+#[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &amp;signer, bidder_one : &amp;signer) acquires ResourceRoulette, RouletteWinnings {
+
+    init(account);
+    let i : u64 = 0;
+    while (i &lt; 1_000) {
+        bid(bidder_one, 7);
+        spin();
+
+        let winnings = borrow_global&lt;RouletteWinnings&gt;(signer::address_of(bidder_one));
+        if (winnings.amount &gt; 0) {
+        abort BOUNDARY_WINNER
+        };
+
+        i = i + 1;
+    };
+
+}
+<span class="boring">}</span></code></pre></pre>
 <h2 id="mocks-stubs-and-state-based-simulation"><a class="header" href="#mocks-stubs-and-state-based-simulation">Mocks, stubs, and state-based simulation</a></h2>
 <p>In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies. </p>
 <h3 id="mocks-and-stubs"><a class="header" href="#mocks-and-stubs">Mocks and stubs</a></h3>
@@ -338,7 +389,6 @@ finish &quot;Set environment to slow!&quot;
 </code></pre>
 <blockquote>
 <p><strong>Contribution</strong>
-{: .contributor-block}
 Help us develop mocking and stubbing tools for Movement. </p>
 </blockquote>
 

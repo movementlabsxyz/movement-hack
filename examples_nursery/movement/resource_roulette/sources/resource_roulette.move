@@ -205,7 +205,7 @@ module resource_roulette::resource_roulette {
   }
 
   #[test_only]
-  const FLAG_WINNER : u64 = 1;
+  const BOUNDARY_WINNER : u64 = 1;
 
   // Under the current state rolling implementation this will work
   // More robust testing would calculate system dynamics
@@ -221,7 +221,7 @@ module resource_roulette::resource_roulette {
 
       let winnings = borrow_global<RouletteWinnings>(signer::address_of(bidder_one));
       if (winnings.amount > 0) {
-        abort FLAG_WINNER
+        abort BOUNDARY_WINNER
       };
 
       i = i + 1;
@@ -248,7 +248,7 @@ module resource_roulette::resource_roulette {
       let winnings_two = borrow_global<RouletteWinnings>(signer::address_of(bidder_two));
       let winnings_three = borrow_global<RouletteWinnings>(signer::address_of(bidder_three));
       if (winnings_one.amount > 0 && winnings_two.amount > 0 && winnings_three.amount > 0) {
-        abort FLAG_WINNER
+        abort BOUNDARY_WINNER
       };
 
       i = i + 1;

@@ -30,6 +30,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
     <div id="body-container">
@@ -118,6 +120,12 @@
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+                        <a href="https://github.com/movemntdev/movement-hack" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack/edit/main/book/src/week_1/Basic_move_syntax.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -202,7 +210,8 @@ let hex_val = x&quot;48656C6C6F210A&quot;; // hex string
 <span class="boring">}</span></code></pre></pre>
 <ul>
 <li>Integers can be type cast with the <code>as</code> keyword.</li>
-<li>The signer type represents the sender of a transaction and is used for access control and authentication.</li>
+<li><code>signer</code> represents the sender of a transaction and is used for access control and authentication.</li>
+<li><code>signer</code> can be converted to address with <code>signer::address_of</code>.</li>
 </ul>
 <h3 id="abilities"><a class="header" href="#abilities">Abilities</a></h3>
 <p>Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.</p>
@@ -233,14 +242,15 @@ public fun get_fee&lt;X, Y, Curve&gt;(): u64 acquires LiquidityPool {
 <span class="boring">}</span></code></pre></pre>
 <h2 id="resources-references-and-mutation"><a class="header" href="#resources-references-and-mutation">Resources, References, and Mutation</a></h2>
 <ul>
-<li>You can create a reference with <code>&amp;</code>. </li>
-<li>Reference </li>
+<li>You can create a reference with <code>&amp;</code> and <code>&amp;mut</code>. </li>
+<li>You cannot use the <code>mut</code> keyword during assignment, .e.g., <code>let mut value = ...</code> will not compile.</li>
 <li>Global storage operators <code>move_to</code>, <code>move_from</code>, <code>borrow_global_mut</code>, <code>borrow_global</code>, and <code>exists</code> in Move enable reading from and writing to resources stored in the blockchain's global storage.</li>
 <li>The <code>acquires</code> keyword is used to specify which resources a function acquires ownership of a resource during execution.</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>module collection::collection {
+    use std::signer;
 
     struct Item has store, drop {}
     struct Collection has key, store {

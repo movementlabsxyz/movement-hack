@@ -4,6 +4,10 @@ This section introduces a few basic smart contracts from this repository as a st
 ## 💻 HelloWorld
 Is a very simple program for `MoveVM`. You can find it at `examples/move/hello_world`. 
 
+> Learnings leveraged:
+> - Basic Move syntax
+> - Byte strings
+
 ```rust
 script {
     use std::debug;
@@ -31,82 +35,162 @@ echo 48656c6c6f2c20776f726c6421 | xxd -r - p
 ```
 
 ## 💻 Fib
-The obligatory Move program that computes the $nth$ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it `examples/move/fib`. 
+The obligatory Move program that computes the _nth_ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it `examples/move/fib`. 
+
+> Learnings leveraged:
+> - Basic Move syntax
+> - Byte strings
+
+## 💻 DataStructures
+From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at `examples/move/data_structures`. 
+
+> Learnings leveraged:
+> - Basic Move syntax
+> - Vectors
+> - BCS
+> - Move idioms
 
 ## 💻 ResourceRoulette
-A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods `public fun bid` and `public fun spin`. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it `examples/move/resource_roulette`. 
+A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods `public fun bid` and `public fun spin`. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at `examples/move/resource_roulette`. 
+
+> Learnings leveraged:
+> - Basic Move syntax
+> - Signer and address types
+> - Borrows
+> - Initialization
+> - Move idioms
 
 ```rust
 module resource_roulette::resource_roulette {
   use std::vector;
+  use std::signer;
+
+  const ENO_UNAUTHORIZED_ADDRESS : u64 = 0;
 
   // ResourceRoulette struct representing the contract state
-  struct ResourceRoulette {
+  struct ResourceRoulette has key {
     bids: vector<vector<address>>,
     owner: address,
+    state : u64
   }
 
-  struct RouletteWinnings {
+  struct RouletteWinnings has key {
     amount : u64
   }
 
   // Initialization function for the ResourceRoulette contract
-  public entry fun init(account: &signer) {
+  public fun init(account: &signer) {
+
+    assert!(signer::address_of(account) == @resource_roulette, ENO_UNAUTHORIZED_ADDRESS);
 
     let bids = vector::empty<vector<address>>();
     let i = 0;
-    while i < 32 {
-      vector::push_back(&mut bids, vector::empty<address>())
+    while (i < 32) {
+      vector::push_back(&mut bids, vector::empty<address>());
       i = i + 1;
     };
 
-    move_to<ResourceRoulette>(account, ResourceRoulette {
+    move_to(account, ResourceRoulette {
       bids,
       owner: @resource_roulette,
+      state : 17203943403948
     });
 
   }
 
-  // Bid function to allow signers to bid on a specific slot
-  public entry fun bid(sender: &signer, slot: u8) acquires ResourceRoulette {
-    let roulette = borrow_global_mut<ResourceRoulette>(@resource_roulette);
-    let bids_size = vector::length(&roulette.bids);
-    assert!(slot < bids_size, 99);
-    // assert bids size does not exceed 100
-    assert!(bids_size < 100, 0); 
-
-    let slot_bids = vector::borrow_mut(&mut roulette.bids, slot);
-    vector::push_back(&mut slot_bids, signer::address_of(sender));
+  // Initializes winnings for a signer
+  public fun init_winnings(account: &signer) {
+    move_to(account, RouletteWinnings {
+      amount: 0,
+    });
   }
 
-  public fun total_bid(): u64 acquires ResourceRoulette {
+  // Bid function to allow signers to bid on a specific slot
+  public fun bid(account : &signer, slot: u8) acquires ResourceRoulette {
+
+    if (!exists<RouletteWinnings>(signer::address_of(account))) {
+      init_winnings(account);
+    };
+
+    let self = borrow_global_mut<ResourceRoulette>(@resource_roulette);
+    roll_state(self);
+    let bids_size = vector::length(&self.bids);
+    assert!(slot < (bids_size as u8), 99);
+    let slot_bids = vector::borrow_mut(&mut self.bids, (slot as u64));
+    vector::push_back(slot_bids, signer::address_of(account));
+
+  }
+
+  public fun total_bid() : u64 {
     // Make this more complex to support actual bidding
-    let roulette = borrow_global<ResourceRoulette>(@resource_roulette);
-    vector::length(&roulette.bids)
+    return 100
+  }
+
+  // rolls state using xoroshiro prng
+  fun roll_state(self :&mut ResourceRoulette) {
+    let state = (self.state as u256);
+    let x = state;
+    let y = state >> 64;
+
+    let t = x ^ y;
+    state = ((x << 55) | (x >> 9)) + y + t;
+
+    y = y ^ x;
+    state = state + ((y << 14) | (y >> 50)) + x + t;
+    
+    state = state + t;
+    state = state % (2^128 - 1);
+    self.state = (state as u64);
+
+  }
+
+  public fun get_noise() : u64 {
+    1
+  }
+
+  fun empty_bids(self : &mut ResourceRoulette){
+
+    // empty the slots
+    let bids = vector::empty<vector<address>>();
+    let i = 0;
+    while (i < 32) {
+      vector::push_back(&mut bids, vector::empty<address>());
+      i = i + 1;
+    };
+    self.bids = bids;
+
   }
 
   // Roll function to select a pseudorandom slot and pay out all signers who selected that slot
-  public entry fun spin(sender: &signer) acquires ResourceRoulette {
-    let roulette = ResourceRoulette::borrow_global_mut();
-    assert!(singer::address_of(sender) == roulette.owner, 98);
+  public fun spin() acquires ResourceRoulette, RouletteWinnings {
 
-    let resource_vector_size = vector::length(&roulette.bids);
-    let winning_slot = (0x1000 % resource_vector_size) as u8;
+    let self = borrow_global_mut<ResourceRoulette>(@resource_roulette);
 
-    let winners = vector::borrow(&roulette.bids, winning_slot);
+    // get the winning slot
+    let bids_size = vector::length(&self.bids);
+    roll_state(self);
+    let winning_slot = (get_noise() * self.state % (bids_size as u64)) ;
 
-    let num_winners = vector::length(&winners_vec);
-    let balance_per_winner = total_bid() / num_winners as u64;
+    // pay out the winners
+    let winners = vector::borrow(&self.bids, winning_slot);
+    let num_winners = vector::length(winners);
 
-    let mut i = 0;
-    while i < num_winners {
-      let winner = vector::borrow(&winners_vec, i);
-      let mut winnings = borrow_global_mut<RouletteWinnings>(winner);
-      winnings.amount = winnings.amount + balance_per_winner;
-      i = i + 1;
+    if (num_winners > 0){
+      let balance_per_winner = total_bid()/( num_winners as u64);
+      let i = 0;
+      while (i < num_winners) {
+        let winner = vector::borrow(winners, i);
+        let winnings = borrow_global_mut<RouletteWinnings>(*winner);
+        winnings.amount = winnings.amount + balance_per_winner;
+        i = i + 1;
+      };
     };
 
+    empty_bids(self);
+
   }
+
+  // tests...
 
 }
 ```

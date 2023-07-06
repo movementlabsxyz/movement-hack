@@ -31,6 +31,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
     <div id="body-container">
@@ -119,6 +121,9 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+                        <a href="https://github.com/movemntdev/movement-hack" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
 
                     </div>
                 </div>
@@ -150,6 +155,9 @@
 <p>This booklet was originally developed for a month-long hackathon, and so has content covering four weeks. While we think this pacing is nice, the book is concise enough to do in far less time and resumable enough to spread out over more time.</p>
 <p>By the end of this book, you will have the skills to build for the Movement blockchain and the contextual awareness to understand its advantages.</p>
 <p>If you are looking for in-depth documentation of Movement or the <code>movement</code> CLI please head to <a href="https://docs.movementlabs.xyz/">docs.movementlabs.xyz</a>.</p>
+<blockquote>
+<p>This book has an accompanying GitHub repository <a href="https://github.com/movemntdev/movement-hack">here</a>. You can also navigate to it by clicking the <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" height="16" width="16"> icon on any page.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="week-1-introduction-to-move-and-movement"><a class="header" href="#week-1-introduction-to-move-and-movement">Week 1: Introduction to Move and Movement</a></h1>
 <p>This week kicks off our exploration of the Move language and Movement ecosystem. We will begin by introducing Move, setting up an appropriate developer environment, and covering the basics of the Move language. Many of the topics concerning the move language will be revisited in greater depth during Week 2. </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="introduction-to-move-and-movement"><a class="header" href="#introduction-to-move-and-movement">Introduction to Move and Movement</a></h1>
@@ -307,7 +315,8 @@ let hex_val = x&quot;48656C6C6F210A&quot;; // hex string
 <span class="boring">}</span></code></pre></pre>
 <ul>
 <li>Integers can be type cast with the <code>as</code> keyword.</li>
-<li>The signer type represents the sender of a transaction and is used for access control and authentication.</li>
+<li><code>signer</code> represents the sender of a transaction and is used for access control and authentication.</li>
+<li><code>signer</code> can be converted to address with <code>signer::address_of</code>.</li>
 </ul>
 <h3 id="abilities"><a class="header" href="#abilities">Abilities</a></h3>
 <p>Type abilities in Move specify certain primitive memory behaviors and constraints for types. These abilities are perhaps most similar to different pointer types in Rust.</p>
@@ -338,14 +347,15 @@ public fun get_fee&lt;X, Y, Curve&gt;(): u64 acquires LiquidityPool {
 <span class="boring">}</span></code></pre></pre>
 <h2 id="resources-references-and-mutation"><a class="header" href="#resources-references-and-mutation">Resources, References, and Mutation</a></h2>
 <ul>
-<li>You can create a reference with <code>&amp;</code>. </li>
-<li>Reference </li>
+<li>You can create a reference with <code>&amp;</code> and <code>&amp;mut</code>. </li>
+<li>You cannot use the <code>mut</code> keyword during assignment, .e.g., <code>let mut value = ...</code> will not compile.</li>
 <li>Global storage operators <code>move_to</code>, <code>move_from</code>, <code>borrow_global_mut</code>, <code>borrow_global</code>, and <code>exists</code> in Move enable reading from and writing to resources stored in the blockchain's global storage.</li>
 <li>The <code>acquires</code> keyword is used to specify which resources a function acquires ownership of a resource during execution.</li>
 </ul>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>module collection::collection {
+    use std::signer;
 
     struct Item has store, drop {}
     struct Collection has key, store {
@@ -448,6 +458,13 @@ std =  &quot;0x1&quot;
 <p>This section introduces a few basic smart contracts from this repository as a starting point for programming activites.</p>
 <h2 id="-helloworld"><a class="header" href="#-helloworld">💻 HelloWorld</a></h2>
 <p>Is a very simple program for <code>MoveVM</code>. You can find it at <code>examples/move/hello_world</code>. </p>
+<blockquote>
+<p>Learnings leveraged:</p>
+<ul>
+<li>Basic Move syntax</li>
+<li>Byte strings</li>
+</ul>
+</blockquote>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>script {
@@ -472,81 +489,169 @@ std =  &quot;0x1&quot;
 <pre><code class="language-bash">echo 48656c6c6f2c20776f726c6421 | xxd -r - p
 </code></pre>
 <h2 id="-fib"><a class="header" href="#-fib">💻 Fib</a></h2>
-<p>The obligatory Move program that computes the $nth$ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it <code>examples/move/fib</code>. </p>
+<p>The obligatory Move program that computes the <em>nth</em> Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it <code>examples/move/fib</code>. </p>
+<blockquote>
+<p>Learnings leveraged:</p>
+<ul>
+<li>Basic Move syntax</li>
+<li>Byte strings</li>
+</ul>
+</blockquote>
+<h2 id="-datastructures"><a class="header" href="#-datastructures">💻 DataStructures</a></h2>
+<p>From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at <code>examples/move/data_structures</code>. </p>
+<blockquote>
+<p>Learnings leveraged:</p>
+<ul>
+<li>Basic Move syntax</li>
+<li>Vectors</li>
+<li>BCS</li>
+<li>Move idioms</li>
+</ul>
+</blockquote>
 <h2 id="-resourceroulette"><a class="header" href="#-resourceroulette">💻 ResourceRoulette</a></h2>
-<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it <code>examples/move/resource_roulette</code>. </p>
+<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at <code>examples/move/resource_roulette</code>. </p>
+<blockquote>
+<p>Learnings leveraged:</p>
+<ul>
+<li>Basic Move syntax</li>
+<li>Signer and address types</li>
+<li>Borrows</li>
+<li>Initialization</li>
+<li>Move idioms</li>
+</ul>
+</blockquote>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>module resource_roulette::resource_roulette {
   use std::vector;
+  use std::signer;
+
+  const ENO_UNAUTHORIZED_ADDRESS : u64 = 0;
 
   // ResourceRoulette struct representing the contract state
-  struct ResourceRoulette {
+  struct ResourceRoulette has key {
     bids: vector&lt;vector&lt;address&gt;&gt;,
     owner: address,
+    state : u64
   }
 
-  struct RouletteWinnings {
+  struct RouletteWinnings has key {
     amount : u64
   }
 
   // Initialization function for the ResourceRoulette contract
-  public entry fun init(account: &amp;signer) {
+  public fun init(account: &amp;signer) {
+
+    assert!(signer::address_of(account) == @resource_roulette, ENO_UNAUTHORIZED_ADDRESS);
 
     let bids = vector::empty&lt;vector&lt;address&gt;&gt;();
     let i = 0;
-    while i &lt; 32 {
-      vector::push_back(&amp;mut bids, vector::empty&lt;address&gt;())
+    while (i &lt; 32) {
+      vector::push_back(&amp;mut bids, vector::empty&lt;address&gt;());
       i = i + 1;
     };
 
-    move_to&lt;ResourceRoulette&gt;(account, ResourceRoulette {
+    move_to(account, ResourceRoulette {
       bids,
       owner: @resource_roulette,
+      state : 17203943403948
     });
 
   }
 
-  // Bid function to allow signers to bid on a specific slot
-  public entry fun bid(sender: &amp;signer, slot: u8) acquires ResourceRoulette {
-    let roulette = borrow_global_mut&lt;ResourceRoulette&gt;(@resource_roulette);
-    let bids_size = vector::length(&amp;roulette.bids);
-    assert!(slot &lt; bids_size, 99);
-    // assert bids size does not exceed 100
-    assert!(bids_size &lt; 100, 0); 
-
-    let slot_bids = vector::borrow_mut(&amp;mut roulette.bids, slot);
-    vector::push_back(&amp;mut slot_bids, signer::address_of(sender));
+  // Initializes winnings for a signer
+  public fun init_winnings(account: &amp;signer) {
+    move_to(account, RouletteWinnings {
+      amount: 0,
+    });
   }
 
-  public fun total_bid(): u64 acquires ResourceRoulette {
+  // Bid function to allow signers to bid on a specific slot
+  public fun bid(account : &amp;signer, slot: u8) acquires ResourceRoulette {
+
+    if (!exists&lt;RouletteWinnings&gt;(signer::address_of(account))) {
+      init_winnings(account);
+    };
+
+    let self = borrow_global_mut&lt;ResourceRoulette&gt;(@resource_roulette);
+    roll_state(self);
+    let bids_size = vector::length(&amp;self.bids);
+    assert!(slot &lt; (bids_size as u8), 99);
+    let slot_bids = vector::borrow_mut(&amp;mut self.bids, (slot as u64));
+    vector::push_back(slot_bids, signer::address_of(account));
+
+  }
+
+  public fun total_bid() : u64 {
     // Make this more complex to support actual bidding
-    let roulette = borrow_global&lt;ResourceRoulette&gt;(@resource_roulette);
-    vector::length(&amp;roulette.bids)
+    return 100
+  }
+
+  // rolls state using xoroshiro prng
+  fun roll_state(self :&amp;mut ResourceRoulette) {
+    let state = (self.state as u256);
+    let x = state;
+    let y = state &gt;&gt; 64;
+
+    let t = x ^ y;
+    state = ((x &lt;&lt; 55) | (x &gt;&gt; 9)) + y + t;
+
+    y = y ^ x;
+    state = state + ((y &lt;&lt; 14) | (y &gt;&gt; 50)) + x + t;
+    
+    state = state + t;
+    state = state % (2^128 - 1);
+    self.state = (state as u64);
+
+  }
+
+  public fun get_noise() : u64 {
+    1
+  }
+
+  fun empty_bids(self : &amp;mut ResourceRoulette){
+
+    // empty the slots
+    let bids = vector::empty&lt;vector&lt;address&gt;&gt;();
+    let i = 0;
+    while (i &lt; 32) {
+      vector::push_back(&amp;mut bids, vector::empty&lt;address&gt;());
+      i = i + 1;
+    };
+    self.bids = bids;
+
   }
 
   // Roll function to select a pseudorandom slot and pay out all signers who selected that slot
-  public entry fun spin(sender: &amp;signer) acquires ResourceRoulette {
-    let roulette = ResourceRoulette::borrow_global_mut();
-    assert!(singer::address_of(sender) == roulette.owner, 98);
+  public fun spin() acquires ResourceRoulette, RouletteWinnings {
 
-    let resource_vector_size = vector::length(&amp;roulette.bids);
-    let winning_slot = (0x1000 % resource_vector_size) as u8;
+    let self = borrow_global_mut&lt;ResourceRoulette&gt;(@resource_roulette);
 
-    let winners = vector::borrow(&amp;roulette.bids, winning_slot);
+    // get the winning slot
+    let bids_size = vector::length(&amp;self.bids);
+    roll_state(self);
+    let winning_slot = (get_noise() * self.state % (bids_size as u64)) ;
 
-    let num_winners = vector::length(&amp;winners_vec);
-    let balance_per_winner = total_bid() / num_winners as u64;
+    // pay out the winners
+    let winners = vector::borrow(&amp;self.bids, winning_slot);
+    let num_winners = vector::length(winners);
 
-    let mut i = 0;
-    while i &lt; num_winners {
-      let winner = vector::borrow(&amp;winners_vec, i);
-      let mut winnings = borrow_global_mut&lt;RouletteWinnings&gt;(winner);
-      winnings.amount = winnings.amount + balance_per_winner;
-      i = i + 1;
+    if (num_winners &gt; 0){
+      let balance_per_winner = total_bid()/( num_winners as u64);
+      let i = 0;
+      while (i &lt; num_winners) {
+        let winner = vector::borrow(winners, i);
+        let winnings = borrow_global_mut&lt;RouletteWinnings&gt;(*winner);
+        winnings.amount = winnings.amount + balance_per_winner;
+        i = i + 1;
+      };
     };
 
+    empty_bids(self);
+
   }
+
+  // tests...
 
 }
 <span class="boring">}</span></code></pre></pre>
@@ -873,6 +978,7 @@ module 0x42::MoveNav {
     use std::vector;
     use std::option;
     use std::debug;
+    use std::string;
 
     struct Graph {
         nodes: vector&lt;Vector3&gt;,
@@ -897,7 +1003,7 @@ module 0x42::MoveNav {
     }
 
     struct NavigationType {
-        name: string,
+        name: string::String,
         speed: u8,
     }
 
@@ -909,22 +1015,22 @@ module 0x42::MoveNav {
         if nav_type.name == &quot;Walk&quot; {
             debug::print(&quot;Walking at speed &quot;, nav_type.speed);
             // Perform walking navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == &quot;Run&quot; {
             debug::print(&quot;Running at speed &quot;, nav_type.speed);
             // Perform running navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == &quot;Fly&quot; {
             debug::print(&quot;Flying at speed &quot;, nav_type.speed);
             // Perform flying navigation logic
-            return option::None;
+            return option::none()
         } else {
             debug::print(&quot;Unsupported navigation type&quot;);
-            return option::None;
+            return option::none()
         }
 
     
@@ -1148,9 +1254,52 @@ finish &quot;Queryed resourced for account!&quot;
 <p>In many cases, you will find opportunities to automate the inspection of resources via <code>bash</code>, <code>python</code>, and other scripts. As you develop any of these testing strategies, we encourage you to share them with us so that we might make improvements to our CLI's capabilities.</p>
 <blockquote>
 <p><strong>Share</strong>
-{: .share-block}
 Share your semi-automated workflows with us!</p>
 </blockquote>
+<h2 id="testing-directives"><a class="header" href="#testing-directives">Testing directives</a></h2>
+<p>Movement provides several directives for testing which are important to understand.</p>
+<h3 id="test"><a class="header" href="#test"><code>#[test]</code></a></h3>
+<p>Marks a test function. Can be provided with arguments.</p>
+<p>When testing procedures that require signers, you will need set their values in the directive. Take the example below from 💻 ResourceRoulette</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span> #[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &amp;signer, bidder_one : &amp;signer) acquires 
+<span class="boring">}</span></code></pre></pre>
+<p>Here our test expects both resource account, i.e., <code>resource_roulette</code>, and a bidder signer, i.e., <code>bidder_one</code>. We will discuss how these are used below.</p>
+<h3 id="test_only"><a class="header" href="#test_only"><code>#[test_only]</code></a></h3>
+<p>Test only is used for defining symbols that will only be compiled when testing. It can be useful for creating mocks and stubs, test boundaries and more.</p>
+<h3 id="expect_failure"><a class="header" href="#expect_failure"><code>#[expect_failure]</code></a></h3>
+<p>Allows you to check if a routine aborts as expected, i.e., matching a certain error code.</p>
+<p>In addition to asserting intended failures, you can use this behavior to define more complex tests that are based on boundary conditions being crossed. The example below from 💻 Resource Roulette uses this pattern to test whether winners emerge from the pseudorandom spinner.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[test_only]
+const BOUNDARY_WINNER : u64 = 1;
+
+// Under the current state rolling implementation this will work
+// More robust testing would calculate system dynamics
+#[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &amp;signer, bidder_one : &amp;signer) acquires ResourceRoulette, RouletteWinnings {
+
+    init(account);
+    let i : u64 = 0;
+    while (i &lt; 1_000) {
+        bid(bidder_one, 7);
+        spin();
+
+        let winnings = borrow_global&lt;RouletteWinnings&gt;(signer::address_of(bidder_one));
+        if (winnings.amount &gt; 0) {
+        abort BOUNDARY_WINNER
+        };
+
+        i = i + 1;
+    };
+
+}
+<span class="boring">}</span></code></pre></pre>
 <h2 id="mocks-stubs-and-state-based-simulation"><a class="header" href="#mocks-stubs-and-state-based-simulation">Mocks, stubs, and state-based simulation</a></h2>
 <p>In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies. </p>
 <h3 id="mocks-and-stubs"><a class="header" href="#mocks-and-stubs">Mocks and stubs</a></h3>
@@ -1207,7 +1356,6 @@ finish &quot;Set environment to slow!&quot;
 </code></pre>
 <blockquote>
 <p><strong>Contribution</strong>
-{: .contributor-block}
 Help us develop mocking and stubbing tools for Movement. </p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="design-patterns"><a class="header" href="#design-patterns">Design Patterns</a></h1>
@@ -1752,7 +1900,9 @@ script {
 
         <script>
         window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
         });
         </script>
 
