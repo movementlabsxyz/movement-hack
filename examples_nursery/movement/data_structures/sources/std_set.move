@@ -1,4 +1,4 @@
-// Copyright (c) Mysten Labs, Inc.
+// Copyright (c) Movement Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
 module ds_std::std_set {
