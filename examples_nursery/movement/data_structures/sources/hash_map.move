@@ -80,7 +80,7 @@ module ds_std::hash_map {
     /// Get a mutable reference to the value bound to `key` in `map`.
     public fun get_mut<K, V>(map: &mut HashMap<K, V>, key: &K): (&K, &mut V) {
         let index = get_index<K>(key, map.size);
-        assert!(contains<K, V>(map, key), EKeyDoesNotExist);
+        assert!(contains<K, V>(map, key), ENO_KEY_DOES_NOT_EXIST);
         let option_value = vector::borrow_mut(&mut map.entries, index);
         let Entry { key: r_key, value: r_value } = option::borrow_mut(option_value);
         (r_key, r_value)
