@@ -1,0 +1,13 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands: []
+    build:
+      commands: []
+  artifacts:
+    baseDirectory: book/book
+    files:
+      - '**/*'
+
+
