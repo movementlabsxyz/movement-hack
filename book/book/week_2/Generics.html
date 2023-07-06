@@ -30,6 +30,8 @@
 
         <!-- Custom theme stylesheets -->
 
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     </head>
     <body>
     <div id="body-container">
@@ -117,6 +119,12 @@
                     <div class="right-buttons">
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack/edit/main/book/src/week_2/Generics.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
                         </a>
 
                     </div>
@@ -388,6 +396,7 @@ module 0x42::MoveNav {
     use std::vector;
     use std::option;
     use std::debug;
+    use std::string;
 
     struct Graph {
         nodes: vector&lt;Vector3&gt;,
@@ -412,7 +421,7 @@ module 0x42::MoveNav {
     }
 
     struct NavigationType {
-        name: string,
+        name: string::String,
         speed: u8,
     }
 
@@ -424,22 +433,22 @@ module 0x42::MoveNav {
         if nav_type.name == &quot;Walk&quot; {
             debug::print(&quot;Walking at speed &quot;, nav_type.speed);
             // Perform walking navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == &quot;Run&quot; {
             debug::print(&quot;Running at speed &quot;, nav_type.speed);
             // Perform running navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == &quot;Fly&quot; {
             debug::print(&quot;Flying at speed &quot;, nav_type.speed);
             // Perform flying navigation logic
-            return option::None;
+            return option::none()
         } else {
             debug::print(&quot;Unsupported navigation type&quot;);
-            return option::None;
+            return option::none()
         }
 
     

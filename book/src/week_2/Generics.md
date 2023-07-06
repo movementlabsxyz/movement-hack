@@ -255,6 +255,7 @@ module 0x42::MoveNav {
     use std::vector;
     use std::option;
     use std::debug;
+    use std::string;
 
     struct Graph {
         nodes: vector<Vector3>,
@@ -279,7 +280,7 @@ module 0x42::MoveNav {
     }
 
     struct NavigationType {
-        name: string,
+        name: string::String,
         speed: u8,
     }
 
@@ -291,22 +292,22 @@ module 0x42::MoveNav {
         if nav_type.name == "Walk" {
             debug::print("Walking at speed ", nav_type.speed);
             // Perform walking navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == "Run" {
             debug::print("Running at speed ", nav_type.speed);
             // Perform running navigation logic
-            return option::None;
+            return option::none()
         } 
         
         if nav_type.name == "Fly" {
             debug::print("Flying at speed ", nav_type.speed);
             // Perform flying navigation logic
-            return option::None;
+            return option::none()
         } else {
             debug::print("Unsupported navigation type");
-            return option::None;
+            return option::none()
         }
 
     

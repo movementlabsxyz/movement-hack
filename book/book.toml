@@ -1,5 +1,11 @@
 [book]
-authors = []
+authors = ["Liam Monninger", "Anan Poon", "Maggie Chudik"]
 language = "en"
 multilingual = false
 src = "src"
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/movemntdev/movement-hack"
+edit-url-template = "https://github.com/movemntdev/movement-hack/edit/main/book/{path}"
+

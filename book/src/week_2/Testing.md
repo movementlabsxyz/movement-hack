@@ -149,9 +149,57 @@ finish "Queryed resourced for account!"
 In many cases, you will find opportunities to automate the inspection of resources via `bash`, `python`, and other scripts. As you develop any of these testing strategies, we encourage you to share them with us so that we might make improvements to our CLI's capabilities.
 
 > **Share**
-> {: .share-block}
 > Share your semi-automated workflows with us!
 
+## Testing directives
+Movement provides several directives for testing which are important to understand.
+### `#[test]`
+Marks a test function. Can be provided with arguments.
+
+When testing procedures that require signers, you will need set their values in the directive. Take the example below from 💻 ResourceRoulette
+
+```rust
+ #[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &signer, bidder_one : &signer) acquires 
+```
+
+Here our test expects both resource account, i.e., `resource_roulette`, and a bidder signer, i.e., `bidder_one`. We will discuss how these are used below.
+
+### `#[test_only]`
+Test only is used for defining symbols that will only be compiled when testing. It can be useful for creating mocks and stubs, test boundaries and more.
+
+### `#[expect_failure]`
+Allows you to check if a routine aborts as expected, i.e., matching a certain error code.
+
+In addition to asserting intended failures, you can use this behavior to define more complex tests that are based on boundary conditions being crossed. The example below from 💻 Resource Roulette uses this pattern to test whether winners emerge from the pseudorandom spinner.
+
+```rust
+#[test_only]
+const BOUNDARY_WINNER : u64 = 1;
+
+// Under the current state rolling implementation this will work
+// More robust testing would calculate system dynamics
+#[test(account = @resource_roulette, bidder_one = @0x3)]
+#[expected_failure(abort_code = FLAG_WINNER)]
+public fun test_wins(account : &signer, bidder_one : &signer) acquires ResourceRoulette, RouletteWinnings {
+
+    init(account);
+    let i : u64 = 0;
+    while (i < 1_000) {
+        bid(bidder_one, 7);
+        spin();
+
+        let winnings = borrow_global<RouletteWinnings>(signer::address_of(bidder_one));
+        if (winnings.amount > 0) {
+        abort BOUNDARY_WINNER
+        };
+
+        i = i + 1;
+    };
+
+}
+```
 
 ## Mocks, stubs, and state-based simulation
 In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies. 
@@ -216,5 +264,4 @@ finish "Set environment to slow!"
 ```
 
 > **Contribution**
-> {: .contributor-block}
 > Help us develop mocking and stubbing tools for Movement. 
