@@ -24,12 +24,21 @@ module ds_std::oa_hash_map {
     struct OaHashMap<K, V> has copy, drop, store {
         size: u64,
         entries: vector<Option<Entry<K, V>>>,
+        dummy : Option<Entry<K, V>>
     }
 
     /// An entry in the map
     struct Entry<K, V> has copy, drop, store {
         key: K,
         value: V,
+    }
+
+    public fun get_key<K, V>(entry: &Entry<K, V>):  &K {
+        &entry.key
+    }
+
+    public fun get_value<K, V>(entry: &Entry<K, V>): &V {
+        &entry.value
     }
 
     /// Create an empty `OaHashMap`
@@ -42,7 +51,8 @@ module ds_std::oa_hash_map {
         };
         OaHashMap { 
           entries,
-          size
+          size,
+          dummy : option::none()
         }
     }
     
@@ -138,7 +148,28 @@ module ds_std::oa_hash_map {
     }
 
     /// Get a copy of an entry from the hash map
-    public fun get<K : copy, V : copy>(map: &OaHashMap<K, V>, key: &K) : Option<Entry<K, V>> {
+    public fun get<K, V>(map: &OaHashMap<K, V>, key: &K) : &Option<Entry<K, V>> {
+
+        // TODO: remove the comment below
+        // NOTE: now we don't check whether the map contains the key
+        // assert!(contains<K, V>(map, key), ENO_KEY_DOES_NOT_EXIST);
+
+        let option_value = find(map, key);
+
+        // Getting is a little different from finding.
+        // If the key is not in the map,
+        // we don't just want to return the next slot.
+        // Instead we'll return none.
+        if (option::is_none(option_value)) {
+            &map.dummy
+        } else {
+            option_value
+        }
+
+    }
+
+    /// Get a copy of an entry from the hash map
+    public fun get_copy<K : copy, V : copy>(map: &OaHashMap<K, V>, key: &K) : Option<Entry<K, V>> {
 
         // TODO: remove the comment below
         // NOTE: now we don't check whether the map contains the key
@@ -204,6 +235,34 @@ module ds_std::oa_hash_map {
         count
     }
 
+    public fun iter_next<K, V>(map: &OaHashMap<K, V>, index: u64) : (u64, &Option<Entry<K, V>>) {
+        
+        let i = index;
+        while (i < map.size) {
+            let v = vector::borrow(&map.entries, i);
+            if (option::is_some(v)) {
+                return (i + 1, v)
+            };
+            i = i + 1;
+        };
+        (i + 1, &map.dummy)
+
+    }
+
+    public fun iter_next_mut<K, V>(map: &mut OaHashMap<K, V>, index: u64) : (u64, &Option<Entry<K, V>>) {
+        
+        let i = index;
+        while (i < map.size) {
+            let v = vector::borrow_mut(&mut map.entries, i);
+            if (option::is_some(v)) {
+                return (i + 1, v)
+            };
+            i = i + 1;
+        };
+        (i + 1, &map.dummy)
+
+    }
+
     #[test]
     fun test_set() {
         
@@ -225,7 +284,7 @@ module ds_std::oa_hash_map {
         set(&mut map, key, value);
         let at_1 = borrow(&map, &1);
         assert!(*at_1 == value, 99);
-        let option1 = get(&map, &1);
+        let option1 = get_copy(&map, &1);
         assert!(option::is_some(&option1), 99);
         let entry1 = option::borrow(&option1);
         assert!(entry1.key == key, 99);
@@ -243,12 +302,32 @@ module ds_std::oa_hash_map {
         let at_1 = borrow(&map, &1);
         assert!(*at_1 == value, 99);
         let option1 = get(&map, &1);
+        assert!(option::is_some(option1), 99);
+        let entry1 = option::borrow(option1);
+        assert!(entry1.key == key, 99);
+        assert!(entry1.value == value, 99);
+
+        let option2 = get(&map, &2);
+        assert!(option::is_none(option2), 99);
+
+    }
+
+    #[test]
+    fun test_can_get_copy_empty() {
+        
+        let key : u8 = 1;
+        let value : u8 = 42;
+        let map = new<u8, u8>(1000);
+        set(&mut map, key, value);
+        let at_1 = borrow(&map, &1);
+        assert!(*at_1 == value, 99);
+        let option1 = get_copy(&map, &1);
         assert!(option::is_some(&option1), 99);
         let entry1 = option::borrow(&option1);
         assert!(entry1.key == key, 99);
         assert!(entry1.value == value, 99);
 
-        let option2 = get(&map, &2);
+        let option2 = get_copy(&map, &2);
         assert!(option::is_none(&option2), 99);
 
     }

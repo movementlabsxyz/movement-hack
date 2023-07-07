@@ -145,6 +145,27 @@ module ds_std::unique_binary_tree {
         value
     }
 
+    const LEFT : u8 = 0;
+    const MIDDLE : u8 = 1;
+    const RIGHT : u8 = 2;
+    const PARENT : u8 = 3;
+    const DOUBLE_PARENT : u8 = 4;
+
+    /*fun _next<V>(tree: &mut BinaryTree<V>, path : &mut vector<vector<u8>>, direction : u8) : ( 
+        Option<Node<V>>,
+        vector<vector<u8>>,
+        u8
+    ) {
+
+        if (direction == LEFT) {
+
+            let next = children(tree, &vector::pop_back(path));
+
+        }
+
+
+    }*/
+
     /// Return a new node with given value
     public fun new_node<V>(value: V): Node<V> {
         Node {
