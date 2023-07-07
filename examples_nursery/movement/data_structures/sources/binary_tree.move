@@ -8,54 +8,56 @@ module ds_std::unique_binary_tree {
     use ds_std::hash_map::{ Self, HashMap };
     
     /// Errors
-    const EValueAreadyExist: u64 = 0;
-    const EValueDontExist: u64 = 1;
-    const ERootAlreadyExist: u64 = 1;
+    const ENO_VALUE_ALREADY_EXISTS: u64 = 0;
+    const ENO_VALUE_DOESNT_EXIST: u64 = 1;
+    const ENO_ROOT_ALREADY_EXISTSt: u64 = 1;
 
-    /// BTree struct
-    struct BTree<V> has copy, drop, store {
+    /// BinaryTree struct
+    struct BinaryTree<V> has copy, drop, store {
         tree_nodes: HashMap<vector<u8>, Node<V>>,
         root_node_key: vector<u8>
     }
     
-    /// Node of `BTree`
+    /// Node of `BinaryTree`
+    /// NOTE: Move does not support recursive types, so you need to to use a 
+    /// a backing store to store the children of the node.
     struct Node<V> has copy, drop, store {
         value: V,
         left: Option<vector<u8>>,
         right: Option<vector<u8>>,
     }
 
-    /// Create an empty `BTree`
-    public fun new<V>(size: u64): BTree<V> {
-        BTree { 
+    /// Create an empty `BinaryTree`
+    public fun new<V>(size: u64): BinaryTree<V> {
+        BinaryTree { 
           tree_nodes: hash_map::new(size),
           root_node_key: vector::empty()
         }
     }
 
     /// Insert a root value to tree
-    public fun insert_root<V>(tree: &mut BTree<V>, root_value: V) {
+    public fun insert_root<V>(tree: &mut BinaryTree<V>, root_value: V) {
         let hashmap_key = bcs::to_bytes(&root_value);
-        assert!(hash_map::length(&tree.tree_nodes) == 0, ERootAlreadyExist);
+        assert!(hash_map::length(&tree.tree_nodes) == 0, ENO_ROOT_ALREADY_EXISTSt);
         tree.root_node_key = hashmap_key;
         hash_map::insert(&mut tree.tree_nodes, hashmap_key, new_node(root_value));
     }
 
     /// Get root value of tree
-    public fun borrow_root_value<V>(tree: &BTree<V>): &V {
+    public fun borrow_root_value<V>(tree: &BinaryTree<V>): &V {
         let (_, v) = hash_map::get(&tree.tree_nodes, &tree.root_node_key);
         &v.value
     }
 
     /// Insert a new value to tree as a child of `parent_value`
-    public fun insert<V>(tree: &mut BTree<V>, parent_value_bytes: &vector<u8>, new_value: V) {
+    public fun insert<V>(tree: &mut BinaryTree<V>, parent_value_bytes: &vector<u8>, new_value: V) {
         let hashmap_key = bcs::to_bytes(&new_value);
-        assert!(!hash_map::contains(&tree.tree_nodes, &hashmap_key), EValueAreadyExist);
+        assert!(!hash_map::contains(&tree.tree_nodes, &hashmap_key), ENO_VALUE_ALREADY_EXISTS);
         hash_map::insert(&mut tree.tree_nodes, hashmap_key, new_node(new_value));
         
         let parent_key = *parent_value_bytes;
 
-        while (true) {
+        loop { // prefer loop to while(true)
             let (_, node_value) = hash_map::get_mut(&mut tree.tree_nodes, &parent_key);
             if (option::is_none(&node_value.left)) {
                 node_value.left = option::some(hashmap_key);
@@ -70,13 +72,13 @@ module ds_std::unique_binary_tree {
     }
 
     /// Insert a root value to tree
-    public fun length<V>(tree: &BTree<V>): u64 {
+    public fun length<V>(tree: &BinaryTree<V>): u64 {
         hash_map::length(&tree.tree_nodes)
     }
 
     /// Return all `children` of the `parent_value` as a vector
-    public fun children<V: copy>(tree: &BTree<V>, parent_value_bytes: &vector<u8>): vector<V> {
-        assert!(hash_map::contains(&tree.tree_nodes, parent_value_bytes), EValueDontExist);
+    public fun children<V: copy>(tree: &BinaryTree<V>, parent_value_bytes: &vector<u8>): vector<V> {
+        assert!(hash_map::contains(&tree.tree_nodes, parent_value_bytes), ENO_VALUE_DOESNT_EXIST);
 
         let children_values: vector<V> = vector::empty();
         let queue: vector<vector<u8>> = vector::empty();
@@ -101,7 +103,7 @@ module ds_std::unique_binary_tree {
     }
 
     /// Return all `children` of the `parent_value` as a vector
-    public fun all<V: copy>(tree: &BTree<V>): vector<V> {        
+    public fun all<V: copy>(tree: &BinaryTree<V>): vector<V> {        
         let (_, root_node) = hash_map::get(&tree.tree_nodes, &tree.root_node_key);
         let values = children(tree, &tree.root_node_key);
         vector_push_front(&mut values, root_node.value);
@@ -109,8 +111,8 @@ module ds_std::unique_binary_tree {
     }
 
     /// Remove the `value` from the tree
-    public fun remove<V>(tree: &mut BTree<V>, value_bytes: &vector<u8>): vector<V> {
-        assert!(hash_map::contains(&tree.tree_nodes, value_bytes), EValueDontExist);
+    public fun remove<V>(tree: &mut BinaryTree<V>, value_bytes: &vector<u8>): vector<V> {
+        assert!(hash_map::contains(&tree.tree_nodes, value_bytes), ENO_VALUE_DOESNT_EXIST);
 
         let queue: vector<vector<u8>> = vector::empty();
         let remove_values: vector<V> = vector::empty();
@@ -133,9 +135,9 @@ module ds_std::unique_binary_tree {
     }
 
     /// Replace the `old_value` in the tree with `new_value`
-    public fun replace_value<V>(tree: &mut BTree<V>, old_value_bytes: &vector<u8>, new_value: V): V {
+    public fun replace_value<V>(tree: &mut BinaryTree<V>, old_value_bytes: &vector<u8>, new_value: V): V {
         let hashmap_key = *old_value_bytes;
-        assert!(hash_map::contains(&tree.tree_nodes, &hashmap_key), EValueDontExist);
+        assert!(hash_map::contains(&tree.tree_nodes, &hashmap_key), ENO_VALUE_DOESNT_EXIST);
 
         let (_, pnode) = hash_map::remove(&mut tree.tree_nodes, &hashmap_key);
         let Node {left, right, value} = pnode;
@@ -185,7 +187,7 @@ module ds_std::unique_binary_tree {
     }
 
     #[test_only]
-    fun do_inserts(btree: &mut BTree<FamilyMember>): vector<u8> {
+    fun do_inserts(btree: &mut BinaryTree<FamilyMember>): vector<u8> {
         insert_root(btree, FamilyMember { name: b"Rushi", age: 50 });
         assert!(length(btree) == 1, 0);
         
@@ -208,7 +210,7 @@ module ds_std::unique_binary_tree {
     }
 
     #[test]
-    fun insert_and_remove_test() {
+    fun test_insert_and_remove() {
         let btree = new<FamilyMember>(10);
         let root_key = do_inserts(&mut btree);
         let values = remove(&mut btree, &root_key);
@@ -216,7 +218,7 @@ module ds_std::unique_binary_tree {
     }
 
     #[test]
-    fun replace_and_children_test() {
+    fun test_replace_and_children() {
         let btree = new<FamilyMember>(10);
         let root_v_bytes = do_inserts(&mut btree);
 
@@ -236,7 +238,7 @@ module ds_std::unique_binary_tree {
     }
 
     #[test]
-    fun all_func_test() {
+    fun test_all() {
         let btree = new<FamilyMember>(10);
         do_inserts(&mut btree);
         let values = all(&btree);
