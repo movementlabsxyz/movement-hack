@@ -10,6 +10,7 @@ module ds_std::unique_binary_tree {
     /// Errors
     const EValueAreadyExist: u64 = 0;
     const EValueDontExist: u64 = 1;
+    const ERootAlreadyExist: u64 = 1;
 
     /// BTree struct
     struct BTree<V> has copy, drop, store {
@@ -28,6 +29,12 @@ module ds_std::unique_binary_tree {
         BTree { 
           tree_nodes: hash_map::new(size)
         }
+    }
+    /// Insert a root value to tree
+    public fun insert_root<V>(tree: &mut BTree<V>, root_value: V) {
+        let hashmap_key = bcs::to_bytes(&root_value);
+        assert!(hash_map::length(&tree.tree_nodes) == 0, ERootAlreadyExist);
+        hash_map::insert(&mut tree.tree_nodes, hashmap_key, new_node(root_value));
     }
 
     /// Insert a new value to tree as a child of `parent_value`
@@ -50,6 +57,11 @@ module ds_std::unique_binary_tree {
                 parent_key = bcs::to_bytes(node_value);
             };
         };
+    }
+
+    /// Insert a root value to tree
+    public fun length<V>(tree: &BTree<V>): u64 {
+        hash_map::length(&tree.tree_nodes)
     }
 
     /// Return all `children` of the `parent_value` as a vector
@@ -75,41 +87,6 @@ module ds_std::unique_binary_tree {
 
         children_values
     }
-
-    /*
-    public fun get_direct_children<V>(tree: &BTree<V>, parent_value: &V): (&V, &V) {
-        let hashmap_key = bcs::to_bytes(parent_value);
-        assert!(hash_map::contains(&tree.tree_nodes, &hashmap_key), EValueDontExist);
-
-        let (_, pnode) = hash_map::get(&tree.tree_nodes, &hashmap_key);
-        let (left, right) = (&pnode.value, &pnode.value);
-        if (option::is_some(&pnode.left)) {
-            let (_, lnode) = hash_map::get(&tree.tree_nodes, option::borrow(&pnode.left));
-            left = &lnode.value;
-        };
-        if (option::is_some(&pnode.right)) {
-            let (_, rnode) = hash_map::get(&tree.tree_nodes, option::borrow(&pnode.right));
-            right = &rnode.value;
-        };
-        (left, right)
-    }
-
-    public fun get_mut_direct_children<V>(tree: &mut BTree<V>, parent_value: &V): (&mut V, &mut V) {
-        let hashmap_key = bcs::to_bytes(parent_value);
-        assert!(hash_map::contains(&tree.tree_nodes, &hashmap_key), EValueDontExist);
-
-        let (_, pnode) = hash_map::get_mut(&mut tree.tree_nodes, &hashmap_key);
-        let (left, right) = (&mut pnode.value, &mut pnode.value);
-        if (option::is_some(&pnode.left)) {
-            let (_, lnode) = hash_map::get_mut(&mut tree.tree_nodes, option::borrow(&pnode.left));
-            left = &mut lnode.value;
-        };
-        if (option::is_some(&pnode.right)) {
-            let (_, rnode) = hash_map::get_mut(&mut tree.tree_nodes, option::borrow(&pnode.right));
-            right = &mut rnode.value;
-        };
-        (left, right)
-    }*/
 
     /// Remove the `value` from the tree
     public fun remove<V>(tree: &mut BTree<V>, value: &V): vector<V> {
@@ -163,5 +140,21 @@ module ds_std::unique_binary_tree {
             left,
             right
         }
+    }
+
+    // Let's assume that there is 2-child policy in the specified area
+    // So the parent can only have at most 2 child - left and right
+    #[test_only]
+    struct FamilyMember {
+        name: vector<u8>,
+        age: u64
+    }
+
+    #[test]
+    fun e2e_test() {
+        /*let btree = new<FamilyMember>(10);
+        insert_root(&mut btree, FamilyMember { name: b"Rushi", age: 30 });
+        assert!(length(&btree) == 1, 0);
+        */
     }
 }

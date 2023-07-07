@@ -82,7 +82,7 @@ module ds_std::oa_hash_map {
 
     }
 
-    public fun find_mut<K, V>(map: &mut OaHashMap<K, V>, key: &K) : &mut Option<Entry<K, V>> {
+    fun find_mut<K, V>(map: &mut OaHashMap<K, V>, key: &K) : &mut Option<Entry<K, V>> {
         
         let index = compute_hash_index(key, map.size);
         let count = 0;
@@ -185,11 +185,23 @@ module ds_std::oa_hash_map {
     }
 
     /// Return a new entry with given key and value
-    public fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
+    fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
         Entry {
             key,
             value
         }
+    }
+
+    /// Return item counts in hash_map
+    public fun length<K, V>(map: &OaHashMap<K, V>): u64 {
+        let i = 0;
+        let count = 0;
+        while (i < map.size) {
+            let v = vector::borrow(&map.entries, i);
+            if (option::is_some(v)) count = count + 1;
+            i = i + 1;
+        };
+        count
     }
 
     #[test]
@@ -318,6 +330,30 @@ module ds_std::oa_hash_map {
         }
 
 
+    }
+
+    #[test_only]
+    struct DataWrapper has drop {
+        len: u64,
+        data: vector<u8>
+    }
+
+    #[test_only]
+    struct Location has drop {
+        addr: address,
+        rev: u64
+    }
+
+    #[test]
+    fun test_length() {
+        let map = new<Location, DataWrapper>(1000);
+        let k = Location { addr: @0x1, rev: 0 };
+        let v = DataWrapper { len: 0, data: vector::empty() };
+        set(&mut map, k, v);
+        assert!(length(&map) == 1, 0);
+        /*let (key, value) = remove(&mut map, &Location { addr: @0x1, rev: 0 });
+        assert!(&key == &Location { addr: @0x1, rev: 0 }, 1);
+        assert!(&value == &DataWrapper { len: 0, data: vector::empty() }, 2);*/
     }
 
 }

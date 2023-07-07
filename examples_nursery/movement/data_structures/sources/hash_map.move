@@ -93,6 +93,18 @@ module ds_std::hash_map {
        !option::is_none(vector::borrow(&map.entries, index))
     }
 
+    /// Return item counts in hash_map
+    public fun length<K, V>(map: &HashMap<K, V>): u64 {
+        let i = 0;
+        let count = 0;
+        while (i < map.size) {
+            let v = vector::borrow(&map.entries, i);
+            if (option::is_some(v)) count = count + 1;
+            i = i + 1;
+        };
+        count
+    }
+
     /// Unpack `map` into vectors of its keys and values.
     /// The output keys and values are stored in arbitrary order, *not* in insertion order.
     public fun into_keys_values<K, V>(map: HashMap<K, V>): (vector<K>, vector<V>) {
@@ -146,7 +158,7 @@ module ds_std::hash_map {
     }
 
     /// Return a new entry with given key and value
-    public fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
+    fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
         Entry {
             key,
             value
@@ -202,6 +214,30 @@ module ds_std::hash_map {
         assert!(k1 == key, 99);
         assert!(v1 == value, 99);
 
+    }
+
+    #[test_only]
+    struct DataWrapper has drop {
+        len: u64,
+        data: vector<u8>
+    }
+
+    #[test_only]
+    struct Location has drop {
+        addr: address,
+        rev: u64
+    }
+
+    #[test]
+    fun test_length() {
+        let map = new<Location, DataWrapper>(1000);
+        let k = Location { addr: @0x1, rev: 0 };
+        let v = DataWrapper { len: 0, data: vector::empty() };
+        insert(&mut map, k, v);
+        assert!(length(&map) == 1, 0);
+        let (key, value) = remove(&mut map, &Location { addr: @0x1, rev: 0 });
+        assert!(&key == &Location { addr: @0x1, rev: 0 }, 1);
+        assert!(&value == &DataWrapper { len: 0, data: vector::empty() }, 2);
     }
 
     #[test]
