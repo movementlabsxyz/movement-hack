@@ -100,6 +100,14 @@ module ds_std::unique_binary_tree {
         children_values
     }
 
+    /// Return all `children` of the `parent_value` as a vector
+    public fun all<V: copy>(tree: &BTree<V>): vector<V> {        
+        let (_, root_node) = hash_map::get(&tree.tree_nodes, &tree.root_node_key);
+        let values = children(tree, &tree.root_node_key);
+        vector_push_front(&mut values, root_node.value);
+        values
+    }
+
     /// Remove the `value` from the tree
     public fun remove<V>(tree: &mut BTree<V>, value_bytes: &vector<u8>): vector<V> {
         assert!(hash_map::contains(&tree.tree_nodes, value_bytes), EValueDontExist);
@@ -161,6 +169,13 @@ module ds_std::unique_binary_tree {
         value
     }
 
+    /// Push at front in a given vector
+    fun vector_push_front<T>(v: &mut vector<T>, new_value: T) {
+        vector::reverse(v);
+        vector::push_back(v, new_value);
+        vector::reverse(v);
+    }
+
     // Let's assume that there is 2-child policy in the specified area
     // So the parent can only have at most 2 child - left and right
     #[test_only]
@@ -217,6 +232,19 @@ module ds_std::unique_binary_tree {
             FamilyMember { name: b"Liam", age: 30 },
             FamilyMember { name: b"Jack", age: 30 },
             FamilyMember { name: b"John", age: 10 }
+        ], 2);
+    }
+
+    #[test]
+    fun all_func_test() {
+        let btree = new<FamilyMember>(10);
+        do_inserts(&mut btree);
+        let values = all(&btree);
+        assert!(values == vector[
+            FamilyMember { name: b"Rushi", age: 50 },
+            FamilyMember { name: b"Liam", age: 30 },
+            FamilyMember { name: b"Jack", age: 30 },
+            FamilyMember { name: b"Liam's Son", age: 10 }
         ], 2);
     }
 }
