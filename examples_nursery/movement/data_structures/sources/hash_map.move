@@ -80,7 +80,7 @@ module ds_std::hash_map {
     /// Get a mutable reference to the value bound to `key` in `map`.
     public fun get_mut<K, V>(map: &mut HashMap<K, V>, key: &K): (&K, &mut V) {
         let index = get_index<K>(key, map.size);
-        assert!(contains<K, V>(map, key), EKeyDoesNotExist);
+        assert!(contains<K, V>(map, key), ENO_KEY_DOES_NOT_EXIST);
         let option_value = vector::borrow_mut(&mut map.entries, index);
         let Entry { key: r_key, value: r_value } = option::borrow_mut(option_value);
         (r_key, r_value)
@@ -91,6 +91,18 @@ module ds_std::hash_map {
         let index = get_index<K>(key, map.size);
         assert!(index < map.size, ENO_INDEX_OUT_OF_BOUNDS);
        !option::is_none(vector::borrow(&map.entries, index))
+    }
+
+    /// Return item counts in hash_map
+    public fun length<K, V>(map: &HashMap<K, V>): u64 {
+        let i = 0;
+        let count = 0;
+        while (i < map.size) {
+            let v = vector::borrow(&map.entries, i);
+            if (option::is_some(v)) count = count + 1;
+            i = i + 1;
+        };
+        count
     }
 
     /// Unpack `map` into vectors of its keys and values.
@@ -146,7 +158,7 @@ module ds_std::hash_map {
     }
 
     /// Return a new entry with given key and value
-    public fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
+    fun new_entry<K, V>(key: K, value: V): Entry<K, V> {
         Entry {
             key,
             value
@@ -202,6 +214,30 @@ module ds_std::hash_map {
         assert!(k1 == key, 99);
         assert!(v1 == value, 99);
 
+    }
+
+    #[test_only]
+    struct DataWrapper has drop {
+        len: u64,
+        data: vector<u8>
+    }
+
+    #[test_only]
+    struct Location has drop {
+        addr: address,
+        rev: u64
+    }
+
+    #[test]
+    fun test_length() {
+        let map = new<Location, DataWrapper>(1000);
+        let k = Location { addr: @0x1, rev: 0 };
+        let v = DataWrapper { len: 0, data: vector::empty() };
+        insert(&mut map, k, v);
+        assert!(length(&map) == 1, 0);
+        let (key, value) = remove(&mut map, &Location { addr: @0x1, rev: 0 });
+        assert!(&key == &Location { addr: @0x1, rev: 0 }, 1);
+        assert!(&value == &DataWrapper { len: 0, data: vector::empty() }, 2);
     }
 
     #[test]
