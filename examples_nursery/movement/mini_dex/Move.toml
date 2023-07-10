@@ -2,8 +2,11 @@
 name = "mini_dex"
 version = "0.0.0"
 
-[dependencies]
-MoveStdlib = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib", rev = "main" }
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'testnet'
+subdir = 'aptos-move/framework/aptos-framework'
 
 [addresses]
-std =  "0x1"
+AptosFramework = "0x1"
+mini_dex = "0x333"
