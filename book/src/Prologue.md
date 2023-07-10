@@ -1,4 +1,13 @@
 # Building with Movement
+<p align="center">
+  <img src="./rsc/movement_logo.png" alt="Movement logo" width="150">
+</p>
+
+<p align="center">
+<small color="gray">The Movement logo</small>
+</p>
+
+
 Welcome to *Building with Movement*! Over the course of this booklet, we will be addressing topics related to developing for the Movement blockchain.
 
 This booklet was originally developed for a month-long hackathon, and so has content covering four weeks. While we think this pacing is nice, the book is concise enough to do in far less time and resumable enough to spread out over more time.
