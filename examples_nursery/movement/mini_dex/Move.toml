@@ -10,3 +10,4 @@ subdir = 'aptos-move/framework/aptos-framework'
 [addresses]
 AptosFramework = "0x1"
 mini_dex = "0x333"
+resource_pool_account = "0x444"

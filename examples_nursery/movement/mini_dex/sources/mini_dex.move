@@ -7,6 +7,7 @@ module mini_dex::swap {
     use aptos_framework::account::{Self, SignerCapability};
     
     use mini_dex::math::{ sqrt, min };
+    use mini_dex::lp_account;
 
     /// pool data
     struct LiquidityPool<phantom X, phantom Y> has key {
@@ -54,13 +55,12 @@ module mini_dex::swap {
     /// When not exists on account
     const EINVALID_PAIR: u64 = 13;
 
-    const POOL_SEED: vector<u8> = b"POOL_SEED";
-
     // initialize
-    fun init_module(admin: &signer) {
-        assert!(signer::address_of(admin) == @mini_dex, EINVLIAD_INITIALIZER);
-        let (resource_account, signer_cap) = account::create_resource_account(admin, POOL_SEED);
-        move_to(&resource_account, PlatformData {
+    fun init_module(mini_dex_admin: &signer) {
+        assert!(signer::address_of(mini_dex_admin) == @mini_dex, EINVLIAD_INITIALIZER);
+        
+        let signer_cap = lp_account::retrieve_signer_cap(mini_dex_admin);
+        move_to(mini_dex_admin, PlatformData {
             signer_cap,
         });
     }
@@ -71,8 +71,8 @@ module mini_dex::swap {
 
     /// Function to get reserves size of Pool<X, Y>
     public fun get_reserves_size<X, Y>(): (u64, u64) acquires LiquidityPool {
-        if (exists<LiquidityPool<X, Y>>(get_resource_address())) {
-            let lp = borrow_global<LiquidityPool<X, Y>>(get_resource_address());
+        if (exists<LiquidityPool<X, Y>>(@resource_pool_account)) {
+            let lp = borrow_global<LiquidityPool<X, Y>>(@resource_pool_account);
             (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve))
         } else {
             (0, 0)
@@ -98,8 +98,8 @@ module mini_dex::swap {
     }
 
     /// Funtion to get Signer Capability of Resource account
-    fun get_resource_account_signer(): signer acquires PlatformData {
-        let signer_cap = &borrow_global<PlatformData>(get_resource_address()).signer_cap;
+    fun admin_account_signer_cap(): signer acquires PlatformData {
+        let signer_cap = &borrow_global<PlatformData>(@mini_dex).signer_cap;
         account::create_signer_with_capability(signer_cap)
     }
 
@@ -110,7 +110,7 @@ module mini_dex::swap {
         amount_x_min: u64,
         amount_y_min: u64
     ): (u64, u64) acquires LiquidityPool {
-        let lp = borrow_global<LiquidityPool<X, Y>>(get_resource_address());
+        let lp = borrow_global<LiquidityPool<X, Y>>(@resource_pool_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
         if (reserve_x == 0 && reserve_y == 0) {
             (amount_x_desired, amount_y_desired)
@@ -141,7 +141,7 @@ module mini_dex::swap {
         amount_x_min: u64,
         amount_y_min: u64,
     ) acquires LiquidityPool, PlatformData {
-        if (!exists<LiquidityPool<X, Y>>(get_resource_address())) {
+        if (!exists<LiquidityPool<X, Y>>(@resource_pool_account)) {
             create_pair<X, Y>();
         };
         add_liquidity<X, Y>(account, amount_x_desired, amount_y_desired, amount_x_min, amount_y_min);
@@ -198,10 +198,17 @@ module mini_dex::swap {
 
     /// Create pair, and register events
     public fun create_pair<X, Y>() acquires PlatformData {
-        assert!(!exists<LiquidityPool<X, Y>>(get_resource_address()), EPAIR_ALREADY_EXIST);
-        let resource_account_signer = get_resource_account_signer();
+        assert!(!exists<LiquidityPool<X, Y>>(@resource_pool_account), EPAIR_ALREADY_EXIST);
+        let resource_account_signer = admin_account_signer_cap();
         // create lp coin
-        let (lp_burn_cap, lp_freeze_cap, lp_mint_cap) = coin::initialize<LPCoin<X, Y>>(&resource_account_signer, utf8(b"AnimeSwapLPCoin"), utf8(b"ANILPCoin"), 8, true);
+        let (lp_burn_cap, lp_freeze_cap, lp_mint_cap) = 
+            coin::initialize<LPCoin<X, Y>>(
+                &resource_account_signer, 
+                utf8(b"Mini DEX LP"), 
+                utf8(b"LpCoin"), 
+                8, 
+                true
+            );
         // register coin
         register_coin<LPCoin<X, Y>>(&resource_account_signer);
         // register LiquidityPool
@@ -223,7 +230,7 @@ module mini_dex::swap {
         amount_y_min: u64,
     ) acquires LiquidityPool, PlatformData {
         // check lp exist
-        assert!(exists<LiquidityPool<X, Y>>(get_resource_address()), EINVALID_PAIR);
+        assert!(exists<LiquidityPool<X, Y>>(@resource_pool_account), EINVALID_PAIR);
         let (amount_x, amount_y) = calc_optimal_coin_values<X, Y>(amount_x_desired, amount_y_desired, amount_x_min, amount_y_min);
         let coin_x = coin::withdraw<X>(account, amount_x);
         let coin_y = coin::withdraw<Y>(account, amount_y);
@@ -265,12 +272,12 @@ module mini_dex::swap {
         coin_x: Coin<X>,
         coin_y: Coin<Y>
     ): Coin<LPCoin<X, Y>> acquires LiquidityPool, PlatformData {
-        assert!(exists<LiquidityPool<X, Y>>(get_resource_address()), EINVALID_PAIR);
+        assert!(exists<LiquidityPool<X, Y>>(@resource_pool_account), EINVALID_PAIR);
 
         let amount_x = coin::value(&coin_x);
         let amount_y = coin::value(&coin_y);
         // get reserve
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(get_resource_address());
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
         coin::merge(&mut lp.coin_x_reserve, coin_x);
         coin::merge(&mut lp.coin_y_reserve, coin_y);
@@ -279,7 +286,7 @@ module mini_dex::swap {
         let liquidity;
         if (total_supply == 0) {
             liquidity = sqrt(amount_x, amount_y) - MINIMUM_LIQUIDITY;
-            mint_coin<X, Y>(&get_resource_account_signer(), MINIMUM_LIQUIDITY, &lp.lp_mint_cap);
+            mint_coin<X, Y>(&admin_account_signer_cap(), MINIMUM_LIQUIDITY, &lp.lp_mint_cap);
         } else {
             // normal tx should never overflow
             let amount_1 = ((amount_x as u128) * total_supply / (reserve_x as u128) as u64);
@@ -297,7 +304,7 @@ module mini_dex::swap {
     ): (Coin<X>, Coin<Y>) acquires LiquidityPool {
         let liquidity_amount = coin::value(&liquidity);
         // get lp
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(get_resource_address());
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
 
         let total_supply = option::extract(&mut coin::supply<LPCoin<X, Y>>());
@@ -321,7 +328,7 @@ module mini_dex::swap {
         let amount_y_in = coin::value(&coins_y_in);
         assert!(amount_x_in > 0 || amount_y_in > 0, EINSUFFICIENT_INPUT_AMOUNT);
         assert!(amount_x_out > 0 || amount_y_out > 0, EINSUFFICIENT_OUTPUT_AMOUNT);
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(get_resource_address());
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
         
         coin::merge(&mut lp.coin_x_reserve, coins_x_in);
         coin::merge(&mut lp.coin_y_reserve, coins_y_in);
@@ -330,7 +337,7 @@ module mini_dex::swap {
         (coins_x_out, coins_y_out)
     }
         
-    fun quote(
+    public fun quote(
         amount_x: u64,
         reserve_x: u64,
         reserve_y: u64
@@ -341,7 +348,7 @@ module mini_dex::swap {
         amount_y
     }
 
-    fun get_amount_out(
+    public fun get_amount_out(
         amount_in: u64,
         reserve_in: u64,
         reserve_out: u64
@@ -355,7 +362,7 @@ module mini_dex::swap {
         (amount_out as u64)
     }
 
-    fun get_amount_in(
+    public fun get_amount_in(
         amount_out: u64,
         reserve_in: u64,
         reserve_out: u64
@@ -367,8 +374,6 @@ module mini_dex::swap {
         let amount_in = numerator / denominator + 1;
         (amount_in as u64)
     }
-
-    fun get_resource_address(): address { account::create_resource_address(&@mini_dex, POOL_SEED) }
 
     fun mint_coin<X, Y>(
         account: &signer,
@@ -390,6 +395,11 @@ module mini_dex::swap {
         if (!coin::is_account_registered<CoinType>(account_addr)) {
             coin::register<CoinType>(account);
         };
+    }
+
+    #[test_only]
+    public fun test_init_module(account: &signer) {
+        init_module(account);
     }
 
 }
