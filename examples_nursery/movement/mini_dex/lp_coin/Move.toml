@@ -1,5 +1,5 @@
 [package]
-name = "mini_dex"
+name = "MiniDexLp"
 version = "0.0.0"
 
 [dependencies.AptosFramework]
@@ -7,12 +7,6 @@ git = 'https://github.com/aptos-labs/aptos-core.git'
 rev = 'testnet'
 subdir = 'aptos-move/framework/aptos-framework'
 
-[dependencies.MiniDexLp]
-local = "./lp_coin/"
-
 [addresses]
 AptosFramework = "0x1"
-mini_dex = "0x333"
-
-# just same as @mini_dex_lp
-pool_resource_account = "0x444abab"
+mini_dex_lp = "0x444abab"

@@ -1,5 +1,5 @@
 #[test_only]
-module mini_dex::mini_dex_tests {
+module mini_dex::liquidity_pool_tests {
     use std::signer;
     use std::string::utf8;
     // use std::vector;
@@ -8,7 +8,8 @@ module mini_dex::mini_dex_tests {
     use aptos_framework::genesis;
     use aptos_framework::account::create_account_for_test;
 
-    use mini_dex::swap::{ Self, PlatformData, LiquidityPool, LPCoin };
+    use mini_dex::liquidity_pool::{ Self, PlatformData, LiquidityPool };
+    use mini_dex_lp::lp_coin::LPCoin;
 
     struct BTC {}
     struct ETH {}
@@ -35,28 +36,29 @@ module mini_dex::mini_dex_tests {
         move_to(creator, Capability<CoinType>  { mint_cap, freeze_cap, burn_cap });
     }
 
-    fun setup_env(creator: &signer, user: &signer) {
+    fun setup_env(creator: &signer, resource_account: &signer, user: &signer) {
         genesis::setup();
         create_account_for_test(signer::address_of(user));
         create_account_for_test(signer::address_of(creator));
-        swap::test_init_module(creator);
+        create_account_for_test(signer::address_of(resource_account));
+        liquidity_pool::test_init_module(resource_account);
 
         mint_coin<BTC>(creator, user);
         mint_coin<USDT>(creator, user);
     }
 
-    #[test(creator = @mini_dex, alice = @0xbbb)]
-    public entry fun test_add_remove_liquidity(creator: &signer, alice: &signer) {
+    #[test(creator = @mini_dex, resource_account = @pool_resource_account, alice = @0xbbb)]
+    public entry fun test_add_remove_liquidity(creator: &signer, resource_account: &signer, alice: &signer) {
 
         // setup environment
-        setup_env(creator, alice);
+        setup_env(creator, resource_account, alice);
         
         let alice_addr = signer::address_of(alice);
 
-        // should takes 10000/10000 coin and gives 9000 LPCoin (AnimeSwapPoolV1Library::sqrt(10000*10000)-1000)
-        swap::add_liquidity_entry<BTC, USDT>(alice, 10_000, 10_000, 1, 1);
+        // should takes 10000/10000 coin and gives 9000 LPCoin (Animeliquidity_poolPoolV1Library::sqrt(10000*10000)-1000)
+        liquidity_pool::add_liquidity_entry<BTC, USDT>(alice, 10_000, 10_000, 1, 1);
         {
-            let (coin_x_reserve, coin_y_reserve) = swap::get_reserves_size<BTC, USDT>();
+            let (coin_x_reserve, coin_y_reserve) = liquidity_pool::get_reserves_size<BTC, USDT>();
             assert!(coin_x_reserve == 10_000, EInvalidPoolBalance);
             assert!(coin_y_reserve == 10_000, EInvalidPoolBalance);
             assert!(coin::balance<LPCoin<BTC, USDT>>(alice_addr) == 9000, EInvalidUserLpBalance);

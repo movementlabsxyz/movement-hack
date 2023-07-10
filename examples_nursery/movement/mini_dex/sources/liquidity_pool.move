@@ -1,4 +1,4 @@
-module mini_dex::swap {
+module mini_dex::liquidity_pool {
     use std::signer;
     use std::string::utf8;
     // use std::vector;
@@ -8,6 +8,7 @@ module mini_dex::swap {
     
     use mini_dex::math::{ sqrt, min };
     use mini_dex::lp_account;
+    use mini_dex_lp::lp_coin::LPCoin;
 
     /// pool data
     struct LiquidityPool<phantom X, phantom Y> has key {
@@ -17,8 +18,6 @@ module mini_dex::swap {
         lp_freeze_cap: FreezeCapability<LPCoin<X, Y>>,
         lp_burn_cap: BurnCapability<LPCoin<X, Y>>,
     }
-
-    struct LPCoin<phantom CoinType1, phantom CoinType2> {}
 
     /// global config data
     struct PlatformData has key {
@@ -71,8 +70,8 @@ module mini_dex::swap {
 
     /// Function to get reserves size of Pool<X, Y>
     public fun get_reserves_size<X, Y>(): (u64, u64) acquires LiquidityPool {
-        if (exists<LiquidityPool<X, Y>>(@resource_pool_account)) {
-            let lp = borrow_global<LiquidityPool<X, Y>>(@resource_pool_account);
+        if (exists<LiquidityPool<X, Y>>(@pool_resource_account)) {
+            let lp = borrow_global<LiquidityPool<X, Y>>(@pool_resource_account);
             (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve))
         } else {
             (0, 0)
@@ -99,7 +98,7 @@ module mini_dex::swap {
 
     /// Funtion to get Signer Capability of Resource account
     fun admin_account_signer_cap(): signer acquires PlatformData {
-        let signer_cap = &borrow_global<PlatformData>(@mini_dex).signer_cap;
+        let signer_cap = &borrow_global<PlatformData>(@pool_resource_account).signer_cap;
         account::create_signer_with_capability(signer_cap)
     }
 
@@ -110,7 +109,7 @@ module mini_dex::swap {
         amount_x_min: u64,
         amount_y_min: u64
     ): (u64, u64) acquires LiquidityPool {
-        let lp = borrow_global<LiquidityPool<X, Y>>(@resource_pool_account);
+        let lp = borrow_global<LiquidityPool<X, Y>>(@pool_resource_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
         if (reserve_x == 0 && reserve_y == 0) {
             (amount_x_desired, amount_y_desired)
@@ -141,7 +140,7 @@ module mini_dex::swap {
         amount_x_min: u64,
         amount_y_min: u64,
     ) acquires LiquidityPool, PlatformData {
-        if (!exists<LiquidityPool<X, Y>>(@resource_pool_account)) {
+        if (!exists<LiquidityPool<X, Y>>(@pool_resource_account)) {
             create_pair<X, Y>();
         };
         add_liquidity<X, Y>(account, amount_x_desired, amount_y_desired, amount_x_min, amount_y_min);
@@ -198,7 +197,7 @@ module mini_dex::swap {
 
     /// Create pair, and register events
     public fun create_pair<X, Y>() acquires PlatformData {
-        assert!(!exists<LiquidityPool<X, Y>>(@resource_pool_account), EPAIR_ALREADY_EXIST);
+        assert!(!exists<LiquidityPool<X, Y>>(@pool_resource_account), EPAIR_ALREADY_EXIST);
         let resource_account_signer = admin_account_signer_cap();
         // create lp coin
         let (lp_burn_cap, lp_freeze_cap, lp_mint_cap) = 
@@ -230,7 +229,7 @@ module mini_dex::swap {
         amount_y_min: u64,
     ) acquires LiquidityPool, PlatformData {
         // check lp exist
-        assert!(exists<LiquidityPool<X, Y>>(@resource_pool_account), EINVALID_PAIR);
+        assert!(exists<LiquidityPool<X, Y>>(@pool_resource_account), EINVALID_PAIR);
         let (amount_x, amount_y) = calc_optimal_coin_values<X, Y>(amount_x_desired, amount_y_desired, amount_x_min, amount_y_min);
         let coin_x = coin::withdraw<X>(account, amount_x);
         let coin_y = coin::withdraw<Y>(account, amount_y);
@@ -272,12 +271,12 @@ module mini_dex::swap {
         coin_x: Coin<X>,
         coin_y: Coin<Y>
     ): Coin<LPCoin<X, Y>> acquires LiquidityPool, PlatformData {
-        assert!(exists<LiquidityPool<X, Y>>(@resource_pool_account), EINVALID_PAIR);
+        assert!(exists<LiquidityPool<X, Y>>(@pool_resource_account), EINVALID_PAIR);
 
         let amount_x = coin::value(&coin_x);
         let amount_y = coin::value(&coin_y);
         // get reserve
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@pool_resource_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
         coin::merge(&mut lp.coin_x_reserve, coin_x);
         coin::merge(&mut lp.coin_y_reserve, coin_y);
@@ -304,7 +303,7 @@ module mini_dex::swap {
     ): (Coin<X>, Coin<Y>) acquires LiquidityPool {
         let liquidity_amount = coin::value(&liquidity);
         // get lp
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@pool_resource_account);
         let (reserve_x, reserve_y) = (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve));
 
         let total_supply = option::extract(&mut coin::supply<LPCoin<X, Y>>());
@@ -328,7 +327,7 @@ module mini_dex::swap {
         let amount_y_in = coin::value(&coins_y_in);
         assert!(amount_x_in > 0 || amount_y_in > 0, EINSUFFICIENT_INPUT_AMOUNT);
         assert!(amount_x_out > 0 || amount_y_out > 0, EINSUFFICIENT_OUTPUT_AMOUNT);
-        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@resource_pool_account);
+        let lp = borrow_global_mut<LiquidityPool<X, Y>>(@pool_resource_account);
         
         coin::merge(&mut lp.coin_x_reserve, coins_x_in);
         coin::merge(&mut lp.coin_y_reserve, coins_y_in);
@@ -397,9 +396,10 @@ module mini_dex::swap {
         };
     }
 
-    #[test_only]
-    public fun test_init_module(account: &signer) {
-        init_module(account);
+    #[test_only]   
+    public fun test_init_module(resource_account: &signer) {
+        move_to(resource_account, PlatformData {
+            signer_cap: account::create_test_signer_cap(signer::address_of(resource_account)),
+        });
     }
-
 }
