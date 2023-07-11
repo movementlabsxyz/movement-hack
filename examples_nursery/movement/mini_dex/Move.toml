@@ -12,7 +12,8 @@ local = "./lp_coin/"
 
 [addresses]
 AptosFramework = "0x1"
-mini_dex = "0x333"
+mini_dex = "0x333abc"
 
 # just same as @mini_dex_lp
-pool_resource_account = "0x444abab"
+# this address comes from `account::create_resource_address(@mini_dex, b"LP_CREATOR_SEED")`
+pool_resource_account = "0x74efc036242e31d5f60ed6f61f593645406eddf91e89c7467dbadb0708f04104"

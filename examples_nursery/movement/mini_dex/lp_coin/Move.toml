@@ -9,4 +9,4 @@ subdir = 'aptos-move/framework/aptos-framework'
 
 [addresses]
 AptosFramework = "0x1"
-mini_dex_lp = "0x444abab"
+mini_dex_lp = "0x74efc036242e31d5f60ed6f61f593645406eddf91e89c7467dbadb0708f04104"

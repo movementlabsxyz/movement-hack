@@ -73,18 +73,12 @@ module mini_dex::liquidity_pool {
         if (exists<LiquidityPool<X, Y>>(@pool_resource_account)) {
             let lp = borrow_global<LiquidityPool<X, Y>>(@pool_resource_account);
             (coin::value(&lp.coin_x_reserve), coin::value(&lp.coin_y_reserve))
+        } else if (exists<LiquidityPool<Y, X>>(@pool_resource_account)){
+            let lp = borrow_global<LiquidityPool<Y, X>>(@pool_resource_account);
+            (coin::value(&lp.coin_y_reserve), coin::value(&lp.coin_x_reserve))
         } else {
             (0, 0)
         }
-    }
-
-    /// Funtion to get amounts out of Swap X->Y
-    public fun get_amounts_out<X, Y>(
-        amount_in: u64
-    ): u64 acquires LiquidityPool {
-        let (reserve_in, reserve_out) = get_reserves_size<X, Y>();
-        let amount_out = get_amount_out(amount_in, reserve_in, reserve_out);
-        amount_out
     }
 
     /// Function to get amounts in of Swap X->Y
@@ -126,7 +120,6 @@ module mini_dex::liquidity_pool {
             }
         }
     }
-
 
     /**
      * Entry functions
@@ -261,7 +254,13 @@ module mini_dex::liquidity_pool {
         let amount_in = coin::value(&coins_in);
         let (reserve_in, reserve_out) = get_reserves_size<X, Y>();
         let amount_out = get_amount_out(amount_in, reserve_in, reserve_out);
-        let (zero, coins_out) = swap<X, Y>(coins_in, 0, coin::zero(), amount_out);
+        
+        let (zero, coins_out);
+        if (exists<LiquidityPool<X, Y>>(@pool_resource_account)) {
+            (zero, coins_out) = swap<X, Y>(coins_in, 0, coin::zero(), amount_out);
+        } else if (exists<LiquidityPool<Y, X>>(@pool_resource_account)){
+            (coins_out, zero) = swap<Y, X>(coin::zero(), amount_out, coins_in, 0);
+        } else abort 0;
         coin::destroy_zero<X>(zero);
         coins_out
     }
