@@ -17,3 +17,5 @@ By the end of this book, you will have the skills to build for the Movement bloc
 If you are looking for in-depth documentation of Movement or the `movement` CLI please head to [docs.movementlabs.xyz](https://docs.movementlabs.xyz/).
 
 > This book has an accompanying GitHub repository <a href="https://github.com/movemntdev/movement-hack">here</a>. You can also navigate to it by clicking the <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" height="16" width="16"> icon on any page.
+
+> If you run into any issues, please use our [Help Desk](https://movemnt.atlassian.net/servicedesk/customer/portal/4) to file a bug report, request support, or search for additional documentation. We will attempt to provide timely support, prioritizing hackathon participants.
