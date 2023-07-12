@@ -1,0 +1,13 @@
+name: Run Citests
+
+on:
+  push:
+    branches:
+      - main
+jobs:       
+  test:
+      runs-on: ubuntu-latest
+      container:
+        image: public.ecr.aws/c4i6k4r8/movement-dev:latest
+      steps:
+        - run: ./abin/citest.sh
