@@ -1,0 +1,12 @@
+[package]
+name = "MiniDexLp"
+version = "0.0.0"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'testnet'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[addresses]
+AptosFramework = "0x1"
+mini_dex_lp = "0x74efc036242e31d5f60ed6f61f593645406eddf91e89c7467dbadb0708f04104"
