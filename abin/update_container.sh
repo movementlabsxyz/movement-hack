@@ -5,4 +5,7 @@ docker build --ssh default -t movement-dev:latest -f Dockerfile.movement-dev .
 docker tag movement-dev:latest public.ecr.aws/c4i6k4r8/movement-dev:latest
 docker push public.ecr.aws/c4i6k4r8/movement-dev:latest
 
+docker build --platform linux/amd64 --ssh default -t movement-dev:latest-amd -f Dockerfile.movement-dev .
+docker tag movement-dev:latest public.ecr.aws/c4i6k4r8/movement-dev:latest-amd
+docker push public.ecr.aws/c4i6k4r8/movement-dev:latest-amd
 
