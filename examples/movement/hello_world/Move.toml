@@ -1,0 +1,10 @@
+[package]
+name = "hello_world"
+version = "0.0.0"
+
+[dependencies]
+AptosFramework = {  git = "https://github.com/movemntdev/movement-framework-mirror.git", subdir = "framework/aptos-framework", rev = "main" }
+
+[addresses]
+std =  "0x1"
+hello_blockchain = "_"

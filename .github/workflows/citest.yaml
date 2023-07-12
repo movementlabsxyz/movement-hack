@@ -1,0 +1,21 @@
+name: Run Citests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-citest:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: docker/setup-docker@v1
+      
+    - name: Build and run script
+      run: |
+        docker run --rm -v $(pwd):/app -w /app public.ecr.aws/c4i6k4r8/movement-dev bash abin/citest.sh

@@ -210,7 +210,7 @@ module resource_roulette::resource_roulette {
   // Under the current state rolling implementation this will work
   // More robust testing would calculate system dynamics
   #[test(account = @resource_roulette, bidder_one = @0x3)]
-  #[expected_failure(abort_code = FLAG_WINNER)]
+  #[expected_failure(abort_code = BOUNDARY_WINNER)]
   public fun test_wins(account : &signer, bidder_one : &signer) acquires ResourceRoulette, RouletteWinnings {
     
     init(account);
@@ -232,7 +232,7 @@ module resource_roulette::resource_roulette {
   // Under the current state rolling implementation this will work
   // More robust testing would calculate system dynamics
   #[test(account = @resource_roulette, bidder_one = @0x3, bidder_two = @0x4, bidder_three = @0x5)]
-  #[expected_failure(abort_code = FLAG_WINNER)]
+  #[expected_failure(abort_code = BOUNDARY_WINNER)]
   public fun test_multi_wins(account : &signer, bidder_one : &signer, bidder_two : &signer, bidder_three : &signer) acquires ResourceRoulette, RouletteWinnings {
     
     init(account);
