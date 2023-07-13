@@ -10,4 +10,4 @@ jobs:
       container:
         image: public.ecr.aws/c4i6k4r8/movement-dev:latest
       steps:
-        - run: ./abin/citest.sh
+        - run: ./bin/maintainer/citest.sh
