@@ -1,70 +1,181 @@
-module ds_std::unique_binary_tree {
+// Copyright (c) Movement Labs, Inc.
+// SPDX-License-Identifier: Apache-2.0
+
+module ds_std::graph {
     use std::vector;
     use std::option::{ Self, Option };
-    use std::bcs;
-    use ds_std::hash_map::{ Self, HashMap };
-    
-    /// Errors
-    const ENO_VALUE_ALREADY_EXISTS: u64 = 0;
-    const ENO_VALUE_DOESNT_EXIST: u64 = 1;
-    const ENO_ROOT_ALREADY_EXISTSt: u64 = 1;
+    // use std::bcs;
+    use ds_std::oa_hash_map::{ Self, OaHashMap, Entry };
 
-    /// BinaryTree struct
-    struct BinaryTree<V> has copy, drop, store {
-        tree_nodes: HashMap<vector<u8>, Node<V>>,
-        root_node_key: vector<u8>
-    }
-    
-    /// Node of `BinaryTree`
-    /// NOTE: Move does not support recursive types, so you need to to use a 
-    /// a backing store to store the children of the node.
-    struct Node<V> has copy, drop, store {
-        value: V,
-        left: Option<vector<u8>>,
-        right: Option<vector<u8>>,
+    /// Graph struct
+    struct Graph<V> has drop, store {
+        size : u64,
+        adj : OaHashMap<V, OaHashMap<V, V>>,
     }
 
-    /// Create an empty `BinaryTree`
-    public fun new<V>(size: u64): BinaryTree<V> {
-        BinaryTree { 
-          tree_nodes: hash_map::new(size),
-          root_node_key: vector::empty()
+    public fun new<V>(size : u64) : Graph<V> {
+
+        Graph {
+            size : size,
+            adj : oa_hash_map::new<V, OaHashMap<V, V>>(2)
         }
+
     }
 
-    public fun insert_value<V>(tree: BinaryTree<V>, given_value: V) {
-        let hashmap_key = bcs::to_bytes(&given_value);
+    public fun insert_adj<V : drop + copy>(graph : &mut Graph<V>, from : V, to : V) : Option<Entry<V, V>> {
 
-        /// Insert as root
-        if (hash_map::length(&tree.tree_nodes) == 0) {
-            tree.root_node_key = hashmap_key;
-            hash_map::insert(&mut tree.tree_nodes, hashmap_key, new_node(given_value));
-        } else {
-            let mut curr_node_key = tree.root_node_key.unwrap();
-            let mut curr_node = move_from<Node<V>>(tree.tree_nodes.get_mut(&curr_node_key));
+        if (!oa_hash_map::contains(&graph.adj, &from)){
+            oa_hash_map::set(&mut graph.adj, *&from, oa_hash_map::new<V, V>(graph.size));
+        };
+        
+        let adj = oa_hash_map::borrow_mut(&mut graph.adj, &from);
+        oa_hash_map::set(adj, *&to, *&to)
 
-            while (curr_node != move_from<Node<V>>(None)) {
-                
-            }
-
-            }
-        }
     }
 
-    /// Insert a root value to tree
-    public fun insert_root<V>(tree: &mut BinaryTree<V>, root_value: V) {
-        let hashmap_key = bcs::to_bytes(&root_value);
-        assert!(hash_map::length(&tree.tree_nodes) == 0, ENO_ROOT_ALREADY_EXISTSt);
-        tree.root_node_key = hashmap_key;
-        hash_map::insert(&mut tree.tree_nodes, hashmap_key, new_node(root_value));
+    public fun remove_adj<V>(graph : &mut Graph<V>, from : &V, to : &V) : Option<Entry<V, V>> {
+
+        if (!oa_hash_map::contains(&graph.adj, from)){
+            return option::none()
+        };
+        
+        let adj = oa_hash_map::borrow_mut(&mut graph.adj, from);
+        oa_hash_map::remove(adj, to) 
+
     }
 
-    /// Get root value of tree
-    public fun borrow_root_value<V>(tree: &BinaryTree<V>): &V {
-        let (_, v) = hash_map::get(&tree.tree_nodes, &tree.root_node_key);
-        &v.value
+    public fun borrow_adj<V>(graph : &Graph<V>, from : &V) : &OaHashMap<V, V> {
+
+        oa_hash_map::borrow(&graph.adj, from)
+
+    }
+
+    public fun borrow_adj_mut<V>(graph : &mut Graph<V>, from : &V) : &mut OaHashMap<V, V> {
+
+        oa_hash_map::borrow_mut(&mut graph.adj, from)
+
+    }
+
+    public inline fun bfs<V : copy + drop>(
+        graph : &Graph<V>, 
+        start : &V,
+        f: |&V|
+    ){
+
+        let queue = vector::empty<V>();
+        vector::push_back(&mut queue, *start);
+        let visited = oa_hash_map::new<V, bool>(graph.size);
+
+        while (!vector::is_empty(&queue)) {
+
+            let node = vector::remove(&mut queue, 0);
+            if (oa_hash_map::contains(&visited, &node)) {
+                continue
+            };
+
+            f(&node);
+            oa_hash_map::set(&mut visited, node, true);
+
+            if (!oa_hash_map::contains(&graph.adj, &node)) {
+                continue
+            };
+
+            let adj = borrow_adj(graph, &node);
+            let i = 0;
+            loop {
+                let (ni, value) = oa_hash_map::iter_next(adj, i);
+                if (option::is_none(value)) {
+                    break
+                };
+                i = ni;
+                let value = oa_hash_map::get_value(option::borrow(value));
+                if (!oa_hash_map::contains(&visited, value)) {
+                    vector::push_back(&mut queue, *value);
+                };
+            };
+
+        };
+        
+
     }
     
-    /// Insert a value into tree
+    #[test]
+    public fun test_insert(){
+
+        let graph = new<u8>(10);
+        let from = 1;
+        let to = 2;
+        insert_adj(&mut graph, from, to);
+        let adj = borrow_adj(&graph, &from);
+        assert!(oa_hash_map::contains(adj, &to), 99);
+
+    }
+
+    #[test]
+    public fun test_multiple_insert(){
+
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, la, sf);
+        let adj = borrow_adj(&graph, &la);
+        assert!(oa_hash_map::contains(adj, &sf), 99);
+        assert!(oa_hash_map::contains(adj, &ny), 99);
+
+    }
+
+    #[test]
+    public fun test_borrows_adj_iterates(){
+
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, la, sf);
+        let adj = borrow_adj(&graph, &la);
+        
+        let i = 0;
+        let ny_seen = false;
+        let sf_seen = false;
+        loop {
+           let (ni, value) = oa_hash_map::iter_next(adj, i);
+           if (option::is_none(value)) {
+               break
+           };
+           i = ni;
+           if (*oa_hash_map::get_value(option::borrow(value)) == ny) {
+               ny_seen = true;
+           };
+           if (*oa_hash_map::get_value(option::borrow(value)) == sf) {
+               sf_seen = true;
+           };
+        };
+
+        assert!(ny_seen && sf_seen, 99);
+
+    }
+
+    #[test]
+    public fun test_bfs_next() {
 
 
+        let count = 0;
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, la, sf);
+        bfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 3, 99);    
+    
+    }
+
+   
+}
