@@ -337,7 +337,4 @@ module ds_std::graph {
 
         assert!(count == 3, 99);
     }   
-
-
-   
 }

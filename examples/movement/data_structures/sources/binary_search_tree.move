@@ -7,7 +7,6 @@ module ds_std::bst {
     // use std::bcs;
     use ds_std::oa_hash_map::{ Self, OaHashMap, Entry };
 
-    /// BST struct
     struct BinarySearchTree<V> has drop, store {
         size : u64,
         adj : OaHashMap<V, [V;2]>,
@@ -56,8 +55,8 @@ module ds_std::bst {
 
     }
 
-    // preorder traversal
     public fun preorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+
         f(node);
         if let Some(adj_list) = bst.adj.get(&node) {
             for neighbor in adj_list.iter() {
@@ -66,8 +65,8 @@ module ds_std::bst {
         }
     }
 
-    // in-order traversal
     public fun inorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+
         if let Some(adj_list) = bst.adj.get(&node) {
             if adj_list.len() >= 1 {
                 inorder(bst, adj_list[0], f);
@@ -79,8 +78,8 @@ module ds_std::bst {
         }
     }
 
-    // post-order traversal
     public fun postorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+
         if let Some(adj_list) = bst.adj.get(&node) {
             if adj_list.len() >= 1 {
                 postorder(bst, adj_list[0], f);
@@ -92,8 +91,8 @@ module ds_std::bst {
         }
     }
 
-    //level order traversal
     public fun level_order<V : copy + drop>(bst: &BinarySearchTree<V>, root: V, f: (V) -> ()) {
+
         let mut queue = vector::empty<V>();
         vector::push_back(&mut queue, root);
 
@@ -107,8 +106,6 @@ module ds_std::bst {
             }
         }
     }
-
-
 }
 
 
