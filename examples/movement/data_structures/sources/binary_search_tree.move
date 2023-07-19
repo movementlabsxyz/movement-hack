@@ -56,4 +56,61 @@ module ds_std::bst {
 
     }
 
+    // preorder traversal
+    public fun preorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+        f(node);
+        if let Some(adj_list) = bst.adj.get(&node) {
+            for neighbor in adj_list.iter() {
+                preorder(bst, *neighbor, f);
+            }
+        }
+    }
+
+    // in-order traversal
+    public fun inorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+        if let Some(adj_list) = bst.adj.get(&node) {
+            if adj_list.len() >= 1 {
+                inorder(bst, adj_list[0], f);
+            }
+            f(node);
+            if adj_list.len() == 2 {
+                inorder(bst, adj_list[1], f);
+            }
+        }
+    }
+
+    // post-order traversal
+    public fun postorder<V : copy + drop>(bst: &BinarySearchTree<V>, node: V, f: (V) -> ()) {
+        if let Some(adj_list) = bst.adj.get(&node) {
+            if adj_list.len() >= 1 {
+                postorder(bst, adj_list[0], f);
+            }
+            if adj_list.len() == 2 {
+                postorder(bst, adj_list[1], f);
+            }
+            f(node);
+        }
+    }
+
+    //level order traversal
+    public fun level_order<V : copy + drop>(bst: &BinarySearchTree<V>, root: V, f: (V) -> ()) {
+        let mut queue = vector::empty<V>();
+        vector::push_back(&mut queue, root);
+
+        while !vector::is_empty(&queue) {
+            let node = vector::remove(&mut queue, 0);
+            f(node);
+            if let Some(adj_list) = bst.adj.get(&node) {
+                for neighbor in adj_list.iter() {
+                    vector::push_back(&mut queue, *neighbor);
+                }
+            }
+        }
+    }
+
+
 }
+
+
+
+
