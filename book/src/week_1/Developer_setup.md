@@ -1,5 +1,5 @@
 # Developer Setup
-This section examines tooling and provides setup instructions for working with the Movement blockchain and the various examples in covered in this booklet.
+This section examines tooling and provides setup instructions for working with the Movement blockchain and the various examples covered in this booklet.
 
 ## The Move ecosystem
 The budding Move ecosystem sports a variety of developer friendly tools. As we list off tools that will be relevant to this booklet, keep in mind that there are number of projects we have not included.
@@ -12,7 +12,7 @@ We provide a comparison of these different virtual machines in our [docs](https:
 When selecting a virtual machine for development its important to consider performance, ease of use, and stability. `Aptos VM` built upon the original and stable `Move VM` to provide an improved developer experience. The `Movement VM` builds upon `Aptos VM` to provide improved performance.
 
 ### CLIs
-There are three CLIs worth note in the Move language development space. All support building, testing, deploying, and running smart contracts.
+There are three CLIs worth noting in the Move language development space. All support building, testing, deploying, and running smart contracts.
 - [`move`](https://github.com/move-language/move/tree/main/language/tools/move-cli): the original CLI for Move development. 
 - `aptos`: the CLI for Aptos development.
 - [`movement`](https://movement.gitbook.io/english/developers/developer-tools/movement-cli): our very own CLI.
@@ -36,14 +36,14 @@ hello_blockchain = "_"
 ```
 
 ### IDE
-There are several useful development enviroments for Move. This book will be geared towards using VsCode because of the its developer container features and its [Move analyzer](https://marketplace.visualstudio.com/items?itemName=move.move-analyzer). However, syntax highlighting has been implemented for other IDEs including [Vim](https://github.com/rvmelkonian/move.vim).
+There are several useful development environments for Move. This book will be geared towards using VS Code because of its developer container features and its [Move analyzer](https://marketplace.visualstudio.com/items?itemName=move.move-analyzer). However, syntax highlighting has been implemented for other IDEs including [Vim](https://github.com/rvmelkonian/move.vim).
 
 ## Our Setup
-We'll be using the `move` and `movement` CLIs; no package manager; and VsCode most-often running the `movement-dev` Docker container from [public.ecr.aws/c4i6k4r8/movement-dev](public.ecr.aws/c4i6k4r8/movement-dev).
+We'll be using the `move` and `movement` CLIs; no package manager; and VS Code most-often running the `movement-dev` Docker container from [public.ecr.aws/c4i6k4r8/movement-dev](public.ecr.aws/c4i6k4r8/movement-dev).
 
 To get started...
 1. Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack
-2. Open the repo in VsCode.
+2. Open the repo in VS Code.
 3. Based on the advice provided for a given project, reopen the repo in one of `move`, `movement-dev`, `anchor`, or `solidity` [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
 
 Alternatively, when working with `movement-dev` you may:
@@ -55,4 +55,4 @@ docker run -it -v "$(pwd):/workspace" public.ecr.aws/c4i6k4r8/movement-dev /bin/
 
 We will also occasionally use Rust and Python to complete various programming examples.
 
-We will also discuss using our proxy service with the JavaScript. The `movement-dev` developer container provides an easy start place for this alternative means of interacting with the [subnet](https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract).
+We will also discuss using our proxy service with JavaScript. The `movement-dev` developer container provides an easy start place for this alternative means of interacting with the [subnet](https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract).
