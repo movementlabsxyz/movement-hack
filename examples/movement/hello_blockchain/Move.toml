@@ -1,0 +1,12 @@
+[package]
+name = "hello_blockchain"
+version = "0.0.0"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/movemntdev/aptos-core.git'
+rev = 'testnet'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[addresses]
+std =  "0x1"
+hello_blockchain = "_"
