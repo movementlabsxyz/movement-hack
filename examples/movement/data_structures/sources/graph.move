@@ -95,6 +95,49 @@ module ds_std::graph {
             };
 
         };
+    }
+
+
+    public inline fun dfs<V : copy + drop>(
+        graph : &Graph<V>, 
+        start : &V,
+        f: |&V|
+    ){
+
+        let stack = vector::empty<V>();
+        vector::push_back(&mut stack, *start);
+        let visited = oa_hash_map::new<V, bool>(graph.size);
+
+        while (!vector::is_empty(&stack)) {
+
+            let idx = vector::length(&stack) - 1;
+            let node = vector::remove(&mut stack, idx);
+            if (oa_hash_map::contains(&visited, &node)) {
+                continue
+            };
+
+            f(&node);
+            oa_hash_map::set(&mut visited, node, true);
+
+            if (!oa_hash_map::contains(&graph.adj, &node)) {
+                continue
+            };
+
+            let adj = borrow_adj(graph, &node);
+            let i = 0;
+            loop {
+                let (ni, value) = oa_hash_map::iter_next(adj, i);
+                if (option::is_none(value)) {
+                    break
+                };
+                i = ni;
+                let value = oa_hash_map::get_value(option::borrow(value));
+                if (!oa_hash_map::contains(&visited, value)) {
+                    vector::push_back(&mut stack, *value);
+                };
+            };
+
+        };
         
 
     }
@@ -159,8 +202,69 @@ module ds_std::graph {
     }
 
     #[test]
-    public fun test_bfs_next() {
+    public fun test_bfs_no_edges() {
 
+        let count = 0;
+        let graph = new<u8>(5);
+        let start = 1;
+
+        bfs(&graph, &start, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 1, 99);    
+    
+    }
+
+    #[test]
+    public fun test_dfs_no_edges() {
+
+        let count = 0;
+        let graph = new<u8>(5);
+        let start = 1;
+
+        dfs(&graph, &start, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 1, 99);    
+    
+    }
+
+    #[test]
+    public fun test_bfs_one_edge() {
+
+        let count = 0;
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        insert_adj(&mut graph, la, ny);
+        bfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 2, 99);    
+    
+    }
+
+    #[test]
+    public fun test_dfs_one_edge() {
+
+        let count = 0;
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        insert_adj(&mut graph, la, ny);
+        dfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 2, 99);    
+    
+    }
+
+    #[test]
+    public fun test_bfs_next() {
 
         let count = 0;
         let graph = new<u8>(10);
@@ -177,5 +281,61 @@ module ds_std::graph {
     
     }
 
-   
+    #[test]
+    public fun test_dfs_next() {
+
+        let count = 0;
+        let graph = new<u8>(10);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, la, sf);
+        dfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+        assert!(count == 3, 99);    
+    
+    }
+
+    #[test]
+    public fun test_bfs_cycle() {
+
+        let count = 0;
+        let graph = new<u8>(5);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, ny, sf);
+        insert_adj(&mut graph, sf, la);
+
+        bfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+
+        assert!(count == 3, 99);
+    }   
+
+    #[test]
+    public fun test_dfs_cycle() {
+        
+        let count = 0;
+        let graph = new<u8>(5);
+        let la = 1;
+        let ny = 2;
+        let sf = 3;
+        insert_adj(&mut graph, la, ny);
+        insert_adj(&mut graph, ny, sf);
+        insert_adj(&mut graph, sf, la);
+
+        dfs(&graph, &la, |node| {
+            let _ = node;
+            count = count + 1;
+        });
+
+        assert!(count == 3, 99);
+    }   
 }

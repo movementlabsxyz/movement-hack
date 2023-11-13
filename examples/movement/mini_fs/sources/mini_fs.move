@@ -7,7 +7,7 @@ module MiniFs {
   }
 
   // MiniFs struct representing the contract state
-  resource struct MiniFs {
+  struct MiniFs {
     files: vector<FileEntry>,
   }
 

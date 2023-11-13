@@ -1,7 +1,8 @@
 {
     "name": "movement",
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "dev",
+    "build" : {
+        "dockerfile": "Dockerfile"
+    },
     "customizations": {
         "vscode": {
           "extensions": [
@@ -17,7 +18,8 @@
             "streetsidesoftware.code-spell-checker",
             "yzhang.markdown-all-in-one",
             "chrmarti.anchor",
-            "github.copilot"
+            "github.copilot",
+            "move.move-analyzer"
           ]
         }
     }

@@ -1,5 +1,4 @@
-# Base image
-FROM rust:latest
+FROM --platform=amd64 mvlbs/m1
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -8,14 +7,14 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libudev-dev
 
+# Install Rust
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+
+# Set the PATH for cargo
+ENV PATH="/root/.cargo/bin:${PATH}"
+
 # Install mdBook
 RUN cargo install mdbook
 
-# Install Move CLI
-RUN cargo install --git https://github.com/move-language/move move-cli --branch main
-
-# Set the working directory
-WORKDIR /app
-
-# Set the entrypoint command
-CMD ["move", "--version"]
+# Install move-analyzer
+RUN cargo install --git https://github.com/move-language/move move-analyzer
