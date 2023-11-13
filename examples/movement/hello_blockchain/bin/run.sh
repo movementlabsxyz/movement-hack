@@ -11,8 +11,8 @@ function finish() {
 }
 
 begin "Funding account for hello_blockchain deployment and call..."
-# movement account fund-with-faucet --account default # todo: currently invalid in movement
-# movement faucet 
+# movement account fund-with-faucet --account default #? does the same as the below
+# movement faucet #? does the same as the above
 finish "Funded account for hello_blockchain deployment and call!"
 
 begin "Compiling hello_blockchain module..."
@@ -29,7 +29,7 @@ finish "Set hello_blockchain message to 'hello'!"
 
 begin "Querying resources for account..."
 movement account list --query resources --account default
-finish "Queryed resourced for account!"
+finish "Queried resources for account!"
 
 begin "Setting hello_blockchain message to 'goodbye!'..."
 echo "y" | movement move run --function-id default::message::set_message --args string:goodbye!
@@ -37,4 +37,4 @@ finish "Set hello_blockchain message to 'goodbye'!"
 
 begin "Querying resources for account..."
 movement account list --query resources --account default
-finish "Queryed resourced for account!"
+finish "Queried resources for account!"
