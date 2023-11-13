@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 ################################################################################
 # This script is intended to be run on Ubuntu ARM64.
 # It assumes that Rust, Cargo, and developer dependencies are already installed.

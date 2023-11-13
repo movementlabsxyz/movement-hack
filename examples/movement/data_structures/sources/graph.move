@@ -110,7 +110,8 @@ module ds_std::graph {
 
         while (!vector::is_empty(&stack)) {
 
-            let node = vector::remove(&mut stack, vector::len(&stack) - 1);
+            let idx = vector::length(&stack) - 1;
+            let node = vector::remove(&mut stack, idx);
             if (oa_hash_map::contains(&visited, &node)) {
                 continue
             };

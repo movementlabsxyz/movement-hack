@@ -18,11 +18,9 @@
             "streetsidesoftware.code-spell-checker",
             "yzhang.markdown-all-in-one",
             "chrmarti.anchor",
-            "github.copilot"
+            "github.copilot",
+            "move.move-analyzer"
           ]
         }
-    },
-    "forwardPorts": [
-      // 3000
-    ]
+    }
 }
