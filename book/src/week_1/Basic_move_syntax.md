@@ -12,7 +12,7 @@ While function ownership in Move is similar to Rust, it is less permissive and c
 
 ## Expressions and Control Flow
 ### Expressions
-Move use a similar expression-orientation to Rusts. Block returns are possible. 
+Move uses a similar expression-orientation to Rust. Expressions are evaluated to produce a value. Expressions can be used in many places, including:
 ```rust
 fun eight() : u8 {
     8
