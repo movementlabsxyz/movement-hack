@@ -3,7 +3,7 @@ name = "mini_dex"
 version = "0.0.0"
 
 [dependencies.AptosFramework]
-git = 'https://github.com/aptos-labs/aptos-core.git'
+git = 'https://github.com/movemntdev/aptos-core.git'
 rev = 'testnet'
 subdir = 'aptos-move/framework/aptos-framework'
 
