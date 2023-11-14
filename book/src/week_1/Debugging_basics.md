@@ -30,7 +30,7 @@ module hello_world::hello_world {
 ```
 To test run...
 ```bash
-move move run
+move move test
 > [debug] @0x1
 > [debug] 0x48656c6c6f2c20776f726c6421
 > [debug] "Hello, world!"
