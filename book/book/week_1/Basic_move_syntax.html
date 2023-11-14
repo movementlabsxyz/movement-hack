@@ -164,7 +164,7 @@
 <p>While function ownership in Move is similar to Rust, it is less permissive and closer to being purely linear--restricting the set of possible borrows.</p>
 <h2 id="expressions-and-control-flow"><a class="header" href="#expressions-and-control-flow">Expressions and Control Flow</a></h2>
 <h3 id="expressions"><a class="header" href="#expressions">Expressions</a></h3>
-<p>Move use a similar expression-orientation to Rusts. Block returns are possible. </p>
+<p>Move uses a similar expression-orientation to Rust. Expressions are evaluated to produce a value. Expressions can be used in many places, including:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>fun eight() : u8 {
@@ -269,6 +269,7 @@ Here's a small code snippet demonstrating the use of Move syntax:</p>
 <h2 id="misc-syntax"><a class="header" href="#misc-syntax">Misc. syntax</a></h2>
 <ul>
 <li>The <code>public</code> keyword in Move indicates that a function can be invoked from outside the current module.</li>
+<li>The <code>entry</code> keyword is used to declare functions that can be called via the RPC.</li>
 <li>The <code>native</code> keyword is used to declare functions that are implemented in the blockchain runtime or in an external module.</li>
 <li>There are VM specific directives; in Movement we will address <code>#[inline]</code>, <code>#[view]</code>, <code>#[test_only]</code>, and <code>#[test]</code>.</li>
 </ul>

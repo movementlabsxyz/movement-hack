@@ -1,0 +1,8 @@
+---
+profiles:
+  default:
+    private_key: "0x9430c3fac4334c36994129b2a351df67e59d1f418bcf5adca6f6d870cdf8896a"
+    public_key: "0xa440c904d93ff25c47a910abc60bf849800afcc12ce108c71eb10eb7c7ad37aa"
+    account: e9de3a060a6fbf2f3252c432e1a3f28e141a6a4461f400e85a8737c02a876fda
+    rest_url: "https://seed-node1.movementlabs.xyz"
+    faucet_url: "https://seed-node1.movementlabs.xyz"

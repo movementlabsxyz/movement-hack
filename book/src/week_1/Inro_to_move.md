@@ -2,7 +2,7 @@
 This section is intended to orient the reader on the history of the language and various Move virtual machine implementations.
 
 ## Libra/Diem
-The Move programming language was originally developed by Facebook's Libra project, now known as Diem, to facilitate the creation of smart contracts on its blockchain platform. The language takes its name from the underlying concept of moving resources rather than copying them, aligning with the principles of resource-oriented programming. Move was designed to address the unique challenges of blockchain development, such as security, efficiency, and scalability. Its origins can be traced back to the vision of creating a blockchain-based financial infrastructure that would be accessible to billions of people around the world. Today, Move continues to evolve as an open-source language, with a growing ecosystem and community supporting its development and adoption.
+The Move programming language was originally developed by Facebook's Libra project, now known as Diem, to facilitate the creation of smart contracts on its blockchain platform. The language takes its name from the underlying concept of moving resources rather than copying them, aligning with the principles of resource-oriented programming. Move was designed to address the unique challenges of blockchain development, such as security, efficiency, and scalability.
 
 ## Resource-orientation and the blockchain
 
@@ -37,7 +37,7 @@ int main() {
 
 In Move, this kind of unsafe access would not be possible because of strict ownership conditions.
 
-Each function owns the resources it creates and is responsible for their lifecycle. This ownership model ensures that resources are properly managed and prevents unauthorized access or modification, bolstering the security of blockchain-based applications.
+Each function owns any resources it creates and is responsible for its lifecycle. This ownership model ensures that resources are properly managed and prevents unauthorized access or modification, bolstering the security of blockchain-based applications.
 
 ### Access Restriction All the Way Down
 
@@ -45,35 +45,43 @@ Resource-oriented programming languages like Move implement access restrictions 
 
 ### Type Linearity and Ownership
 
-Type linearity is a crucial aspect of resource-oriented programming that enforces the linear use of resources. In Move, resources have linear types, meaning they can only be consumed or moved, not duplicated. This feature prevents resource duplication, reduces memory consumption, and eliminates the risk of double-spending, ensuring the integrity and accuracy of transactions on the blockchain.
+> **linear type**: a type with an enforced the restriction that variables or values of the type can be used exactly once. In other words, each linear value has a unique owner or consumer, and it must be used or consumed linearly without duplication or uncontrolled consumption. 
 
-### Double-Spending
+```
+f(a) -> g(a) -> h(a)
+```
 
-Double-spending is a significant concern in decentralized systems where digital assets are involved. Resource-oriented programming, like Move, mitigates the risk of double-spending by enforcing strict ownership and borrowing rules. Resources can only be moved or consumed once, preventing malicious actors from creating multiple transactions using the same resource and effectively eliminating the possibility of double-spending attacks.
+> **non-linear type**: a type without an enforced the restriction that variables or values of the type can be used exactly once. Variables or values of non-linear types can be used or accessed multiple times without restrictions.
 
-## Virtual machines and the blockchain
+```
+f(a) ->
+    g(a)
+    + h(a) -> 
+        c(a)
+        + k(a)
+        + p(a)
+```
 
-Virtual machines play a crucial role in the blockchain ecosystem, particularly in executing and enforcing the logic of smart contracts. They ensure that all nodes on the blockchain network run the same logic, enabling verification and consensus among participants.
+Type linearity is a crucial aspect of resource-oriented programming that enforces the linear use of resources. In Move, resources generally have linear types, meaning they can only be consumed or moved, not duplicated. This feature prevents resource duplication, reduces memory consumption, and eliminates the risk of double-spending, ensuring the integrity and accuracy of transactions on the blockchain.
 
-### Smart Contracts: Nodes Running the Same Logic
+### How does this address common smart contract vulnerabilities?
 
-Smart contracts are self-executing agreements with predefined conditions encoded in code. In the blockchain context, smart contracts are executed by nodes across the network. Virtual machines, such as the Move Virtual Machine (Move VM) used in the Move programming language, ensure that all nodes interpret and execute the smart contract code uniformly. This guarantees that the same logic is executed across the network, promoting trust and enabling reliable transaction execution.
+The resource-orientation and type-linearity of the Move programming language play a significant role in avoiding common smart contract vulnerabilities. Here's how these features address specific vulnerabilities:
 
-### Verification: Nodes Talking About Running the Same Logic
+1. **Reentrancy Attacks**: In a reentrancy attack, a malicious contract calls back into the calling contract before the first execution completes, potentially leading to unexpected behavior or loss of funds. Move's resource-orientation ensures that resources (which include digital assets) cannot be duplicated and are used in a linear fashion. This linearity means that once a resource is moved, it cannot be accessed again within the same transaction, thereby mitigating reentrancy risks.
 
-Verification is a critical aspect of the blockchain ecosystem. Nodes need to agree on the validity of transactions and smart contract execution. Virtual machines facilitate this verification process by providing a standardized environment where nodes can discuss and agree upon the execution of the same logic. By achieving consensus on the outcomes, nodes can ensure the integrity and consistency of the blockchain.
+2. **Integer Overflow and Underflow**: These occur when an operation attempts to create a numerical value outside the range that can be represented with a given number of bits. Move's type system can enforce range checks on numeric values, reducing the risk of overflow and underflow errors.
 
-### Virtual Machine: Makes Sure the Same Logic is the Same Logic
+3. **Unintended Ether Loss**: In Ethereum, contracts can be accidentally destroyed with ether still inside, leading to permanent loss of funds. Move's resource model can prevent this by ensuring that resources are accounted for at all times, making it much harder to lose them accidentally.
 
-The virtual machine acts as an execution environment for smart contracts and other blockchain operations. It ensures that the same logic applied to a smart contract on one node is identical to the logic applied on every other node. This consistency is essential for achieving consensus and maintaining the immutability of the blockchain. Virtual machines, such as the Move VM, enforce the rules and protocols defined by the blockchain platform, allowing for secure and reliable execution of smart contracts.
+4. **Frozen Ether**: Ether can become frozen in a contract due to bugs. Move's stronger guarantees about the state and its manipulation help avoid such scenarios, as the language is designed to make the effects of code more predictable and transparent.
 
-### Move Virtual Machines
-Several implementations of the Move virtual machine exist, including the Move VM, Aptos VM, and Sui VM. These implementations provide alternative approaches to executing Move code and offer flexibility and compatibility with different blockchain platforms and ecosystems. Each implementation has its own characteristics, optimizations, and use cases, catering to diverse blockchain development requirements.
+5. **Timestamp Dependence and Miner Manipulation**: Some contracts rely on block timestamps, which can be slightly manipulated by miners. Move's approach to resources and transactions doesn't inherently solve this, but its more predictable environment can help developers avoid relying on such external and manipulable factors.
 
-### Limitations and Movement
+6. **Short Address/Parameter Attack**: This happens due to inconsistent handling of input data length. Move's strong typing and explicit resource management can help avoid this by enforcing correct input handling and data lengths.
 
-The transaction processing speed (TPS) of the underlying blockchain is a primary limitation on smart contract complexity. Higher TPS allows for more intricate and computationally intensive smart contracts to be executed within a given time frame.
+7. **Denial of Service (DoS) via Block Gas Limit**: Attackers might stuff blocks with expensive computations to exhaust a contract's gas. While this is more of a systemic issue, Move's efficiency and predictability in resource handling can mitigate some of the risks.
 
-Movement facilitates a theoretical maximum TPS of 160,000 by combining the technologies of Move and Avalanche Snowball consensus. This scalability enhancement enables more sophisticated and resource-intensive smart contracts to be processed efficiently.
+8. **Unknown Function Calls**: In Ethereum, sending Ether to unknown functions can lead to vulnerabilities. Move's explicit resource accounting can help avoid such scenarios by making it clear where and how resources are flowing.
 
-In addition to its high TPS, Movement provides developer-friendly features via its Aptos-based VM and an ergonomic standard library .
+Move’s focus on safety, predictability, and explicit resource management addresses these vulnerabilities effectively, helping developers write safer smart contracts. This is particularly crucial in blockchain environments, where contract bugs and vulnerabilities can lead to significant financial losses and are often irreversible due to the immutable nature of blockchain technology.

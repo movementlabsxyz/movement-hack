@@ -154,8 +154,8 @@
                     <main>
                         <h1 id="debugging-basic-smart-contracts"><a class="header" href="#debugging-basic-smart-contracts">Debugging Basic Smart Contracts</a></h1>
 <p>This section introduces a few basic smart contracts from this repository as a starting point for programming activites.</p>
-<h2 id="-helloworld"><a class="header" href="#-helloworld">💻 HelloWorld</a></h2>
-<p>Is a very simple program for <code>MoveVM</code>. You can find it at <code>examples/move/hello_world</code>. </p>
+<h2 id="-hello_world"><a class="header" href="#-hello_world">💻 <code>hello_world</code></a></h2>
+<p>This very simple program for <code>Movement Move VM</code>. You can find it at <code>examples/movement/hello_world</code> prints values to debug console. Note the differences in encodings between the <code>b&quot;&quot;</code> and <code>string::utf8</code> versions of the string.</p>
 <blockquote>
 <p>Learnings leveraged:</p>
 <ul>
@@ -165,38 +165,45 @@
 </blockquote>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>script {
-    use std::debug;
-    // use std::vector;
-    fun debug_script(account : signer) {
+</span>module hello_world::hello_world {
+    
+    use std::string;
+    use std::signer;
+    use aptos_std::debug;
 
-        // Encode the &quot;Hello, world!&quot; as a byte string.
-        let hello = b&quot;Hello, world!&quot;;
-
-        // Print the byte string as a vector&lt;u8&gt; by passing a reference to the byte string.
-        debug::print&lt;vector&lt;u8&gt;&gt;(&amp;hello);
-
+   
+    #[test(account = @0x1)]
+    public entry fun hello_world(account: signer) {
+        let addr = signer::address_of(&amp;account);
+        debug::print&lt;address&gt;(&amp;addr);
+        let message = b&quot;Hello, world!&quot;;
+        debug::print(&amp;message);
+        let str_message = string::utf8(message);
+        debug::print(&amp;str_message);
     }
+
 }
 <span class="boring">}</span></code></pre></pre>
-<p>To run...</p>
-<pre><code class="language-bash">move sandbox run sources/hello_world_script.move --signers 0xf
+<p>To test run...</p>
+<pre><code class="language-bash">move move run
+&gt; [debug] @0x1
 &gt; [debug] 0x48656c6c6f2c20776f726c6421
+&gt; [debug] &quot;Hello, world!&quot;
 </code></pre>
-<p>Double-check the output hex...</p>
+<p>If you want to double-check the output hex...</p>
 <pre><code class="language-bash">echo 48656c6c6f2c20776f726c6421 | xxd -r - p
 </code></pre>
-<h2 id="-fib"><a class="header" href="#-fib">💻 Fib</a></h2>
-<p>The obligatory Move program that computes the <em>nth</em> Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it <code>examples/move/fib</code>. </p>
+<h2 id="-fib"><a class="header" href="#-fib">💻 <code>fib</code></a></h2>
+<p>The obligatory Move program that computes the <em>nth</em> Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it <code>examples/movement/fib</code>. </p>
 <blockquote>
 <p>Learnings leveraged:</p>
 <ul>
 <li>Basic Move syntax</li>
-<li>Byte strings</li>
+<li>Move recursion.</li>
 </ul>
 </blockquote>
-<h2 id="-datastructures"><a class="header" href="#-datastructures">💻 DataStructures</a></h2>
-<p>From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at <code>examples/move/data_structures</code>. </p>
+<h2 id="-data_structures"><a class="header" href="#-data_structures">💻 <code>data_structures</code></a></h2>
+<p>From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at <code>examples/movement/data_structures</code>. </p>
 <blockquote>
 <p>Learnings leveraged:</p>
 <ul>
@@ -206,8 +213,8 @@
 <li>Move idioms</li>
 </ul>
 </blockquote>
-<h2 id="-resourceroulette"><a class="header" href="#-resourceroulette">💻 ResourceRoulette</a></h2>
-<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at <code>examples/move/resource_roulette</code>. </p>
+<h2 id="-resource_roulette"><a class="header" href="#-resource_roulette">💻 <code>resource_roulette</code></a></h2>
+<p>A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods <code>public fun bid</code> and <code>public fun spin</code>. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at <code>examples/movement/resource_roulette</code>. </p>
 <blockquote>
 <p>Learnings leveraged:</p>
 <ul>

@@ -1,48 +1,54 @@
 # Debugging Basic Smart Contracts
 This section introduces a few basic smart contracts from this repository as a starting point for programming activites.
 
-## 💻 HelloWorld
-Is a very simple program for `MoveVM`. You can find it at `examples/move/hello_world`. 
+## 💻 `hello_world`
+This very simple program for `Movement Move VM`. You can find it at `examples/movement/hello_world` prints values to debug console. Note the differences in encodings between the `b""` and `string::utf8` versions of the string.
 
 > Learnings leveraged:
 > - Basic Move syntax
 > - Byte strings
 
 ```rust
-script {
-    use std::debug;
-    // use std::vector;
-    fun debug_script(account : signer) {
+module hello_world::hello_world {
+    
+    use std::string;
+    use std::signer;
+    use aptos_std::debug;
 
-        // Encode the "Hello, world!" as a byte string.
-        let hello = b"Hello, world!";
-
-        // Print the byte string as a vector<u8> by passing a reference to the byte string.
-        debug::print<vector<u8>>(&hello);
-
+   
+    #[test(account = @0x1)]
+    public entry fun hello_world(account: signer) {
+        let addr = signer::address_of(&account);
+        debug::print<address>(&addr);
+        let message = b"Hello, world!";
+        debug::print(&message);
+        let str_message = string::utf8(message);
+        debug::print(&str_message);
     }
+
 }
 ```
-To run...
+To test run...
 ```bash
-move sandbox run sources/hello_world_script.move --signers 0xf
+move move run
+> [debug] @0x1
 > [debug] 0x48656c6c6f2c20776f726c6421
+> [debug] "Hello, world!"
 ```
-Double-check the output hex...
-
+If you want to double-check the output hex...
 ```bash
 echo 48656c6c6f2c20776f726c6421 | xxd -r - p
 ```
 
-## 💻 Fib
-The obligatory Move program that computes the _nth_ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it `examples/move/fib`. 
+## 💻 `fib`
+The obligatory Move program that computes the _nth_ Fibonacci number. We will refer to this later when we do  💻 MulticontractFib. You can find it and instructions to run it `examples/movement/fib`. 
 
 > Learnings leveraged:
 > - Basic Move syntax
-> - Byte strings
+> - Move recursion.
 
-## 💻 DataStructures
-From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at `examples/move/data_structures`. 
+## 💻 `data_structures`
+From scratch implementation of a priority queue, a couple variations of a hash map, and a binary tree. This may be a useful reference point for building more challenging projects that require custom data strucures. You can find it at `examples/movement/data_structures`. 
 
 > Learnings leveraged:
 > - Basic Move syntax
@@ -50,8 +56,8 @@ From scratch implementation of a priority queue, a couple variations of a hash m
 > - BCS
 > - Move idioms
 
-## 💻 ResourceRoulette
-A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods `public fun bid` and `public fun spin`. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at `examples/move/resource_roulette`. 
+## 💻 `resource_roulette`
+A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods `public fun bid` and `public fun spin`. Receive a payout if you placed your address on the correct cell. You can find it and instructions to run it at `examples/movement/resource_roulette`. 
 
 > Learnings leveraged:
 > - Basic Move syntax

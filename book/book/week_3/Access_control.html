@@ -161,7 +161,7 @@
 </blockquote>
 <h2 id="acls-rbac-and-abac"><a class="header" href="#acls-rbac-and-abac">ACLs, RBAC, and ABAC</a></h2>
 <p>Access Control Lists (ACLs), Role-Based Access Control (RBAC), and Attribute-Based Access Control (ABAC) are common frameworks used to manage and enforce access control policies in blockchain applications. ACLs define permissions based on a list of entities and their associated access rights. RBAC assigns permissions to roles, allowing for more centralized management of access control. ABAC grants access based on attributes, such as user attributes or environmental conditions. Each framework has its strengths and can be tailored to meet specific access control requirements in a blockchain  application.</p>
-<p>A common pattern in Move and Movement development is to assert a contract owner. Using named addresses, <code>@named_address</code>. </p>
+<p>A rudimentary pattern in Move and Movement development is to assert a contract owner. Using named addresses, <code>@named_address</code>. </p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>script owner_address::important_script {

@@ -1,3 +1,0 @@
-# Advanced move
-
-## Spec programming

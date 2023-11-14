@@ -7,6 +7,21 @@
 <small color="gray">The Movement logo</small>
 </p>
 
+<div align="center">
+
+---
+
+### 🚧🚧🚧 **Important Update In Progress** 🚧🚧🚧
+
+We are actively working on a new edition of this booklet in response to changes in our audience and to address issues stemming from the outdated nature of the original guide.
+
+- **Weeks 1 & 2**: Existing content remains useful. We are enhancing these sections with more in-depth material specific to the **Aptos Framework**.
+- **Weeks 3 & 4**: Stay tuned! We will soon add comprehensive content covering **Sui Move** and unique features of the **Movement ecosystem**, including **MEVM**.
+
+---
+
+</div>
+
 
 Welcome to *Building with Movement*! Over the course of this booklet, we will be addressing topics related to developing for the Movement blockchain.
 
