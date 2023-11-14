@@ -109,5 +109,6 @@ Here's a small code snippet demonstrating the use of Move syntax:
 
 ## Misc. syntax
 - The `public` keyword in Move indicates that a function can be invoked from outside the current module.
+- The `entry` keyword is used to declare functions that can be called via the RPC.
 - The `native` keyword is used to declare functions that are implemented in the blockchain runtime or in an external module.
 - There are VM specific directives; in Movement we will address `#[inline]`, `#[view]`, `#[test_only]`, and `#[test]`.

@@ -5,54 +5,53 @@ This section examines tooling and provides setup instructions for working with t
 The budding Move ecosystem sports a variety of developer friendly tools. As we list off tools that will be relevant to this booklet, keep in mind that there are number of projects we have not included.
 
 ### Virtual machines
-As previously discussed, there are several virtual machine implementations available for Move development--each of with is paired with particular blockchain. Besides the `Movement VM`, the most well-known Move virtual machines are `Move VM`, `Aptos VM`, and `Sui VM`
+As previously discussed, there are several popular virtual machine implementations available for Move development--each of with is paired with particular blockchain. Besides the `Movement VM`, the most well-known Move virtual machines are `Move VM`, `Aptos VM`, and `Sui VM`
 
 We provide a comparison of these different virtual machines in our [docs](https://docs.movementlabs.xyz/#what-is-move). 
 
-When selecting a virtual machine for development its important to consider performance, ease of use, and stability. `Aptos VM` built upon the original and stable `Move VM` to provide an improved developer experience. The `Movement VM` builds upon `Aptos VM` to provide improved performance.
+When selecting a virtual machine for development it's important to consider performance, ease of use, and stability. `Aptos VM` built upon the original and stable `Move VM` to provide an improved developer experience. The `Movement VM` builds upon `Aptos VM` to provide improved performance.
 
 ### CLIs
-There are three CLIs worth note in the Move language development space. All support building, testing, deploying, and running smart contracts.
+There are three CLIs worthy of note in the Move language development space. All support building, testing, deploying, and running smart contracts.
 - [`move`](https://github.com/move-language/move/tree/main/language/tools/move-cli): the original CLI for Move development. 
-- `aptos`: the CLI for Aptos development.
-- [`movement`](https://movement.gitbook.io/english/developers/developer-tools/movement-cli): our very own CLI.
+- [`aptos`](https://aptos.dev/tools/aptos-cli/install-cli/): the CLI for Aptos development.
+- [`movement`](https://docs.movementlabs.xyz/developers/developer-tools/movement-cli): our very own CLI which is currently compatible with the Aptos CLI.
 
-In this booklet we will be working with `move` and `movement`. 
+In this booklet we will be working with `movement`. If you ever need help working with `movement` you can run `movement --help` or `movement <command> --help` for more information.
 
 ### Package managers
-Move has a package manager, [movey](https://www.movey.net/). However, generally we will recommend adding dependencies directly to your `Move.toml` file. 
+You can manage Move dependencies by adding them directly to your `Move.toml` file. 
 ```toml
 [package]
 name = "hello_world"
 version = "0.0.0"
 
 [dependencies]
-# MoveNursery = { git = "https://github.com/move-language/move.git", subdir = "language/move-stdlib/nursery", rev = "main" }
-MovementFramework = {  git = "https://github.com/movemntdev/movement-subnet.git", subdir = "vm/aptos-vm/aptos-move/aptos-framework", rev = "main" }
+AptosFramework = {  git = "https://github.com/movemntdev/aptos-core.git", subdir = "aptos-vm/aptos-move/aptos-framework", rev = "testnet" }
 
 [addresses]
 std =  "0x1"
 hello_blockchain = "_"
 ```
 
+Our version of the AptosFramework is slightly different from the upstream at https://github.com/aptos-labas/aptos-core.git. Please be mindful that, while our goal is to support the latest version of the Aptos Framework, we may occasionally lag behind the upstream--resulting in incompatibilities.
+
 ### IDE
 There are several useful development enviroments for Move. This book will be geared towards using VsCode because of the its developer container features and its [Move analyzer](https://marketplace.visualstudio.com/items?itemName=move.move-analyzer). However, syntax highlighting has been implemented for other IDEs including [Vim](https://github.com/rvmelkonian/move.vim).
 
 ## Our Setup
-We'll be using the `move` and `movement` CLIs; no package manager; and VsCode most-often running the `movement-dev` Docker container from [public.ecr.aws/c4i6k4r8/movement-dev](public.ecr.aws/c4i6k4r8/movement-dev).
+We'll be using the `move` and `movement` CLIs; no package manager; and VsCode most-often running the `movement-dev` Docker container from (mvlbs/m1)[https://hub.docker.com/repository/docker/mvlbs/m1/general].
 
 To get started...
 1. Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack
 2. Open the repo in VsCode.
-3. Based on the advice provided for a given project, reopen the repo in one of `move`, `movement-dev`, `anchor`, or `solidity` [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers).
+3. Reopen the directory using the movement [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers).
 
 Alternatively, when working with `movement-dev` you may:
 
 ```
-docker image pull public.ecr.aws/c4i6k4r8/movement-dev
-docker run -it -v "$(pwd):/workspace" public.ecr.aws/c4i6k4r8/movement-dev /bin/bash
+docker image pull mvlbs/m1
+docker run -it -v "$(pwd):/workspace" mvlbs/m1 /bin/bash
 ```
 
-We will also occasionally use Rust and Python to complete various programming examples.
-
-We will also discuss using our proxy service with the JavaScript. The `movement-dev` developer container provides an easy start place for this alternative means of interacting with the [subnet](https://docs.movementlabs.xyz/develop/get-started/deploy-and-interact-with-contract).
+We will also occasionally use Rust, TypeScript, and Python to complete various programming examples.

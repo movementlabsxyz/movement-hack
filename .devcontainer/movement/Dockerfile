@@ -1,4 +1,4 @@
-FROM --platform=amd64 mvlbs/m1
+FROM mvlbs/m1
 
 # Install Rust
 

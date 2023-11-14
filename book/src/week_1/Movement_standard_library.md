@@ -1,48 +1,65 @@
-# Movement Standard Library
-This section examines the standard library and framework that ships with Movement. Both are based on their Aptos namesakes. 
+# Movement Packages
+This section examines the Move standard library and Aptos framework. These are the most common starting points in M1 development. 
 
 **Disclaimer:** there are many more useful modules in the standard library and framework. We will discuss some of them in this course and encourage you to explore them as you go.
 
-## `std::debug` and `aptos_std::debug`
-Prints to a message to the console using a VM `native` func. The associated `[debug]` outputs are easiest to view when unit testing.
+## `aptos_std::debug` 
+`aptos_std::debug::print` serializes and prints a Move value to the console using a VM `native` func. The associated `[debug]` outputs are easiest to view when unit testing.
+
+`aptos_std::debug::print_stack_trace` prints the current stack.
+
+The below is an example demonstrating print string nuances in 💻 `hello_world`.
+
 
 ```rust
-module debug_demo::message {
+module hello_world::hello_world {
+
     use std::string;
     use std::signer;
     use aptos_std::debug;
 
-    struct MessageHolder has key {
-        message: string::String,
-    }
-
-
-    public entry fun set_message(account: signer, message_bytes: vector<u8>)
-    acquires MessageHolder {
-        debug::print_stack_trace();
-        let message = string::utf8(message_bytes);
-        let account_addr = signer::address_of(&account);
-        if (!exists<MessageHolder>(account_addr)) {
-            move_to(&account, MessageHolder {
-                message,
-            });
-        } else {
-            let old_message_holder = borrow_global_mut<MessageHolder>(account_addr);
-            old_message_holder.message = message;
-        }
-    }
-
+   
     #[test(account = @0x1)]
-    fun sender_can_set_message(account: signer) acquires MessageHolder {
+    public entry fun sender_can_set_message(account: signer) {
         let addr = signer::address_of(&account);
         debug::print<address>(&addr);
-        set_message(account,  b"Hello, Blockchain");
+        let message = b"Hello, world!";
+        debug::print(&message);
+        let str_message = string::utf8(message);
+        debug::print(&str_message);
     }
 }
 ```
 
 ## `std::vector` and `aptos_std::big_vector`
 A useful dynamically size collection with an `aptos_std::` counterpart optimized for a large number of elements.
+
+The below is an example of searching through `std::vector` in open addressing hash map implementation from 💻 `data_structures`.
+
+```rust
+public fun find<K, V>(map: &OaHashMap<K, V>, key: &K) : &Option<Entry<K, V>> {
+        
+    let index = compute_hash_index(key, map.size);
+    let count = 0;
+    loop {
+        let option_value = vector::borrow(&map.entries, index % map.size);
+        if (option::is_none(option_value)) {
+            return option_value
+        } else {
+            let entry = option::borrow(option_value);
+            if (key_equals(&entry.key, key)) {
+                return option_value
+            }
+        };
+        index = index + 1;
+        count = count + 1;
+        if (count > map.size) {
+            abort ENO_BUFFER_EXHAUSTED
+        }
+    }
+
+}
+```
 
 ## `aptos_std::table`
 An associative array. 
@@ -74,12 +91,59 @@ fun option_contains() {
 }
 ```
 
-## `aptos_framwork::resource_account`
-A resource account is used to manage resources independent of an account managed by a user. This is is useful for building things like liquidity providers which we will discuss later in the course.
+## `aptos_framework::account`
+One of the most notable features of the `aptos_framework` is its resource accounts. Per Aptos, "a resource account is a developer feature used to manage resources independent of an account managed by a user, specifically publishing modules and automatically signing for transactions." In some ways, you can think of a resource account as an administrator or service account. In most large projects, you will want to use resource accounts to--in the least--manage deployments.
 
+Using resource accounts takes some practice. We encourage you to closely consider the code in 💻 `mini_dex` to get a better sense of how to use resource accounts. 
 
-## 💻 ResourceRoulette pt. 2
-A game of roulette on MoveVM. Place your address on an element in the vector. Contains methods `public fun bid` and `public fun spin`. Receive a payout if you placed your address on the correct cell, but only when cash out. Balances are tracked in a `aptos_std::table`. You can find it and instructions to run it `examples/movement/resource_roulette`. 
+```rust
+public entry fun initialize_lp_account(
+    minidx_admin: &signer,
+    lp_coin_metadata_serialized: vector<u8>,
+    lp_coin_code: vector<u8>
+) {
+    assert!(signer::address_of(minidx_admin) == @mini_dex, EInvalidAccount);
 
-## 💻 MiniFs
-A tiny key value store for `vector<u8>` files. Implements `store` and `load` functionality using a `aptos_framework::resource_account` and a `aptos_std::table`. You can find it and instructions to run it `examples/movement/mini_fs`. 
+    let (lp_acc, signer_cap) =
+        account::create_resource_account(minidx_admin, b"LP_CREATOR_SEED");
+    aptos_framework::code::publish_package_txn(
+        &lp_acc,
+        lp_coin_metadata_serialized,
+        vector[lp_coin_code]
+    );
+    move_to(minidx_admin, CapabilityStorage { signer_cap });
+}
+```
+
+For many common coin and NFT operations, the Aptos framework provides a set of methods that will manage capabilities. For example, the below is a snippet from an `aptos-core` example demonstrating how to initialize a coin:
+
+```rust
+/// initialize the module and store the signer cap, mint cap and burn cap within 
+fun init_module(account: &signer) {
+    // store the capabilities within `ModuleData`
+    let resource_signer_cap = resource_account::retrieve_resource_account_cap(account, @source_addr);
+    let (burn_cap, freeze_cap, mint_cap) = coin::initialize<ChloesCoin>(
+        account,
+        string::utf8(b"Chloe's Coin"),
+        string::utf8(b"CCOIN"),
+        8,
+        false,
+    );
+    move_to(account, ModuleData {
+        resource_signer_cap,
+        burn_cap,
+        mint_cap,
+    });
+
+    // destroy freeze cap because we aren't using it
+    coin::destroy_freeze_cap(freeze_cap);
+
+    // regsiter the resource account with both coins so it has a CoinStore to store those coins
+    coin::register<AptosCoin>(account);
+    coin::register<ChloesCoin>(account);
+}
+```
+
+However, you will also often have to define your own capabilities. In the Aptos Framework, you will usually find it most idiomatic and convenient to use `use aptos_framework::account::SignerCapability` for this. 
+
+Review 💻 `mini_dex` for an example of how to use `SignerCapability` to manage unique capabilities. As a challenge, design your own simple module including resource account logic and a `SignerCapability`.

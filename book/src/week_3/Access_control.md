@@ -11,7 +11,7 @@ Signatures and certificates play a crucial role in access control on the blockch
 
 Access Control Lists (ACLs), Role-Based Access Control (RBAC), and Attribute-Based Access Control (ABAC) are common frameworks used to manage and enforce access control policies in blockchain applications. ACLs define permissions based on a list of entities and their associated access rights. RBAC assigns permissions to roles, allowing for more centralized management of access control. ABAC grants access based on attributes, such as user attributes or environmental conditions. Each framework has its strengths and can be tailored to meet specific access control requirements in a blockchain  application.
 
-A common pattern in Move and Movement development is to assert a contract owner. Using named addresses, `@named_address`. 
+A rudimentary pattern in Move and Movement development is to assert a contract owner. Using named addresses, `@named_address`. 
 
 ```rust
 script owner_address::important_script {

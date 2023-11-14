@@ -11,7 +11,7 @@ function finish() {
 }
 
 begin "Funding account for hello_blockchain deployment and call..."
-# movement account fund-with-faucet --account default #? does the same as the below
+movement account fund-with-faucet --account default #? does the same as the below
 # movement faucet #? does the same as the above
 finish "Funded account for hello_blockchain deployment and call!"
 

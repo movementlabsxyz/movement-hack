@@ -3,6 +3,7 @@ This section treats with the basic functionality of the module and build system 
 
 ## Packages
 A folder with a `Move.toml` and compilable move code is a package. Packages may define external dependencies, which can be local or store at a remote repository. All Move clients used herein will automatically fetch and compile dependencies. When using `movement`, we will also define package addresses in the `Move.toml`.
+
 ```toml
 [package]
 name = "hello_world"
@@ -41,10 +42,12 @@ script {
 ```
 Scripts can only have one function in their body.
 
-## Building
-When developing for _modules_ in move you will typically need to manually publish the module before being able to run. The exception to this rule is when using `movement` to run unit tests. `movement move publish` will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run `movement move build`.
+Within the context of `movement`, we will not be using scripts--instead preferring the module construct.
 
-Below is an example bash script for publishing and running a function in a module end-to-end using the Movement CLI.
+## Building
+When developing _modules_ in Move you will need to publish the module before being able to run. The exception to this rule is when using `movement` to run unit tests. `movement move publish` will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run `movement move build`.
+
+Below is an example bash script for publishing and running a function in a module end-to-end using the Movement CLI drawn from 💻 `hello_blockchain`.
 
 ```bash
 #!/bin/bash -e
@@ -77,7 +80,7 @@ finish "Queryed resourced for account!"
 ```
 
 ### `named_addresses`
-Within `aptos_framework`, you will be able to use named addresses. These will be replaced at compile time whether they are in the adrress position in a module `<my_address_name>::my_module` or marked with an `@<my_address_name>`.
+The Move build system enables the usage of named addresses to simplify addressing schemes. These will be replaced at compile time whether they are in the adrress position in a module `<my_address_name>::my_module` or marked with an `@<my_address_name>` elsewhere.
 
 In your `Move.toml`, you may specify these addresses as below.
 ```toml
@@ -87,3 +90,8 @@ std =  "0x1"
 ```
 
 You may then specify them when compiling using `--<my_address_name>=<my_value>`.
+
+Additional complexities that emerge when using named addresses are well documented in [Diem's original documentation of the Move language](https://diem.github.io/move/packages.html).
+
+## 💻 `resource_roulette` dev-addresses
+Resource roulette currently has a value in the `[addresses]` block that is better suited to `[dev-addresses]`. Find it an test the module.

@@ -153,33 +153,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="smart-contracts-development-and-staging"><a class="header" href="#smart-contracts-development-and-staging">Smart Contracts development and staging</a></h1>
-<h2 id="development"><a class="header" href="#development">Development</a></h2>
-<p>When building smart contracts for <code>movement</code> you can use both the <code>move</code> client and <code>movement</code> itself.</p>
-<h3 id="move"><a class="header" href="#move"><code>move</code></a></h3>
-<p>The <code>move</code> CLI is a suitable tool for early and primitive development. You will not have access to the same onchain resources as when working with the <code>movement</code> CLI, such as access to our DEX. However, you will be able to use the <code>move sandbox</code> to build and run contracts. </p>
-<p>To make sure you are building with out standard library, include the following in your <code>Move.toml</code>.</p>
-<pre><code class="language-toml">[package]
-name = &quot;hello_world&quot;
-version = &quot;0.0.0&quot;
-
-[dependencies]
-# MoveNursery = { git = &quot;https://github.com/move-language/move.git&quot;, subdir = &quot;language/move-stdlib/nursery&quot;, rev = &quot;main&quot; }
-MovementFramework = {  git = &quot;https://github.com/movemntdev/movement-subnet.git&quot;, subdir = &quot;vm/aptos-vm/aptos-move/aptos-framework&quot;, rev = &quot;main&quot; }
-
-[addresses]
-std =  &quot;0x1&quot;
-hello_blockchain = &quot;_&quot;
-</code></pre>
-<h3 id="movement"><a class="header" href="#movement"><code>movement</code></a></h3>
-<p>The <code>movement</code> CLI provides an <code>aptos</code>-like interface for running Move language scripts and modules. For more details see the <code>movement</code> CLI docs.</p>
-<p>When using <code>movement</code> in its default configuration, you will test and run contracts against our testnet. This is ideal for most Movement development.</p>
-<h2 id="staging"><a class="header" href="#staging">Staging</a></h2>
-<p>The best way to publicly stage smart contracts for Movement is simply to us a <code>movement</code> CLI. If you are interested in a more private staging environment, you may use the <code>movement</code> CLI with the provided <code>movement</code> devcontainer to compose and stage against a local network.</p>
-<blockquote>
-<p><strong>Contribution</strong>
-{: .contributor-block}
-Help us develop better tools for movement staging!</p>
-</blockquote>
+<p>🚧 Under renovation. Please check back later.</p>
 
                     </main>
 

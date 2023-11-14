@@ -42,7 +42,7 @@ module hello_blockchain::message {
     // ...
 
     #[test(account = @0x1)]
-    public entry fun sender_can_set_message(account: signer) acquires MessageHolder {
+    public entry fun hello_world(account: signer) acquires MessageHolder {
         let addr = signer::address_of(&account);
         aptos_framework::account::create_account_for_test(addr);
         set_message(account,  string::utf8(b"Hello, Blockchain"));

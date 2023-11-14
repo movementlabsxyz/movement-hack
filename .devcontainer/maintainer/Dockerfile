@@ -1,4 +1,4 @@
-FROM --platform=amd64 mvlbs/m1
+FROM mvlbs/m1
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
