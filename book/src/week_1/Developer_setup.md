@@ -40,7 +40,7 @@ Our version of the AptosFramework is slightly different from the upstream at htt
 There are several useful development enviroments for Move. This book will be geared towards using VsCode because of the its developer container features and its [Move analyzer](https://marketplace.visualstudio.com/items?itemName=move.move-analyzer). However, syntax highlighting has been implemented for other IDEs including [Vim](https://github.com/rvmelkonian/move.vim).
 
 ## Our Setup
-We'll be using the `move` and `movement` CLIs; no package manager; and VsCode most-often running the `movement-dev` Docker container from (mvlbs/m1)[https://hub.docker.com/repository/docker/mvlbs/m1/general].
+We'll be using the `movement` CLI and VsCode most-often running the `movement-dev` Docker container from (mvlbs/m1)[https://hub.docker.com/repository/docker/mvlbs/m1/general].
 
 To get started...
 1. Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack
@@ -55,3 +55,6 @@ docker run -it -v "$(pwd):/workspace" mvlbs/m1 /bin/bash
 ```
 
 We will also occasionally use Rust, TypeScript, and Python to complete various programming examples.
+
+## Setting Up Your Own Environment
+While we recommend using the above, if you want to set up your own project environment, you can install the `movement` CLI and then run `movement init` in your chosen directory. This will create a `.movement` profile. You can then add a `Move.toml` and a sources directory to get started.

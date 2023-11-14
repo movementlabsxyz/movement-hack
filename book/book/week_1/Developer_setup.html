@@ -185,7 +185,7 @@ hello_blockchain = &quot;_&quot;
 <h3 id="ide"><a class="header" href="#ide">IDE</a></h3>
 <p>There are several useful development enviroments for Move. This book will be geared towards using VsCode because of the its developer container features and its <a href="https://marketplace.visualstudio.com/items?itemName=move.move-analyzer">Move analyzer</a>. However, syntax highlighting has been implemented for other IDEs including <a href="https://github.com/rvmelkonian/move.vim">Vim</a>.</p>
 <h2 id="our-setup"><a class="header" href="#our-setup">Our Setup</a></h2>
-<p>We'll be using the <code>move</code> and <code>movement</code> CLIs; no package manager; and VsCode most-often running the <code>movement-dev</code> Docker container from (mvlbs/m1)[https://hub.docker.com/repository/docker/mvlbs/m1/general].</p>
+<p>We'll be using the <code>movement</code> CLI and VsCode most-often running the <code>movement-dev</code> Docker container from (mvlbs/m1)[https://hub.docker.com/repository/docker/mvlbs/m1/general].</p>
 <p>To get started...</p>
 <ol>
 <li>Clone the repo from which this book originates: https://github.com/movemntdev/movement-hack</li>
@@ -197,6 +197,8 @@ hello_blockchain = &quot;_&quot;
 docker run -it -v &quot;$(pwd):/workspace&quot; mvlbs/m1 /bin/bash
 </code></pre>
 <p>We will also occasionally use Rust, TypeScript, and Python to complete various programming examples.</p>
+<h2 id="setting-up-your-own-environment"><a class="header" href="#setting-up-your-own-environment">Setting Up Your Own Environment</a></h2>
+<p>While we recommend using the above, if you want to set up your own project environment, you can install the <code>movement</code> CLI and then run <code>movement init</code> in your chosen directory. This will create a <code>.movement</code> profile. You can then add a <code>Move.toml</code> and a sources directory to get started.</p>
 
                     </main>
 
