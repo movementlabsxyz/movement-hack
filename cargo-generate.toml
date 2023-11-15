@@ -8,18 +8,17 @@ ignore = [
     "examples", 
     "examples_nursery", 
     "./.devcontainer/maintainer",
-    "./.devcontainer/maintainer-book",
-     "./.devcontainer/maintainer-ci-cd",
-    "./.devcontainer/anchor",
-    "./.devcontainer/solidity",
-    "./.devcontainer/aptos",
-    "./.devcontainer/move",
+    "./.devcontainer/book",
     "./.devcontainer/movement",
     "./.github",
     "./abin",
     "Dockerfile.movement-dev",
     "PULL_REQUEST_TEMPLATE.md",
-    "build"
+    "build",
+    "amplify.yml",
+    "./bin/maintainer",
+    "./bin/install.sh",
+    "./bin/movementctl.sh"
 ]
 
 [placeholders.devcontainer]
