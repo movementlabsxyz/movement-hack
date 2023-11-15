@@ -9,7 +9,6 @@ ignore = [
     "examples_nursery", 
     "./.devcontainer/maintainer",
     "./.devcontainer/book",
-    "./.devcontainer/movement",
     "./.github",
     "./abin",
     "Dockerfile.movement-dev",
