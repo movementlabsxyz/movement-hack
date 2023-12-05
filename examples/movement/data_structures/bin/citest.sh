@@ -1,2 +1,2 @@
 #!/bin/bash
-movement move test
+movement aptos move test

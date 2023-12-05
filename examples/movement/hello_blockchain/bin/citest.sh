@@ -1,2 +1,2 @@
 #!/bin/bash
-movement move test --named-addresses hello_blockchain=default
+movement aptos move test --named-addresses hello_blockchain=default

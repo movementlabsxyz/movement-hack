@@ -1,4 +1,4 @@
 #!/bin/bash
-movement move test --named-addresses mini_lend=default
+movement aptos move test --named-addresses mini_lend=default
 
 

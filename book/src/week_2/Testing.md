@@ -1,17 +1,18 @@
 # Testing
+
 This section examines testing strategies for Move smart contracts on Movement. We will cover both automated and manual strategies for testing functionality.
 
 ## Movement profile configuration
 
 ```bash
-movement init --network testnet
+movement aptos init --network testnet
 ```
 
 When building and testing an application, you will want to work against either the Movement testnet or a local network. The `movement` devcontainer is equipped with the `movement` CLI and uses `docker-compose` to start a local network; both options are available without additional setup when working with the devcontainer.
 
-When beginning a project, run `movement init` and specify either `testnet` or `local`. The first profile you create will be called `default`.
+When beginning a project, run `movement aptos init` and specify either `testnet` or `local`. The first profile you create will be called `default`.
 
-To create a new profile run `movement init --profile <name-of-profile>`. You can then specify which profile you would like to use in various commands by `--profile <name-of-profile>`, e.g., `move run --profile default ...`.
+To create a new profile run `movement aptos init --profile <name-of-profile>`. You can then specify which profile you would like to use in various commands by `--profile <name-of-profile>`, e.g., `move run --profile default ...`.
 
 You can inspect the details of all of your profiles at `.movement/config.yaml` in your working directory.
 
@@ -28,6 +29,7 @@ profiles:
 ```
 
 ## Automated testing
+
 Movement's CLI `movement` provides an `aptos`-like interface for building and testing Move smart contracts. The built-in testing functionality is best suited for unit testing. You can define tests in the same module or separately.
 
 ```rust
@@ -88,22 +90,26 @@ module hello_blockchain::message_tests {
 You can then run tests for the package containing modules from the movement CLI.
 
 ```bash
-movement move test --named-addresses hello_blockchain=default
+movement aptos move test --named-addresses hello_blockchain=default
 ```
+
 For advanced use of `movement` for automated testing, such as coverage, see the `movement` CLI [documentation](https://docs.movemnt.dev/movement/).
 
 ## Manual testing
+
 Often, automated unit testing will be insufficient to determine that your smart contracts are ready for production. You will want to apply a set of end-to-end strategies to ensure smart contract quality. At the moment, all of these strategies are manual; however, automation can be built on-top of them.
 
 > **Contribution**
 > {: .contributor-block}
-> Help us develop better tools for automated e2e and integration testing. 
+> Help us develop better tools for automated e2e and integration testing.
 
 ### With `movement`
+
 There three key instructions for manual testing using `movement`:
-- `movement move publish`: publishes modules and scripts to the Movement blockchain.
-- `movement move run`: runs a module or script.
-- `movement account list`: lists resources values.
+
+- `movement aptos move publish`: publishes modules and scripts to the Movement blockchain.
+- `movement aptos move run`: runs a module or script.
+- `movement aptos account list`: lists resources values.
 
 When testing manually, you will typically adopt a flow of `publish->run->list`. In the examples provided with this book's repository, you will commonly see bash scripts for running and testing Movement smart contract that orchestrate these three commands. The following is an example from our `hello_blockchain` contract:
 
@@ -121,39 +127,43 @@ function finish() {
 }
 
 begin "Funding account for hello_blockchain deployment and call..."
-movement account fund-with-faucet --account default
+movement aptos account fund-with-faucet --account default
 finish "Funded account for hello_blockchain deployment and call!"
 
 begin "Publishing hello_blockchain module..."
-echo "y" | movement move publish --named-addresses hello_blockchain=default
+echo "y" | movement aptos move publish --named-addresses hello_blockchain=default
 finish "Published hello_blockchain module!"
 
 begin "Setting hello_blockchain message to 'hello!'..."
-echo "y" | movement move run --function-id default::message::set_message --args string:hello!
+echo "y" | movement aptos move run --function-id default::message::set_message --args string:hello!
 finish "Set hello_blockchain message to 'hello'!"
 
 begin "Querying resources for account..."
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish "Queryed resourced for account!"
 
 begin "Setting hello_blockchain message to 'goodbye!'..."
-echo "y" | movement move run --function-id default::message::set_message --args string:goodbye!
+echo "y" | movement aptos move run --function-id default::message::set_message --args string:goodbye!
 finish "Set hello_blockchain message to 'goodbye'!"
 
 begin "Querying resources for account..."
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish "Queryed resourced for account!"
 ```
 
 ### Semi-automation
+
 In many cases, you will find opportunities to automate the inspection of resources via `bash`, `python`, and other scripts. As you develop any of these testing strategies, we encourage you to share them with us so that we might make improvements to our CLI's capabilities.
 
 > **Share**
 > Share your semi-automated workflows with us!
 
 ## Testing directives
+
 Movement provides several directives for testing which are important to understand.
+
 ### `#[test]`
+
 Marks a test function. Can be provided with arguments.
 
 When testing procedures that require signers, you will need set their values in the directive. Take the example below from 💻 ResourceRoulette
@@ -161,15 +171,17 @@ When testing procedures that require signers, you will need set their values in 
 ```rust
  #[test(account = @resource_roulette, bidder_one = @0x3)]
 #[expected_failure(abort_code = FLAG_WINNER)]
-public fun test_wins(account : &signer, bidder_one : &signer) acquires 
+public fun test_wins(account : &signer, bidder_one : &signer) acquires
 ```
 
 Here our test expects both resource account, i.e., `resource_roulette`, and a bidder signer, i.e., `bidder_one`. We will discuss how these are used below.
 
 ### `#[test_only]`
+
 Test only is used for defining symbols that will only be compiled when testing. It can be useful for creating mocks and stubs, test boundaries and more.
 
 ### `#[expect_failure]`
+
 Allows you to check if a routine aborts as expected, i.e., matching a certain error code.
 
 In addition to asserting intended failures, you can use this behavior to define more complex tests that are based on boundary conditions being crossed. The example below from 💻 Resource Roulette uses this pattern to test whether winners emerge from the pseudorandom spinner.
@@ -202,9 +214,11 @@ public fun test_wins(account : &signer, bidder_one : &signer) acquires ResourceR
 ```
 
 ## Mocks, stubs, and state-based simulation
-In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies. 
+
+In order to simulate and control the behavior of dependencies or external systems during testing, you may whish to apply mocking, stubbing, and stated-based simulation strategies.
 
 ### Mocks and stubs
+
 Mocks and stubs are both techniques used to simulate or replace certain components of a system being tested. A mock is a fake implementation of a method or an object, meant to simulate its real behavior. Stubs, on the other hand, are simplified implementations that do not imitate the real behavior. Instead, stubs produce a predefined response to a specific method call or input. Thus, mocks verify the behavior of code and stubs verify the state of the code.
 
 Some of the modules in the standard library and framework will be suitable for mocking. The example below uses a resource account function to mock a specialized publishing process. A good strong understanding of the standard library can result in much cleaner solutions to mocking problems.
@@ -223,9 +237,11 @@ public entry fun set_up_test(origin_account: &signer, resource_account: &signer)
 ```
 
 ### State-based simulation
-State-based simulation is a testing technique that focuses on verifying a program based the correctness of its state transitions. First, one must identify and define the states that the program can be in. Next, the events or actions that trigger a transition between states must be defined. Using this information, proper test cases should be generated to explore different state transitions and scenarios. 
+
+State-based simulation is a testing technique that focuses on verifying a program based the correctness of its state transitions. First, one must identify and define the states that the program can be in. Next, the events or actions that trigger a transition between states must be defined. Using this information, proper test cases should be generated to explore different state transitions and scenarios.
 
 ### For `movement`
+
 Beyond the `test` and `test_only` directives, Movement does not not provide any additional ergonomics for mocking, stubbing, or state-based simulation. However, opting for a common environment module may be suitable for more complex cases. The example below uses storage polymorphism to implement a common environment store.
 
 ```rust
@@ -259,9 +275,9 @@ When setting up your tests, you would then want to run something like the below.
 
 # set environment
 begin "Setting environment to slow..."
-echo "y" | movement move run --function-id default::message::set_slow_variable --args string:slow
+echo "y" | movement aptos move run --function-id default::message::set_slow_variable --args string:slow
 finish "Set environment to slow!"
 ```
 
 > **Contribution**
-> Help us develop mocking and stubbing tools for Movement. 
+> Help us develop mocking and stubbing tools for Movement.

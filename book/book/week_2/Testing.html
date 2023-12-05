@@ -155,11 +155,11 @@
                         <h1 id="testing"><a class="header" href="#testing">Testing</a></h1>
 <p>This section examines testing strategies for Move smart contracts on Movement. We will cover both automated and manual strategies for testing functionality.</p>
 <h2 id="movement-profile-configuration"><a class="header" href="#movement-profile-configuration">Movement profile configuration</a></h2>
-<pre><code class="language-bash">movement init --network testnet
+<pre><code class="language-bash">movement aptos init --network testnet
 </code></pre>
 <p>When building and testing an application, you will want to work against either the Movement testnet or a local network. The <code>movement</code> devcontainer is equipped with the <code>movement</code> CLI and uses <code>docker-compose</code> to start a local network; both options are available without additional setup when working with the devcontainer.</p>
-<p>When beginning a project, run <code>movement init</code> and specify either <code>testnet</code> or <code>local</code>. The first profile you create will be called <code>default</code>.</p>
-<p>To create a new profile run <code>movement init --profile &lt;name-of-profile&gt;</code>. You can then specify which profile you would like to use in various commands by <code>--profile &lt;name-of-profile&gt;</code>, e.g., <code>move run --profile default ...</code>.</p>
+<p>When beginning a project, run <code>movement aptos init</code> and specify either <code>testnet</code> or <code>local</code>. The first profile you create will be called <code>default</code>.</p>
+<p>To create a new profile run <code>movement aptos init --profile &lt;name-of-profile&gt;</code>. You can then specify which profile you would like to use in various commands by <code>--profile &lt;name-of-profile&gt;</code>, e.g., <code>move run --profile default ...</code>.</p>
 <p>You can inspect the details of all of your profiles at <code>.movement/config.yaml</code> in your working directory.</p>
 <pre><code class="language-yaml"># config.yaml
 ---
@@ -228,8 +228,8 @@ module hello_blockchain::message_tests {
     }
 }
 <span class="boring">}</span></code></pre></pre>
-<p>You can then run tests for the package containing modules from the movement CLI.</p>
-<pre><code class="language-bash">movement move test --named-addresses hello_blockchain=default
+<p>You can then run tests for the package containing modules from the movement aptos CLI.</p>
+<pre><code class="language-bash">movement aptos move test --named-addresses hello_blockchain=default
 </code></pre>
 <p>For advanced use of <code>movement</code> for automated testing, such as coverage, see the <code>movement</code> CLI <a href="https://docs.movemnt.dev/movement/">documentation</a>.</p>
 <h2 id="manual-testing"><a class="header" href="#manual-testing">Manual testing</a></h2>
@@ -242,9 +242,9 @@ Help us develop better tools for automated e2e and integration testing. </p>
 <h3 id="with-movement"><a class="header" href="#with-movement">With <code>movement</code></a></h3>
 <p>There three key instructions for manual testing using <code>movement</code>:</p>
 <ul>
-<li><code>movement move publish</code>: publishes modules and scripts to the Movement blockchain.</li>
-<li><code>movement move run</code>: runs a module or script.</li>
-<li><code>movement account list</code>: lists resources values.</li>
+<li><code>movement aptos move publish</code>: publishes modules and scripts to the Movement blockchain.</li>
+<li><code>movement aptos move run</code>: runs a module or script.</li>
+<li><code>movement aptos account list</code>: lists resources values.</li>
 </ul>
 <p>When testing manually, you will typically adopt a flow of <code>publish-&gt;run-&gt;list</code>. In the examples provided with this book's repository, you will commonly see bash scripts for running and testing Movement smart contract that orchestrate these three commands. The following is an example from our <code>hello_blockchain</code> contract:</p>
 <pre><code class="language-bash">#!/bin/bash -e
@@ -260,27 +260,27 @@ function finish() {
 }
 
 begin &quot;Funding account for hello_blockchain deployment and call...&quot;
-movement account fund-with-faucet --account default
+movement aptos account fund-with-faucet --account default
 finish &quot;Funded account for hello_blockchain deployment and call!&quot;
 
 begin &quot;Publishing hello_blockchain module...&quot;
-echo &quot;y&quot; | movement move publish --named-addresses hello_blockchain=default
+echo &quot;y&quot; | movement aptos move publish --named-addresses hello_blockchain=default
 finish &quot;Published hello_blockchain module!&quot;
 
 begin &quot;Setting hello_blockchain message to 'hello!'...&quot;
-echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:hello!
+echo &quot;y&quot; | movement aptos move run --function-id default::message::set_message --args string:hello!
 finish &quot;Set hello_blockchain message to 'hello'!&quot;
 
 begin &quot;Querying resources for account...&quot;
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish &quot;Queryed resourced for account!&quot;
 
 begin &quot;Setting hello_blockchain message to 'goodbye!'...&quot;
-echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:goodbye!
+echo &quot;y&quot; | movement aptos move run --function-id default::message::set_message --args string:goodbye!
 finish &quot;Set hello_blockchain message to 'goodbye'!&quot;
 
 begin &quot;Querying resources for account...&quot;
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish &quot;Queryed resourced for account!&quot;
 </code></pre>
 <h3 id="semi-automation"><a class="header" href="#semi-automation">Semi-automation</a></h3>
@@ -384,7 +384,7 @@ public entry fun set_up_test(origin_account: &amp;signer, resource_account: &amp
 
 # set environment
 begin &quot;Setting environment to slow...&quot;
-echo &quot;y&quot; | movement move run --function-id default::message::set_slow_variable --args string:slow
+echo &quot;y&quot; | movement aptos move run --function-id default::message::set_slow_variable --args string:slow
 finish &quot;Set environment to slow!&quot;
 </code></pre>
 <blockquote>

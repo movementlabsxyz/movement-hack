@@ -154,15 +154,15 @@
                     <main>
                         <h1 id="deploying-on-m1"><a class="header" href="#deploying-on-m1">Deploying on M1</a></h1>
 <p>At the time of writing, only the M1 testnet is available. To set up for deployment you only need to make sure you have a testnet profile configured.</p>
-<pre><code class="language-bash">movement init --network testnet
+<pre><code class="language-bash">movement aptos init --network testnet
 </code></pre>
 <p>You may then use the <code>movement</code> CLI to publish your package.</p>
-<pre><code class="language-bash">movement move publish --named-addresses hello_blockchain=default
+<pre><code class="language-bash">movement aptos move publish --named-addresses hello_blockchain=default
 </code></pre>
 <p>We encourage however to take a look at <code>aptos_framework::resource_account</code> and <code>aptos_framework::resource_group</code> for more advanced publication options.</p>
 <h2 id="-multicontractfib"><a class="header" href="#-multicontractfib">💻 MulticontractFib</a></h2>
 <p>We encourage you to checkout <code>examples/movement/multicontract_fib</code> for an easy to inspect deployment. Once you've deployed, simply run the command below to check out the on-chain resources.</p>
-<pre><code class="language-bash">movement account list --query resources --account default
+<pre><code class="language-bash">movement aptos account list --query resources --account default
 </code></pre>
 
                     </main>

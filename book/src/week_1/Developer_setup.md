@@ -17,7 +17,7 @@ There are three CLIs worthy of note in the Move language development space. All 
 - [`aptos`](https://aptos.dev/tools/aptos-cli/install-cli/): the CLI for Aptos development.
 - [`movement`](https://docs.movementlabs.xyz/developers/developer-tools/movement-cli): our very own CLI which is currently compatible with the Aptos CLI.
 
-In this booklet we will be working with `movement`. If you ever need help working with `movement` you can run `movement --help` or `movement <command> --help` for more information.
+In this booklet we will be working with `movement`. More specifically, we will be working with the `aptos` framework. If you ever need help working with `movement` you can run `movement --help` or `movement <command> --help` for more information.
 
 ### Package managers
 You can manage Move dependencies by adding them directly to your `Move.toml` file. 
@@ -57,4 +57,4 @@ docker run -it -v "$(pwd):/workspace" mvlbs/m1 /bin/bash
 We will also occasionally use Rust, TypeScript, and Python to complete various programming examples.
 
 ## Setting Up Your Own Environment
-While we recommend using the above, if you want to set up your own project environment, you can install the `movement` CLI and then run `movement init` in your chosen directory. This will create a `.movement` profile. You can then add a `Move.toml` and a sources directory to get started.
+While we recommend using the above, if you want to set up your own project environment, you can install the `movement` CLI and then run `movement aptos init` in your chosen directory. This will create a `.movement` profile. You can then add a `Move.toml` and a sources directory to get started.

@@ -45,7 +45,7 @@ Scripts can only have one function in their body.
 Within the context of `movement`, we will not be using scripts--instead preferring the module construct.
 
 ## Building
-When developing _modules_ in Move you will need to publish the module before being able to run. The exception to this rule is when using `movement` to run unit tests. `movement move publish` will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run `movement move build`.
+When developing _modules_ in Move you will need to publish the module before being able to run. The exception to this rule is when using `movement` to run unit tests. `movement aptos move publish` will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run `movement aptos move build`.
 
 Below is an example bash script for publishing and running a function in a module end-to-end using the Movement CLI drawn from 💻 `hello_blockchain`.
 
@@ -63,19 +63,19 @@ function finish() {
 }
 
 begin "Funding account for hello_blockchain deployment and call..."
-movement account fund-with-faucet --account default
+movement aptos account fund-with-faucet --account default
 finish "Funded account for hello_blockchain deployment and call!"
 
 begin "Publishing hello_blockchain module..."
-echo "y" | movement move publish --named-addresses hello_blockchain=default
+echo "y" | movement aptos move publish --named-addresses hello_blockchain=default
 finish "Published hello_blockchain module!"
 
 begin "Setting hello_blockchain message to 'hello!'..."
-echo "y" | movement move run --function-id default::message::set_message --args string:hello!
+echo "y" | movement aptos move run --function-id default::message::set_message --args string:hello!
 finish "Set hello_blockchain message to 'hello'!"
 
 begin "Querying resources for account..."
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish "Queryed resourced for account!"
 ```
 

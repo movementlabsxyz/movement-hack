@@ -192,7 +192,7 @@ hello_blockchain = &quot;_&quot;
 <p>Scripts can only have one function in their body.</p>
 <p>Within the context of <code>movement</code>, we will not be using scripts--instead preferring the module construct.</p>
 <h2 id="building"><a class="header" href="#building">Building</a></h2>
-<p>When developing <em>modules</em> in Move you will need to publish the module before being able to run. The exception to this rule is when using <code>movement</code> to run unit tests. <code>movement move publish</code> will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run <code>movement move build</code>.</p>
+<p>When developing <em>modules</em> in Move you will need to publish the module before being able to run. The exception to this rule is when using <code>movement</code> to run unit tests. <code>movement aptos move publish</code> will handle both the building and publication of modules in your current working directory. If you simply want to build the module to inspect its bytecode run <code>movement aptos move build</code>.</p>
 <p>Below is an example bash script for publishing and running a function in a module end-to-end using the Movement CLI drawn from 💻 <code>hello_blockchain</code>.</p>
 <pre><code class="language-bash">#!/bin/bash -e
 
@@ -207,19 +207,19 @@ function finish() {
 }
 
 begin &quot;Funding account for hello_blockchain deployment and call...&quot;
-movement account fund-with-faucet --account default
+movement aptos account fund-with-faucet --account default
 finish &quot;Funded account for hello_blockchain deployment and call!&quot;
 
 begin &quot;Publishing hello_blockchain module...&quot;
-echo &quot;y&quot; | movement move publish --named-addresses hello_blockchain=default
+echo &quot;y&quot; | movement aptos move publish --named-addresses hello_blockchain=default
 finish &quot;Published hello_blockchain module!&quot;
 
 begin &quot;Setting hello_blockchain message to 'hello!'...&quot;
-echo &quot;y&quot; | movement move run --function-id default::message::set_message --args string:hello!
+echo &quot;y&quot; | movement aptos move run --function-id default::message::set_message --args string:hello!
 finish &quot;Set hello_blockchain message to 'hello'!&quot;
 
 begin &quot;Querying resources for account...&quot;
-movement account list --query resources --account default
+movement aptos account list --query resources --account default
 finish &quot;Queryed resourced for account!&quot;
 </code></pre>
 <h3 id="named_addresses"><a class="header" href="#named_addresses"><code>named_addresses</code></a></h3>
