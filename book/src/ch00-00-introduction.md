@@ -15,10 +15,10 @@ This course is designed to support you as you build for build for Movement. See 
   - [Hello, Move!](ch02-03-hello-move.md)
 
 - [Planning Your Capstone Project](ch03-00-domain-modeling.md)
-  - [Domain Modeling](ch03-01-domain-modeling.md)
+  - [Domain Modeling](ch03-01-domain-modeling-intro.md)
   - [User Journey](ch03-02-user-journey.md)
   - [Architectural Diagram](ch03-03-architectural-diagram.md)
-    -->
+    
 - [Basic Move Syntax](ch04-00-basic-move-syntax.md)
   - [Primitive Types](ch04-01-primitive-types.md)
   - [Comments](ch04-02-comments.md)
@@ -32,11 +32,6 @@ This course is designed to support you as you build for build for Movement. See 
   - [Getter and Setter Functions](ch05-02-getter-functions.md)
   - [Generics Introduction](ch05-03-generics-intro.md)
   - [Generics with Multiple Type Parameters](ch05-04-generics-with-multiple-types.md)
-
-- [Move's Storage Model](ch06-00-storage-model.md)
-  - [Ownership and References](ch06-01-ownership-and-references.md)
-  - [Resources](ch06-02-resources.md)
-  - [Collections](ch06-03-collections.md)
 
 ## Feedback and Contributions
 
