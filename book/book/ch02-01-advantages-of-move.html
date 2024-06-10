@@ -1,0 +1,310 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Advantages of Move</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="ch00-00-introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="ch01-00-history-of-move.html"><strong aria-hidden="true">1.</strong> History of Move</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-the-language.html"><strong aria-hidden="true">1.1.</strong> The Language for Digital Assets</a></li><li class="chapter-item expanded "><a href="ch01-02-dispersion-of-move.html"><strong aria-hidden="true">1.2.</strong> The Dispersion of Move</a></li><li class="chapter-item expanded "><a href="ch01-03-enter-movement.html"><strong aria-hidden="true">1.3.</strong> Enter the Movement</a></li></ol></li><li class="chapter-item expanded "><a href="ch02-00-getting-started-with-move.html"><strong aria-hidden="true">2.</strong> Getting Started with Move</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch02-01-advantages-of-move.html" class="active"><strong aria-hidden="true">2.1.</strong> Advantages of Move</a></li><li class="chapter-item expanded "><a href="ch02-02-install-movement-cli.html"><strong aria-hidden="true">2.2.</strong> Install Movement CLI</a></li><li class="chapter-item expanded "><a href="ch02-03-hello-move.html"><strong aria-hidden="true">2.3.</strong> Hello, Move!</a></li></ol></li><li class="chapter-item expanded "><a href="ch03-00-domain-modeling.html"><strong aria-hidden="true">3.</strong> Planning Your Capstone Project</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch03-01-domain-modeling-intro.html"><strong aria-hidden="true">3.1.</strong> Domain Modeling</a></li><li class="chapter-item expanded "><a href="ch03-02-user-journey.html"><strong aria-hidden="true">3.2.</strong> User Journey</a></li><li class="chapter-item expanded "><a href="ch03-03-architectural-diagram.html"><strong aria-hidden="true">3.3.</strong> Architectural Diagram</a></li></ol></li><li class="chapter-item expanded "><a href="ch04-00-basic-move-syntax.html"><strong aria-hidden="true">4.</strong> Basic Move Syntax</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch04-01-primitive-types.html"><strong aria-hidden="true">4.1.</strong> Primitive Types</a></li><li class="chapter-item expanded "><a href="ch04-02-comments.html"><strong aria-hidden="true">4.2.</strong> Comments</a></li><li class="chapter-item expanded "><a href="ch04-03-expressions-and-scope.html"><strong aria-hidden="true">4.3.</strong> Expressions and Scope</a></li><li class="chapter-item expanded "><a href="ch04-04-control-flow.html"><strong aria-hidden="true">4.4.</strong> Control Flow</a></li><li class="chapter-item expanded "><a href="ch04-05-modules-and-imports.html"><strong aria-hidden="true">4.5.</strong> Modules and Imports</a></li><li class="chapter-item expanded "><a href="ch04-06-testing.html"><strong aria-hidden="true">4.6.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="ch05-00-custom-types-and-generics.html"><strong aria-hidden="true">5.</strong> Custom types and generics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch05-01-custom-types.html"><strong aria-hidden="true">5.1.</strong> Custom Types</a></li><li class="chapter-item expanded "><a href="ch05-02-getter-functions.html"><strong aria-hidden="true">5.2.</strong> Getter and Setter Functions</a></li><li class="chapter-item expanded "><a href="ch05-03-generics-intro.html"><strong aria-hidden="true">5.3.</strong> Generics Introduction</a></li><li class="chapter-item expanded "><a href="ch05-04-generics-with-multiple-types.html"><strong aria-hidden="true">5.4.</strong> Generics with Multiple Type Parameters</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/movemntdev/movement-hack/edit/main/book/src/ch02-01-advantages-of-move.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="advantages-of-move"><a class="header" href="#advantages-of-move">Advantages of Move</a></h1>
+<p>In this lesson, you'll learn fundamental properties of Move, including resource-orientation and type linearity, and how Move addresses specific smart contract vulnerabilities.</p>
+<h2 id="resource-orientation-and-the-blockchain"><a class="header" href="#resource-orientation-and-the-blockchain">Resource-orientation and the blockchain</a></h2>
+<p>Resource-orientation is a fundamental concept in programming languages like Move that greatly benefits the blockchain ecosystem. By aligning with the principles of resource-oriented programming, the blockchain can enhance security, efficiency, and reliability of smart contracts.</p>
+<h2 id="stack-model-programming-and-function-ownership"><a class="header" href="#stack-model-programming-and-function-ownership">Stack Model Programming and Function Ownership</a></h2>
+<p>In resource-oriented programming, like Move, the stack model is employed to manage data ownership and control access. Take for example the following unsafe C program.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+void printAndFree(char* data) {
+    printf("Data: %s\n", data);
+    free(data); // Function takes ownership and frees the memory
+}
+
+int main() {
+    char* value = (char*)malloc(strlen("Hello") + 1);
+    strcpy(value, "Hello");
+    
+    printAndFree(value); // Pass ownership of 'value' to the function
+
+    // Attempt to access the value after it has been freed
+    printf("Data after freeing: %s\n", value); // Unsafe access!
+
+    return 0;
+}
+</code></pre>
+<p>{{#quiz ../quizzes/ch02-01-unsafe-access.toml}}</p>
+<p>In Move, this kind of unsafe access would not be possible because of strict ownership conditions.</p>
+<p>Each function owns any resources it creates and is responsible for its lifecycle. This ownership model ensures that resources are properly managed and prevents unauthorized access or modification, bolstering the security of blockchain-based applications.</p>
+<h2 id="access-restriction-all-the-way-down"><a class="header" href="#access-restriction-all-the-way-down">Access Restriction All the Way Down</a></h2>
+<p>Resource-oriented programming languages like Move implement access restrictions at all levels of code execution. From the top-level contract to individual functions, access to resources is strictly controlled. This granular access control minimizes the risk of unauthorized operations and ensures that only authorized parties can interact with specific resources, promoting secure and auditable transactions on the blockchain.</p>
+<h2 id="type-linearity-and-ownership"><a class="header" href="#type-linearity-and-ownership">Type Linearity and Ownership</a></h2>
+<p><em>Linear type:</em> a type with an enforced the restriction that variables or values of the type can be used exactly once. In other words, each linear value has a unique owner or consumer, and it must be used or consumed linearly without duplication or uncontrolled consumption.</p>
+<pre><code class="language-javascript">f(a) -&gt; g(a) -&gt; h(a)
+</code></pre>
+<p><em>Non-linear type:</em> a type without an enforced the restriction that variables or values of the type can be used exactly once. Variables or values of non-linear types can be used or accessed multiple times without restrictions.</p>
+<pre><code class="language-javascript">f(a) -&gt;
+    g(a)
+    + h(a) -&gt; 
+        c(a)
+        + k(a)
+        + p(a)
+</code></pre>
+<p>Type linearity is a crucial aspect of resource-oriented programming that enforces the linear use of resources. In Move, resources generally have linear types, meaning they can only be consumed or moved, not duplicated. This feature prevents resource duplication, reduces memory consumption, and eliminates the risk of double-spending, ensuring the integrity and accuracy of transactions on the blockchain.</p>
+<p>{{#quiz ../quizzes/ch02-01-type-linearity.toml}}</p>
+<h2 id="how-does-move-address-common-smart-contract-vulnerabilities"><a class="header" href="#how-does-move-address-common-smart-contract-vulnerabilities">How does Move address common smart contract vulnerabilities?</a></h2>
+<p>The resource-orientation and type-linearity of the Move programming language play a significant role in avoiding common smart contract vulnerabilities. Here's how these features address specific vulnerabilities:</p>
+<blockquote>
+<p><strong>1. Reentrancy Attacks:</strong> In a reentrancy attack, a malicious contract calls back into the calling contract before the first execution completes, potentially leading to unexpected behavior or loss of funds. Move's resource-orientation ensures that resources (which include digital assets) cannot be duplicated and are used in a linear fashion. This linearity means that once a resource is moved, it cannot be accessed again within the same transaction, thereby mitigating reentrancy risks.</p>
+<p><strong>2. Integer Overflow and Underflow:</strong> These occur when an operation attempts to create a numerical value outside the range that can be represented with a given number of bits. Move's type system can enforce range checks on numeric values, reducing the risk of overflow and underflow errors.</p>
+<p><strong>3. Unintended Ether Loss:</strong> In Ethereum, contracts can be accidentally destroyed with ether still inside, leading to permanent loss of funds. Move's resource model can prevent this by ensuring that resources are accounted for at all times, making it much harder to lose them accidentally.</p>
+<p><strong>4. Frozen Ether:</strong> Ether can become frozen in a contract due to bugs. Move's stronger guarantees about the state and its manipulation help avoid such scenarios, as the language is designed to make the effects of code more predictable and transparent.</p>
+<p><strong>5. Timestamp Dependence and Miner Manipulation:</strong> Some contracts rely on block timestamps, which can be slightly manipulated by miners. Move's approach to resources and transactions doesn't inherently solve this, but its more predictable environment can help developers avoid relying on such external and manipulable factors.</p>
+<p><strong>6. Short Address/Parameter Attack:</strong> This happens due to inconsistent handling of input data length. Move's strong typing and explicit resource management can help avoid this by enforcing correct input handling and data lengths.</p>
+<p><strong>7. Denial of Service (DoS) via Block Gas Limit:</strong> Attackers might stuff blocks with expensive computations to exhaust a contract's gas. While this is more of a systemic issue, Move's efficiency and predictability in resource handling can mitigate some of the risks.</p>
+<p><strong>8. Unknown Function Calls:</strong> In Ethereum, sending Ether to unknown functions can lead to vulnerabilities. Move's explicit resource accounting can help avoid such scenarios by making it clear where and how resources are flowing.</p>
+</blockquote>
+<p>Move’s focus on safety, predictability, and explicit resource management addresses these vulnerabilities effectively, helping developers write safer smart contracts. This is particularly crucial in blockchain environments, where contract bugs and vulnerabilities can lead to significant financial losses and are often irreversible due to the immutable nature of blockchain technology.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch02-00-getting-started-with-move.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="ch02-02-install-movement-cli.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch02-00-getting-started-with-move.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="ch02-02-install-movement-cli.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

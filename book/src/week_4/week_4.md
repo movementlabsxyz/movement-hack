@@ -1,2 +1,0 @@
-# Week 4: Projects
-Week 4 is all about building projects. If you're reading through this notebook outside of our hackathon, we hope you find the resources useful for building your first Movement project.
