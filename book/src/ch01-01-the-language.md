@@ -6,6 +6,8 @@ Get to know Move, a language specifically developed for handling digital assets 
 
 Move is a language crafted by the Diem project team at Facebook in 2020. Its design mimics some principles from Rust, with a focus on enhancing the management of digital assets types on Blockchain technologies. With Move, the traditional security risks and inefficiencies associated with earlier languages are mitigated.
 
+![Move architecture diagram](./img/move_architecture.png "Move architecture diagram")
+
 ## Characteristics of Move
 
 Here are some key features that make Move a standout language:

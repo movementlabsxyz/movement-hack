@@ -18,7 +18,7 @@
   - [Domain Modeling](ch03-01-domain-modeling-intro.md)
   - [User Journey](ch03-02-user-journey.md)
   - [Architectural Diagram](ch03-03-architectural-diagram.md)
-    -->
+    
 - [Basic Move Syntax](ch04-00-basic-move-syntax.md)
   - [Primitive Types](ch04-01-primitive-types.md)
   - [Comments](ch04-02-comments.md)

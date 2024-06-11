@@ -185,7 +185,27 @@
 <p>To plan your dApp, you'll write a user journey and then model your dApp's domain.</p>
 <p>A domain model is a visual representation of the concepts and objects related to your dApp. There's no "right" or "wrong" format for domain modeling. As long as the model accurately represents all the components of your dApp's domain in a way that helps you buidl, you're good!</p>
 <h2 id="example-the-domain-model-for-move"><a class="header" href="#example-the-domain-model-for-move">Example: The Domain Model for Move</a></h2>
-<p>Todo: Explain Move language achitecture diagram from lesson 1:1</p>
+<p>Using the architecture diagram for Move, we can understand how a picture is worth a thousand - or at least a few dozes - words:</p>
+<p><img src="./img/move_architecture.png" alt="Move architecture diagram" title="Move architecture diagram" /></p>
+<p>The first thing that stands out is that the Move high level architecture is divided into two parts, linked by the dashed arrow labeled "SERIALIZED MOVE BYTECODE".</p>
+<p>We can see steps to compile Move code on the left side of the diagram:</p>
+<ol>
+<li>The Move source program's "ingredients" (the Move stdlib and custom scripts and modules) are submitted to the source language compiler.</li>
+<li>The Move code is compiled into an intermediate language.</li>
+<li>The intermediate language is serialized into Move bytecode.</li>
+</ol>
+<p>All of the above is boxed in and labeled "Move tool chain" so we can visually see that those parts of the system are one group.</p>
+<p>The dashed arrow conveys a sense of the serialized Move bytecode embarking on a journey, ending in its execution:</p>
+<ol>
+<li>A script is executed or a module is published (or both).</li>
+<li>The Move Virtual Machine receives and processes the transaction bytecode as well as other txn details, such as the signature.</li>
+<li>Lifecycle services help coordinate the MoveVM writing to and reading from storage.</li>
+</ol>
+<p>As you can see, something as magnificent as the Move programming language, can be represented in a relatively simple diagram.</p>
+<p>As you plan your dApp or service you'll build on Movement, first you'll write out your user's journey as they experience what you're building.</p>
+<p>Then you'll create a diagram of the system to represent that journey.</p>
+<p>You'll even label your diagram with Move code, so when it's time to write your codebase, you'll already know how everything will fit together.</p>
+<p>Let's Move!</p>
 
                     </main>
 
