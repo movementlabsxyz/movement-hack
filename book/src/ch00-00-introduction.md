@@ -1,8 +1,8 @@
-# Movement Hack
+# Movement Hack Introduction
 
-[Introduction](ch00-00-introduction.md)
+This course is designed to support you as you build for build for Movement. See our [docs](https://docs.movementlabs.xyz/) for an introduction to the Move stack. And please [join Movement Discord](https://discord.gg/movementlabsxyz) to get involved with the community!
 
-## Getting started
+## Table of Contents
 
 - [History of Move](ch01-00-history-of-move.md)
   - [The Language for Digital Assets](ch01-01-the-language.md)
@@ -33,9 +33,6 @@
   - [Generics Introduction](ch05-03-generics-intro.md)
   - [Generics with Multiple Type Parameters](ch05-04-generics-with-multiple-types.md)
 
-<!--
-- [Move's Storage Model](ch06-00-storage-model.md)
-  - [Ownership and References](ch06-01-ownership-and-references.md)
-  - [Resources](ch06-02-resources.md)
-  - [Collections](ch06-03-collections.md)
-    -->
+## Feedback and Contributions
+
+We hope you enjoy the course! Please send feedback and contributions via [Discord](https://discord.gg/movementlabsxyz) or [GitHub](https://github.com/movementlabsxyz/movement-hack).
