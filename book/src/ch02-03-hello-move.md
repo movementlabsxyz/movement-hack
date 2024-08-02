@@ -6,7 +6,7 @@ If not, please [return to the previous lesson](ch02-02-install-movement-cli.md) 
 
 Now that you have Movement CLI installed, it's time to deploy something to Movement. Ideally and end-to-end (E2E) dApp.
 
-If you'd prefer to build up your confidence first, it's fine to deploy a simple module. Just [follow this guide](https://docs.movementlabs.xyz/developers/tutorials/deploy/aptos-module). It doesn't require any coding experience.
+If you'd prefer to build up your confidence first, it's fine to deploy a simple module. Just [follow this guide](https://docs.movementnetwork.xyz/devs/tutorials/Deploy/aptosmodule). It doesn't require any coding experience.
 
 An E2E dApp is just an on-chain module or modules paired with a front end like a Next.js or Vite app. So it's not too much more complicated than deploying a module.
 
