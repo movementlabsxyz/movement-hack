@@ -45,13 +45,13 @@ Resource-oriented programming languages like Move implement access restrictions 
 
 ## Type Linearity and Ownership
 
-*Linear type:* a type with an enforced the restriction that variables or values of the type can be used exactly once. In other words, each linear value has a unique owner or consumer, and it must be used or consumed linearly without duplication or uncontrolled consumption.
+*Linear type:* a type with an enforces the restriction that variables or values of the type can be used exactly once. In other words, each linear value has a unique owner or consumer, and it must be used or consumed linearly without duplication or uncontrolled consumption.
 
 ```javascript
 f(a) -> g(a) -> h(a)
 ```
 
-*Non-linear type:* a type without an enforced the restriction that variables or values of the type can be used exactly once. Variables or values of non-linear types can be used or accessed multiple times without restrictions.
+*Non-linear type:* a type without an enforces the restriction that variables or values of the type can be used exactly once. Variables or values of non-linear types can be used or accessed multiple times without restrictions.
 
 ```javascript
 f(a) ->
