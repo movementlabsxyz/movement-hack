@@ -28,7 +28,7 @@ module 0x1::SimpleMath {
 
 This SimpleMath module provides two functions, add and subtract, which can be used by other parts of your Move application.
 
-## Importing from Modules
+## Importing Modules
 
 To use the functionality defined in a module, you must import it. This can be done in scripts or other modules.
 
@@ -104,7 +104,7 @@ module user_manager_addr::UserManager {
 }
 ```
 
-Here we're using a named address.
+Here we use a named address.
 
 For Aptos, in your `Move.toml` file, under `[addresses]` you would add:
 
