@@ -1,6 +1,6 @@
 # The Dispersion of Move
 
-This lesson will walk you through on the history and expansion of Move, a key smart contract language developed originally for the Diem project by Facebook, but now used across various blockchains.
+This lesson will walk you through the history and expansion of Move, a key smart contract language developed originally for the Diem project by Facebook, but now used across various blockchains.
 
 ## The Origin: Facebook's Dream
 
@@ -24,7 +24,7 @@ Now **Movement** is working on interoperability of Move-EVM, among other innovat
 
 ## The Legacy: The Growing Ecosystem of Move
 
-Present times sees Move not just as a programming language, but as an integral part of a growing ecosystem that extends across various blockchains. By addressing the sophisticated needs of digital asset management, Move has set a new standard in blockchain development, emphasizing safety, flexibility, and scalability.
+Currently, Move is seen not just as a programming language, but as an integral part of a growing ecosystem that extends across various blockchains. By addressing the sophisticated needs of digital asset management, Move has set a new standard in blockchain development, emphasizing safety, flexibility, and scalability.
 
 ## Conclusion
 
