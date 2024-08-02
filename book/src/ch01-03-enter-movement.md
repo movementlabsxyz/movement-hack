@@ -4,11 +4,11 @@ In this guide, you'll learn about the innovative network of modular Move-based b
 
 ## What is Movement Labs?
 
-Movement was born from a simple idea: What If you could take advantage of the Move programming language within any distributed environment?
+Movement was born from a simple idea: What if you could take advantage of the Move programming language within any distributed environment?
 
 At Movement Labs, we've come together to share our passion for Move with the industry and make our favorite programming language available to as many people around the world as possible. By creating seamless standardization across infrastructures, we can unlock innovation for all.
 
-This is about creating a world where crypto is not just a currency or a technology, it's about creating a movement that brings us all closer together.
+This is about creating a world where crypto is not just a currency or a technology, it's about creating a Movement that brings us all closer together.
 
 ## Core Principles of Movement
 
