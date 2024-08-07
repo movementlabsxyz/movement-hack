@@ -1,6 +1,6 @@
 # Primitive types
 
-After completing this lession, you'll be able to define and assign values to primitive types (integer types, as operator, boolean, address).
+After completing this lesson, you'll be able to define and assign values to primitive types (integer types, as operator, boolean, address).
 
 ## Understanding Primitive Types in Move with Everyday Examples
 

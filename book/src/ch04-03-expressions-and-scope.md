@@ -1,6 +1,6 @@
 # Expressions and scope
 
-By the end of this lesson, you'll demonstrate mastery of expressions and scope, including being able to evaluate when variables are accessible and what the values of experssions will be after execution.
+By the end of this lesson, you'll demonstrate mastery of expressions and scope, including being able to evaluate when variables are accessible and what the values of expressions will be after execution.
 
 In Move, expressions and scope are fundamental concepts that dictate how data is manipulated and accessed within your programs. Let's delve deeper into these concepts with more examples to illustrate their practical use in blockchain development.
 
