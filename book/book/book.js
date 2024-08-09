@@ -408,7 +408,7 @@ function playground_text(playground, hidden = true) {
     document.addEventListener('keydown', function (e) {
         if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) { return; }
         if (!themePopup.contains(e.target)) { return; }
-
+        var li = document.activeElement.parentElement;
         switch (e.key) {
             case 'Escape':
                 e.preventDefault();
@@ -416,14 +416,12 @@ function playground_text(playground, hidden = true) {
                 break;
             case 'ArrowUp':
                 e.preventDefault();
-                var li = document.activeElement.parentElement;
                 if (li && li.previousElementSibling) {
                     li.previousElementSibling.querySelector('button').focus();
                 }
                 break;
             case 'ArrowDown':
                 e.preventDefault();
-                var li = document.activeElement.parentElement;
                 if (li && li.nextElementSibling) {
                     li.nextElementSibling.querySelector('button').focus();
                 }
