@@ -10,4 +10,4 @@ Through real-world examples, you'll develop a solid foundation in programming wi
 - [Getter and Setter Functions](ch05-02-getter-functions.md)
 - [Generics Introduction](ch05-03-generics-intro.md)
 - [Generics to Constrain Abilities](ch05-04-generics-abilities.md)
-- [Generics with Multiple Type Parameters](ch05-05-generics-with-multiple-types.md)
+- [Generics with Multiple Type Parameters](ch05-04-generics-with-multiple-types.md)
