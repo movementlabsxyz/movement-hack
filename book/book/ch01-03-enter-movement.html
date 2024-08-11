@@ -63,10 +63,10 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('light')
+            html.classList.remove('light');
             html.classList.add(theme);
             var body = document.querySelector('body');
-            body.classList.remove('no-js')
+            body.classList.remove('no-js');
             body.classList.add('js');
         </script>
 
